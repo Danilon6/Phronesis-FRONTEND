@@ -1,0 +1,15 @@
+<form>
+  <input
+  type="username"
+  name="username"
+  [(ngModel)]="loginUser.username"
+  placeholder="username"
+  class="form-control my-2">
+  <input
+  type="password"
+  name="password"
+  [(ngModel)]="loginUser.password"
+  placeholder="password"
+  class="form-control my-2">
+  <button (click)="login()" class="btn btn-primary">INVIA</button>
+</form>
