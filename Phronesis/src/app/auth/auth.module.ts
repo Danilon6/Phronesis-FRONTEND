@@ -6,13 +6,15 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { EnableComponent } from './components/enable/enable.component';
 import { FormsModule } from '@angular/forms';
+import { RequestNewVerificationLinkComponent } from './components/request-new-verification-token/request-new-verification-link.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
-    EnableComponent
+    EnableComponent,
+    RequestNewVerificationLinkComponent
   ],
   imports: [
     CommonModule,

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-enable',
@@ -10,19 +10,23 @@ import { Router } from '@angular/router';
 export class EnableComponent {
 
   constructor(
+    private route: ActivatedRoute,
     private authSvc:AuthService,
     private router:Router
   ){
   }
 
-  token:String | null = localStorage.getItem("enablingToken")
 
   ngOnInit() {
-    if (this.token) {
-      this.authSvc.enable(this.token).subscribe(response => {
+    this.route.queryParams.subscribe((params: any) => {
+      const token = params.k
+        console.log(token);
+
+      this.authSvc.enable(token).subscribe(response => {
         this.router.navigate(['/auth/login'])
-      } )
+      })
+    })
+
     }
 
-  }
 }

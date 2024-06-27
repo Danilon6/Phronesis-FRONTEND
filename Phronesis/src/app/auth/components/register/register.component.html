@@ -1,57 +1,80 @@
 <div class="flex flex-col items-center justify-center min-h-screen bg-gray-900 px-4">
   <div class="w-full max-w-md bg-gray-800 rounded-lg shadow-md p-6">
     <h2 class="text-2xl font-bold text-gray-200 mb-6">Registrazione</h2>
-    <form class="space-y-4">
+    <form class="space-y-4" #registerForm="ngForm" (ngSubmit)="register()">
       <input
         type="text"
         name="firstName"
+        #firstName="ngModel"
         [(ngModel)]="newUser.firstName"
         placeholder="Nome"
         class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
         required
       >
+      <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="text-danger fw-bold">
+        Nome obbligatorio
+      </div>
       <input
         type="text"
         name="lastName"
+        #lastName="ngModel"
         [(ngModel)]="newUser.lastName"
         placeholder="Cognome"
         class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
         required
       >
+      <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="text-danger fw-bold">
+        Cognome obbligatorio
+      </div>
       <input
         type="text"
         name="username"
+        #username="ngModel"
         [(ngModel)]="newUser.username"
         placeholder="Username"
         class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
         maxlength="50"
         required
       >
+      <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-danger fw-bold">
+        Username obbligatorio
+      </div>
       <input
         type="email"
         name="email"
+        #email="ngModel"
         [(ngModel)]="newUser.email"
         placeholder="Email"
         class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
         required
       >
+      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger fw-bold">
+        Email obbligatoria e deve essere in formato corretto
+      </div>
       <input
         type="password"
         name="password"
+        #password="ngModel"
         [(ngModel)]="newUser.password"
         placeholder="Password"
         class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
         maxlength="125"
         required
       >
+      <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger fw-bold">
+        Password obbligatoria
+      </div>
       <textarea
         name="bio"
         placeholder="Bio"
+        #bio="ngModel"
         [(ngModel)]="newUser.bio"
         class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
         required
       ></textarea>
-
+      <div *ngIf="bio.invalid && (bio.dirty || bio.touched)" class="text-danger fw-bold">
+        Bio obbligatoria
+      </div>
       <div class="relative mb-6 flex flex-col items-center">
         <div class="w-24 h-24 bg-gray-600 rounded-full flex items-center justify-center overflow-hidden relative">
           <img [src]="profileImageUrl" alt="Profile" class="w-full h-full object-cover" id="profileImage">
@@ -59,7 +82,9 @@
         </div>
       </div>
 
-      <button (click)="register()" class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150 w-full">Registrati</button>
+      <button type="submit" [disabled]="registerForm.invalid" (click)="register()" class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150 w-full">Registrati</button>
+      <div *ngIf="registerForm.invalid" > Compila tutti i campi per poter proseguire. </div>
+      <div *ngIf="errorMessage" class="text-danger fw-bold" role="alert">{{ errorMessage }}</div>
     </form>
   </div>
 </div>

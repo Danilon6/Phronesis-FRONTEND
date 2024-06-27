@@ -11,5 +11,10 @@
   [(ngModel)]="loginUser.password"
   placeholder="password"
   class="form-control my-2">
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="rememberMe" [(ngModel)]="rememberMe" name="rememberMe">
+    <label class="form-check-label" for="rememberMe">Ricordami</label>
+  </div>
   <button (click)="login()" class="btn btn-primary">INVIA</button>
+  <div *ngIf="errorMessage" class="text-danger fw-bold" role="alert">{{ errorMessage }}</div>
 </form>

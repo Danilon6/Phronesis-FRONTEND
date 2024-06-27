@@ -13,7 +13,7 @@ export class RegisterComponent {
   newUser:Partial<IUser> = {}
   file: File | undefined;
   profileImageUrl: string | ArrayBuffer | null = "https://res.cloudinary.com/ddcghtsnn/image/upload/v1719225290/aavszufvpxsxdrqiyn8s.png";
-
+  errorMessage: string = '';
   constructor(
     private authSvc:AuthService,
     private router:Router
@@ -26,9 +26,16 @@ export class RegisterComponent {
         formData.append('profilePictureFile', this.file)
       }
       this.authSvc.register(formData)
-      .subscribe(data => {
-        this.router.navigate(['/auth/login'])
-      })
+      .subscribe({
+        next: (data) => {
+          this.router.navigate(['/aut/login']);
+        },
+        error: (request) => {
+          console.log(request);
+          this.errorMessage = request.error.message
+
+        }
+      });
     }
 
 

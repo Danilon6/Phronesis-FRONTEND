@@ -11,10 +11,7 @@ type accessData = {
   user:Partial<IUser>
   token:string,
 }
-type registerData = {
-  user:Partial<IUser>
-  token:string,
-}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -42,26 +39,30 @@ export class AuthService {
 
     registerUrl:string = environment.registerUrl
     loginUrl:string = environment.loginUrl
-    enablingUrl:string = environment.enablingUrl
+    enablingUrl:string = environment.requestNewVerificationUrl
+    requestNewVerificationUrl:String = environment.requestNewVerificationUrl
 
-    register(newUser:FormData):Observable<registerData>{
-      return this.http.post<registerData>(this.registerUrl, newUser)
-      .pipe(tap(data => {
-        console.log(data.token);
-
-        localStorage.setItem("enablingToken", data.token)
-      }))
+    register(newUser:FormData):Observable<Partial<IUser>>{
+      return this.http.post<Partial<IUser>>(this.registerUrl, newUser)
     }
 
-    enable(token:String):Observable<boolean>{
-      return this.http.get<boolean>(`${this.enablingUrl}?token=${token}`)
+    enable(token:String):Observable<String>{
+      return this.http.get<String>(`${this.enablingUrl}?token=${token}`)
     }
 
-    login(loginData:ILoginData):Observable<accessData>{
+    requestNewVerificationToken(email:String):Observable<String> {
+      return this.http.get<String>(`${this.requestNewVerificationUrl}?email=${email}`)
+    }
+
+    login(loginData:ILoginData, rememberMe:boolean):Observable<accessData>{
       return this.http.post<accessData>(this.loginUrl, loginData)
       .pipe(tap(data => {
         this.authSubject.next(data.user)
-        localStorage.setItem("accessData", JSON.stringify(data))
+        if (rememberMe) {
+          localStorage.setItem('accessData', JSON.stringify(data));
+        } else {
+          sessionStorage.setItem('accessData', JSON.stringify(data));
+        }
         this.autologout(data.token)
       }))
     }

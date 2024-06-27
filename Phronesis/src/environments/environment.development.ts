@@ -1,6 +1,7 @@
 export const environment = {
   registerUrl: 'http://localhost:8080/api/user',
   enablingUrl: 'http://localhost:8080/api/user/activate',
+  requestNewVerificationUrl: 'http://localhost:8080/api/user/request-new-token',
   loginUrl: 'http://localhost:8080/api/user/login',
   favoritesUrl:'http://localhost:8080/api/favorites',
   commentsUrl:'http://localhost:8080/api/comments',

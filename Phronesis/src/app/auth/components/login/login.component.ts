@@ -14,15 +14,24 @@ export class LoginComponent {
     password: ''
   }
 
+  rememberMe: boolean = false;
+  errorMessage: string = '';
   constructor(
     private authSvc: AuthService,
     private router: Router
   ) { }
 
   login() {
-    this.authSvc.login(this.loginUser)
-      .subscribe(data => {
-        this.router.navigate([''])
-      })
+    this.authSvc.login(this.loginUser, this.rememberMe)
+    .subscribe({
+      next: (data) => {
+        this.router.navigate(['/home']);
+      },
+      error: (request) => {
+        console.log(request);
+        this.errorMessage = request.error.message
+
+      }
+    });
   }
 }
