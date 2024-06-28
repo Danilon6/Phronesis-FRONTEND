@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Crea Nuovo Post</h2>
+<mat-dialog-content>
+  <form [formGroup]="createPostForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Titolo</mat-label>
+      <input matInput formControlName="title" placeholder="Titolo">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Contenuto</mat-label>
+      <textarea matInput formControlName="content" placeholder="Contenuto"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Annulla</button>
+  <button mat-button (click)="onSubmit()" [disabled]="createPostForm.invalid">Crea</button>
+</mat-dialog-actions>

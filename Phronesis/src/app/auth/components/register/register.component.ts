@@ -26,15 +26,9 @@ export class RegisterComponent {
         formData.append('profilePictureFile', this.file)
       }
       this.authSvc.register(formData)
-      .subscribe({
-        next: (data) => {
-          this.router.navigate(['/aut/login']);
-        },
-        error: (request) => {
-          console.log(request);
-          this.errorMessage = request.error.message
+      .subscribe((data) => {
+          this.router.navigate(['/auth/login']);
 
-        }
       });
     }
 

@@ -5,6 +5,7 @@ import { FeedRoutingModule } from './feed-routing.module';
 import { FeedComponent } from './feed.component';
 import { AddPostComponent } from './add-post/add-post.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { EditPostComponent } from './edit-post/edit-post.component';
   ],
   imports: [
     CommonModule,
-    FeedRoutingModule
+    FeedRoutingModule,
+    FormsModule
   ]
 })
 export class FeedModule { }

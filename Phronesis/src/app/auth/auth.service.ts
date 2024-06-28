@@ -39,7 +39,7 @@ export class AuthService {
 
     registerUrl:string = environment.registerUrl
     loginUrl:string = environment.loginUrl
-    enablingUrl:string = environment.requestNewVerificationUrl
+    enablingUrl:string = environment.enablingUrl
     requestNewVerificationUrl:String = environment.requestNewVerificationUrl
 
     register(newUser:FormData):Observable<Partial<IUser>>{
@@ -83,7 +83,7 @@ export class AuthService {
     }
 
     getUserAfterRefresh():void{
-      const user = localStorage.getItem('accessData')
+      const user = localStorage.getItem('accessData') || sessionStorage.getItem('accessData');
       if (!user) return
 
       const accessData:accessData = JSON.parse(user)
@@ -95,12 +95,18 @@ export class AuthService {
     }
 
     getAuthToken():string{
-      const user = localStorage.getItem('accessData')
+      const user = localStorage.getItem('accessData') || sessionStorage.getItem('accessData');
       if (!user) return ""
 
       const accessData:accessData = JSON.parse(user)
       if (this.jwtHelper.isTokenExpired(accessData.token)) return ""
+      console.log(accessData.token);
 
       return accessData.token
+    }
+
+    getCurrentUserId(): number | null {
+      const currentUser = this.authSubject.value;
+      return currentUser?.id ?? null;
     }
   }

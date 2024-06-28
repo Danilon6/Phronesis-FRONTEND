@@ -1,6 +1,7 @@
+import { IBaseEntity } from "./i-base-entity";
 import { IRole } from "./i-role";
 
-export interface IUser {
+export interface IUser extends IBaseEntity{
   firstName: string;
   lastName: string;
   username: string;

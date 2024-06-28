@@ -25,7 +25,7 @@ export class LoginComponent {
     this.authSvc.login(this.loginUser, this.rememberMe)
     .subscribe({
       next: (data) => {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/feed']);
       },
       error: (request) => {
         console.log(request);
