@@ -5,5 +5,4 @@ import { IUser } from "./i-user";
 export interface IUserPostInteraction extends IBaseEntity {
   user: IUser;
   post: IPost;
-  interactionType: string;
 }

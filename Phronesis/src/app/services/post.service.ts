@@ -39,21 +39,18 @@ export class PostService {
   addPost(newPost:IPostRequest):Observable<IPost> {
     return this.http.post<IPost>(this.postUrl, newPost)
     .pipe(tap((createdPost => {
-      this.postArr.push(createdPost)
+      this.postArr.unshift(createdPost)
       this.postSubject.next(this.postArr)
     }) ))
 
   }
 
-  update(editedPost:IPost):Observable<IPost> {
+  update(editedPost:Partial<IPost>):Observable<IPost> {
     return this.http.put<IPost>(`${this.postUrl}/${editedPost.id}`,editedPost)
-    .pipe(tap(() => {
-      this.postArr = this.postArr.map(post => {
-        if (post.id == editedPost.id) {
-          return {...this.postArr, ...editedPost}
-        }
-        return post
-      })
+    .pipe(tap((comment) =>{
+      const index = this.postArr.findIndex(c => c.id == editedPost.id)
+      this.postArr.splice(index, 1, comment)
+
       this.postSubject.next(this.postArr)
     }))
   }

@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Mi piace</h2>
+<mat-dialog-content>
+  <div *ngFor="let like of data.likes" class="like-item">
+    <img [src]="like.user.profilePicture" alt="{{like.user.username}}" class="rounded-circle" width="30">
+    <div class="like-info">
+      <span>{{like.user.username}}</span>
+      <small class="text-muted">{{like.createdAt | date:'short'}}</small>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onClose()">Chiudi</button>
+</mat-dialog-actions>

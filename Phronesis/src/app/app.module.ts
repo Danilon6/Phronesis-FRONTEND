@@ -17,6 +17,9 @@ import { MatInputModule } from '@angular/material/input';
 import { CreatePostDialogComponent } from './mainComponents/dialogs/create-post-dialog/create-post-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './auth.interceptor';
+import { EditCommentDialogComponent } from './mainComponents/dialogs/edit-comment-dialog/edit-comment-dialog.component';
+import { EditPostDialogComponent } from './mainComponents/dialogs/edit-post-dialog/edit-post-dialog.component';
+import { LikeListDialogComponent } from './mainComponents/dialogs/like-list-dialog/like-list-dialog.component';
 //import { AuthInterceptor } from './auth/interceptor';
 
 @NgModule({
@@ -25,7 +28,10 @@ import { AuthInterceptor } from './auth.interceptor';
     HeaderComponent,
     FooterComponent,
     AdsComponent,
-    CreatePostDialogComponent
+    CreatePostDialogComponent,
+    EditCommentDialogComponent,
+    EditPostDialogComponent,
+    LikeListDialogComponent
   ],
   imports: [
     BrowserModule,

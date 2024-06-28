@@ -67,9 +67,10 @@ export class AuthService {
       }))
     }
 
-    logout():void{
+    logout(){
       this.authSubject.next(null)
-      localStorage.removeItem("accessData")
+      localStorage.removeItem("accessData");
+      sessionStorage.removeItem('accessData');
       this.router.navigate([""])
     }
 

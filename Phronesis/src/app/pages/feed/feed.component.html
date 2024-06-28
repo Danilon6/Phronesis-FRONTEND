@@ -1,7 +1,7 @@
 <button mat-fab class="create-post-button" (click)="openCreatePostDialog()">
   <i class="fas fa-pen">Create</i>
 </button>
-<h1>ciao</h1>
+<button (click)="logout()" class="col-10 col-md-3 col-lg-2 btn btn-danger me-2">Esci</button>
 <div *ngFor="let post of postArr; let i = index" class="card w-100 mb-4">
   <div class="card-body">
     <!-- Header della card con informazioni dell'utente -->
@@ -13,9 +13,17 @@
           <small class="text-muted">{{post.createdAt | date:'short'}}</small>
         </div>
       </div>
-      <button class="btn btn-sm btn-outline-danger" (click)="reportPost(post)">
-        <i class="fas fa-flag"></i>
-      </button>
+      <div>
+        <button *ngIf="post.user.id === currentUserId" class="btn btn-sm btn-outline-secondary me-2" (click)="openEditPostDialog(post)">
+          <i class="fas fa-edit"></i> Modifica
+        </button>
+        <button *ngIf="post.user.id === currentUserId" class="btn btn-sm btn-outline-danger me-2" (click)="deletePost(post.id)">
+          <i class="fas fa-trash"></i> Elimina
+        </button>
+        <button class="btn btn-sm btn-outline-danger" (click)="reportPost(post)">
+          <i class="fas fa-flag"></i>
+        </button>
+      </div>
     </div>
 
     <!-- Contenuto del post -->
@@ -25,13 +33,15 @@
     <!-- Footer della card con icone di interazione -->
     <div class="d-flex justify-content-between">
       <div class="d-flex align-items-center">
-        <!-- Icona Like -->
-        <div (click)="toggleLike(post)" class="me-3" title="Like">
-          <i class="fas fa-heart"></i> {{post.likes.length}}
+        <div class="me-3 like-container" title="Like">
+          <i [class]="hasUserLiked(post) ? 'fas fa-heart' : 'far fa-heart'"
+             [style.color]="hasUserLiked(post) ? 'red' : 'black'"
+             (click)="toggleLike(post)"></i>
+          <span (click)="viewLikes(post)">{{post.likes ? post.likes.length : 0}}</span>
         </div>
         <!-- Icona Commenti -->
-        <div (click)="toggleComments(post.id)" class="me-3" title="Comments">
-          <i class="fas fa-comment"></i> {{post.comments.length}}
+        <div (click)="toggleComments(post)" class="me-3" title="Comments">
+          <i class="fas fa-comment"></i> {{post.comments ? post.comments.length : 0}}
         </div>
         <!-- Icona Preferiti -->
         <div (click)="toggleFavorite(post)" class="me-3" title="Favorite">
@@ -46,16 +56,29 @@
         <textarea class="form-control me-2" [(ngModel)]="newComment.content" name="commentContent" placeholder="Cosa ne pensi?"></textarea>
         <button type="submit" class="btn btn-primary">Invia</button>
       </form>
-      <div *ngFor="let comment of post.comments">
-        <div class="d-flex align-items-start mb-2">
-          <img src="https://via.placeholder.com/30" class="rounded-circle me-2" alt="Profile Picture">
-          <div>
-            <p class="mb-0 fw-bold">{{comment.user.firstName}}:</p>
-            <p class="mb-0">{{comment.content}}</p>
+      <div *ngFor="let comment of post.comments" class="card mt-2">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex align-items-center">
+              <img [src]="comment.user.profilePicture" class="rounded-circle me-3" alt="Profile Picture" width="30">
+              <div>
+                <h6 class="mb-0">{{comment.user.username}}</h6>
+                <small class="text-muted">{{comment.createdAt | date:'short'}}</small>
+              </div>
+            </div>
+            <div>
+              <button *ngIf="comment.user.id === currentUserId" class="btn btn-sm btn-outline-secondary me-2" (click)="openEditCommentDialog(comment)">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button *ngIf="comment.user.id === currentUserId" class="btn btn-sm btn-outline-danger me-2" (click)="deleteComment(comment.id, post)">
+                <i class="fas fa-trash"></i>
+              </button>
+              <button *ngIf="comment.user.id !== currentUserId" class="btn btn-sm btn-outline-danger" (click)="reportComment(comment)">
+                <i class="fas fa-flag"></i>
+              </button>
+            </div>
           </div>
-          <button class="btn btn-sm btn-outline-danger ms-auto" (click)="reportComment(comment)">
-            <i class="fas fa-flag"></i>
-          </button>
+          <p>{{comment.content}}</p>
         </div>
       </div>
     </div>

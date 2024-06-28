@@ -1,0 +1,14 @@
+.like-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.like-item img {
+  margin-right: 10px;
+}
+
+.like-info {
+  display: flex;
+  flex-direction: column;
+}

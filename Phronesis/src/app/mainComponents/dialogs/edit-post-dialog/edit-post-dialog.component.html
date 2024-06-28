@@ -1,17 +1,17 @@
-<h2 mat-dialog-title>Crea Nuovo Post</h2>
+<h2 mat-dialog-title>Modifica Post</h2>
 <mat-dialog-content>
   <form>
     <mat-form-field appearance="fill">
       <mat-label>Titolo</mat-label>
-      <input matInput [(ngModel)]="newPost.title" name="title" placeholder="Titolo">
+      <input matInput [(ngModel)]="editedPost.title" name="title" placeholder="Titolo">
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Contenuto</mat-label>
-      <textarea matInput [(ngModel)]="newPost.content" name="content" placeholder="Contenuto"></textarea>
+      <textarea matInput [(ngModel)]="editedPost.content" name="content" placeholder="Contenuto"></textarea>
     </mat-form-field>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button (click)="onCancel()">Annulla</button>
-  <button mat-button (click)="onSubmit()" [disabled]="!newPost.title || !newPost.content">Crea</button>
+  <button mat-button (click)="onSave()" [disabled]="!editedPost.title || !editedPost.content">Salva</button>
 </mat-dialog-actions>
