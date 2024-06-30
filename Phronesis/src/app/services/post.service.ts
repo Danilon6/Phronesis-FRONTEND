@@ -45,12 +45,21 @@ export class PostService {
 
   }
 
-  update(editedPost:Partial<IPost>):Observable<IPost> {
-    return this.http.put<IPost>(`${this.postUrl}/${editedPost.id}`,editedPost)
-    .pipe(tap((comment) =>{
-      const index = this.postArr.findIndex(c => c.id == editedPost.id)
-      this.postArr.splice(index, 1, comment)
-
+  update(postId:number, editedPost:Partial<IPost>):Observable<IPost> {
+    return this.http.put<IPost>(`${this.postUrl}/${postId}`,editedPost)
+    .pipe(tap((post) =>{
+      const index = this.postArr.findIndex(p => p.id == postId)
+      if (index !== -1) {
+        // Mantieni i commenti e i like esistenti
+        const currentPost = this.postArr[index];
+        this.postArr[index] = {
+          ...currentPost,
+          ...post,
+          comments: currentPost.comments,
+          likes: currentPost.likes
+        };
+        this.postSubject.next([...this.postArr]);
+      }
       this.postSubject.next(this.postArr)
     }))
   }

@@ -38,7 +38,6 @@ export class RegisterComponent {
     if (input.files && input.files[0]) {
       const file = input.files[0];
       this.file = file;
-
       const reader = new FileReader();
       reader.onload = () => {
         this.profileImageUrl = reader.result;

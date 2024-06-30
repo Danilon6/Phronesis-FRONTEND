@@ -34,9 +34,7 @@
     <div class="d-flex justify-content-between">
       <div class="d-flex align-items-center">
         <div class="me-3 like-container" title="Like">
-          <i [class]="hasUserLiked(post) ? 'fas fa-heart' : 'far fa-heart'"
-             [style.color]="hasUserLiked(post) ? 'red' : 'black'"
-             (click)="toggleLike(post)"></i>
+          <i [class]="hasUserLiked(post) ? 'fas fa-heart' : 'far fa-heart'" [style.color]="hasUserLiked(post) ? 'red' : 'black'" (click)="toggleLike(post)"></i>
           <span (click)="viewLikes(post)">{{post.likes ? post.likes.length : 0}}</span>
         </div>
         <!-- Icona Commenti -->
@@ -44,8 +42,8 @@
           <i class="fas fa-comment"></i> {{post.comments ? post.comments.length : 0}}
         </div>
         <!-- Icona Preferiti -->
-        <div (click)="toggleFavorite(post)" class="me-3" title="Favorite">
-          <i class="fas fa-star"></i>
+        <div class="me-3" title="Favorite">
+          <i [class]="isFavorite(post.id) ? 'fas fa-bookmark' : 'far fa-bookmark'"  (click)="toggleFavorite(post)"></i>
         </div>
       </div>
     </div>

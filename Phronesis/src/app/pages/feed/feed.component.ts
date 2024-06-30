@@ -15,6 +15,8 @@ import { ILike } from '../../models/i-like';
 import { LikeService } from '../../services/like.service';
 import { IUserPostInteractionRequest } from '../../models/i-user-post-interaction-request';
 import { LikeListDialogComponent } from '../../mainComponents/dialogs/like-list-dialog/like-list-dialog.component';
+import { FavoriteService } from '../../services/favorite.service';
+import { IFavorite } from '../../models/i-favorite';
 
 @Component({
   selector: 'app-feed',
@@ -25,13 +27,15 @@ export class FeedComponent {
   showComments: { [key: number]: boolean } = {};
   newComment: { content: string } = { content: '' };
   postArr:IPost[] = []
+  favoriteArr: IFavorite[] = [];
   currentUserId: number | null
 
   constructor(private dialog: MatDialog,
     private postSvc:PostService,
   private authSvc:AuthService,
   private commentSvc:CommentService,
-private likeSvc:LikeService) {
+private likeSvc:LikeService,
+private favoriteSvc:FavoriteService) {
   this.currentUserId = this.authSvc.getCurrentUserId();
 }
 
@@ -39,8 +43,15 @@ private likeSvc:LikeService) {
     this.postSvc.post$.subscribe(postArr => {
       this.postArr = postArr
     console.log(postArr);
+    console.log(this.favoriteArr);
 
-    })
+  });
+  if (this.currentUserId) {
+    this.favoriteSvc.getAllByUserId(this.currentUserId).subscribe(favorites => {
+      this.favoriteArr = favorites;
+      console.log(this.favoriteArr);
+      });
+    }
   }
 
   logout() {
@@ -83,8 +94,8 @@ private likeSvc:LikeService) {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const editedPost:Partial<IPost> = {...post, title: result.title, content: result.content };
-        this.postSvc.update(editedPost).subscribe();
+        const editedPost:Partial<IPost> = {title: result.title, content: result.content };
+        this.postSvc.update(result.id, editedPost).subscribe();
       }
     });
   }
@@ -126,6 +137,7 @@ private likeSvc:LikeService) {
       userId: this.currentUserId as number
     };
     this.commentSvc.addComment(newCommentRequest).subscribe(comment => {
+      console.log(post.comments);
       post.comments.push(comment);
       this.newComment.content = '';
     });
@@ -155,7 +167,14 @@ private likeSvc:LikeService) {
         userId: this.currentUserId as number
       };
       this.likeSvc.addLike(newLike).subscribe(like => {
-        post.likes.push(like as ILike);
+        console.log(like);
+        if (!post.likes) {
+          post.likes = [];
+        }
+        console.log(post.likes);
+        post.likes. push(like as ILike);
+
+
       });
     }
   }
@@ -169,8 +188,32 @@ private likeSvc:LikeService) {
     });
   }
 
-  toggleFavorite(post: any): void {
-    // Logica per aggiungere ai preferiti
+  isFavorite(postId: number): boolean {
+    return this.favoriteArr.some(favorite => favorite.post.id === postId && favorite.user.id === this.currentUserId);
+  }
+
+  toggleFavorite(post: IPost): void {
+    const postId = post.id;
+    const userId = this.currentUserId as number;
+
+    if (this.isFavorite(postId)) {
+      // Rimuovi dai preferiti
+      const favorite = this.favoriteArr.find(fav => fav.post.id === postId && fav.user.id === userId);
+      if (favorite) {
+        this.favoriteSvc.removeFromFavorite(favorite.id).subscribe(() => {
+          this.favoriteArr = this.favoriteArr.filter(fav => fav.id !== favorite.id);
+        });
+      }
+    } else {
+      // Aggiungi ai preferiti
+      const newFavorite: IUserPostInteractionRequest = {
+        postId: postId,
+        userId: userId
+      };
+      this.favoriteSvc.addToFavorite(newFavorite).subscribe(favorite => {
+        this.favoriteArr.push(favorite as IFavorite);
+      });
+    }
   }
 
   reportPost(post: any): void {

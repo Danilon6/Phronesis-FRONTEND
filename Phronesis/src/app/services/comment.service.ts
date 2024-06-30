@@ -10,7 +10,7 @@ import { ICommentRequest } from '../models/i-comment-request';
 })
 export class CommentService {
 
-  commentArr: IComment[] = [];
+  commentArr: IComment[] = []; //di questo array non ce ne faccaimo mai nulla
 
   commentSubject = new BehaviorSubject<IComment[]>([])
 
@@ -37,11 +37,9 @@ export class CommentService {
   addComment(newComment: ICommentRequest): Observable<IComment> {
     return this.http.post<IComment>(this.commentUrl, newComment)
       .pipe(
-        tap((createdComment => {
-          this.commentArr.unshift(createdComment);
+        tap(() => {
           this.commentSubject.next(this.commentArr);
-        }))
-      );
+        }));
   }
 
   update(editedComment: Partial<IComment>): Observable<IComment> {
