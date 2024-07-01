@@ -94,7 +94,6 @@ export class ProfileComponent {
     if (this.user) {
       this.postSvc.getPostsByUserId(this.user.id).subscribe(posts => {
         this.postSvc.postSubject.next(posts);
-        console.log("Post dello user", posts);
       });
     }
   }
@@ -104,7 +103,6 @@ export class ProfileComponent {
       this.likeSvc.getLikedPostsByUserId(this.user.id).pipe(
         map((likes: ILike[]) => likes.map(like => like.post))
       ).subscribe(posts => {
-        console.log("Post mapped", posts);
         this.postSvc.postSubject.next(posts);
       });
     }
@@ -124,6 +122,8 @@ export class ProfileComponent {
     this.followSvc.getFollowers(this.user.id).subscribe(followers => {
       this.followersCount = followers.length;
       this.followersList = followers;
+      console.log(this.followersList);
+
     });
     this.followSvc.getFollowing(this.user.id).subscribe(following => {
       this.followingCount = following.length;
@@ -133,13 +133,13 @@ export class ProfileComponent {
 
   openFollowersModal(): void {
     this.dialog.open(FollowListDialogComponent, {
-      data: { title: 'Followers', list: this.followersList }
+      data: { title: 'Followers', list: this.followersList, key: "follower" }
     });
   }
 
   openFollowingModal(): void {
     this.dialog.open(FollowListDialogComponent, {
-      data: { title: 'Following', list: this.followingList }
+      data: { title: 'Following', list: this.followingList, key: "following" }
     });
   }
 

@@ -11,7 +11,9 @@ export class FollowListDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<FollowListDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { title: string, list: IFollowResponse[], key: 'follower' | 'following' }
-  ) {}
+  ) {
+    console.log('Dialog Data:', data);
+  }
 
   onClose(): void {
     this.dialogRef.close();
