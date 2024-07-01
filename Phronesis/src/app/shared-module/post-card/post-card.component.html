@@ -1,0 +1,71 @@
+<div class="card w-100 mb-4">
+  <div class="card-body">
+    <div class="d-flex justify-content-between">
+      <div class="d-flex align-items-center">
+        <img [src]="post.user.profilePicture" class="rounded-circle me-3 profile-pic" alt="Profile Picture">
+        <div>
+          <h5 class="mb-0">{{ post.user.username }}</h5>
+          <small class="text-muted">{{ post.createdAt | date:'short' }}</small>
+        </div>
+      </div>
+      <div>
+        <button *ngIf="post.user.id === currentUserId" class="btn btn-sm btn-outline-secondary me-2" (click)="openEditPostDialog(post)">
+          <i class="fas fa-edit"></i> Modifica
+        </button>
+        <button *ngIf="post.user.id === currentUserId" class="btn btn-sm btn-outline-danger me-2" (click)="deletePost(post.id)">
+          <i class="fas fa-trash"></i> Elimina
+        </button>
+        <button class="btn btn-sm btn-outline-danger" (click)="reportPost(post)">
+          <i class="fas fa-flag"></i>
+        </button>
+      </div>
+    </div>
+    <h4 class="fw-bold mt-3">{{ post.title }}</h4>
+    <p>{{ post.content }}</p>
+    <div class="d-flex justify-content-between">
+      <div class="d-flex align-items-center">
+        <div class="me-3 like-container" title="Like">
+          <i [class]="hasUserLiked(post) ? 'fas fa-heart' : 'far fa-heart'" [style.color]="hasUserLiked(post) ? 'red' : 'black'" (click)="toggleLike(post)"></i>
+          <span (click)="viewLikes(post)">{{ post.likes ? post.likes.length : 0 }}</span>
+        </div>
+        <div (click)="toggleComments(post)" class="me-3 comment-container" title="Comments">
+          <i [class]="showComments[post.id] ? 'fas fa-comment' : 'far fa-comment'"></i> {{ post.comments ? post.comments.length : 0 }}
+        </div>
+        <div class="me-3" title="Favorite">
+          <i [class]="isFavorite(post.id) ? 'fas fa-bookmark' : 'far fa-bookmark'" (click)="toggleFavorite(post)"></i>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showComments[post.id]" class="mt-3">
+      <form (ngSubmit)="addComment(post)" class="d-flex align-items-center mb-3">
+        <textarea class="form-control me-2" [(ngModel)]="newComment.content" name="commentContent" placeholder="Cosa ne pensi?"></textarea>
+        <button type="submit" class="btn btn-primary">Invia</button>
+      </form>
+      <div *ngFor="let comment of post.comments" class="card mt-2">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex align-items-center">
+              <img [src]="comment.user.profilePicture" class="rounded-circle me-3 profile-pic" alt="Profile Picture" width="30">
+              <div>
+                <h6 class="mb-0">{{ comment.user.username }}</h6>
+                <small class="text-muted">{{ comment.createdAt | date:'short' }}</small>
+              </div>
+            </div>
+            <div>
+              <button *ngIf="comment.user.id === currentUserId" class="btn btn-sm btn-outline-secondary me-2" (click)="openEditCommentDialog(comment)">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button *ngIf="comment.user.id === currentUserId" class="btn btn-sm btn-outline-danger me-2" (click)="deleteComment(comment.id, post)">
+                <i class="fas fa-trash"></i>
+              </button>
+              <button *ngIf="comment.user.id !== currentUserId" class="btn btn-sm btn-outline-danger" (click)="reportComment(comment)">
+                <i class="fas fa-flag"></i>
+              </button>
+            </div>
+          </div>
+          <p>{{ comment.content }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
