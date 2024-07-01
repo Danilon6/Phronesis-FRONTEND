@@ -20,6 +20,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { EditCommentDialogComponent } from './mainComponents/dialogs/edit-comment-dialog/edit-comment-dialog.component';
 import { EditPostDialogComponent } from './mainComponents/dialogs/edit-post-dialog/edit-post-dialog.component';
 import { LikeListDialogComponent } from './mainComponents/dialogs/like-list-dialog/like-list-dialog.component';
+import { FollowListDialogComponent } from './mainComponents/dialogs/follow-list-dialog/follow-list-dialog.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { LikeListDialogComponent } from './mainComponents/dialogs/like-list-dial
     EditCommentDialogComponent,
     EditPostDialogComponent,
     LikeListDialogComponent,
+    FollowListDialogComponent,
   ],
   imports: [
     BrowserModule,

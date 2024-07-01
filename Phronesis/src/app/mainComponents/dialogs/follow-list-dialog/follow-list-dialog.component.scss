@@ -1,0 +1,19 @@
+.follow-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+
+  img {
+    margin-right: 15px;
+    border-radius: 50%;
+  }
+
+  .follow-info {
+    display: flex;
+    flex-direction: column;
+
+    span {
+      font-weight: bold;
+    }
+  }
+}

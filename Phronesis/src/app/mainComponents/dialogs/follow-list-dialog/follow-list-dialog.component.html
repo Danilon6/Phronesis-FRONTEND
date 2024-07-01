@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>{{ data.title }}</h2>
+<mat-dialog-content>
+  <div *ngFor="let item of data.list" class="follow-item d-flex align-items-center mb-3">
+    <img [src]="item[data.key].profilePicture" alt="{{item[data.key].username}}" class="rounded-circle me-3" width="30">
+    <div class="follow-info">
+      <span>{{item[data.key].username}}</span>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onClose()">Chiudi</button>
+</mat-dialog-actions>
