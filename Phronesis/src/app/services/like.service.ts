@@ -14,6 +14,10 @@ export class LikeService {
 
   constructor(private http:HttpClient) { }
 
+  getLikedPostsByUserId(userId: number):Observable<ILike[]> {
+    return this.http.get<ILike[]>(`${this.likeurl}/user/${userId}`);
+  }
+
   getAllLikesByPostId(postId:number):Observable<ILike[]> {
     return this.http.get<ILike[]>(`${this.likeurl}/post/${postId}`);
   }

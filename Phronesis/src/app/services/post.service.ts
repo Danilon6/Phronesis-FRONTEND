@@ -22,6 +22,16 @@ export class PostService {
 
   postUrl:string = environment.postUrl
 
+  getPostsByUserId(userId: number): Observable<IPost[]> {
+    return this.http.get<{ content: IPost[] }>(`${this.postUrl}/user/${userId}`).pipe(
+      map(response => response.content),
+      tap(posts => {
+        this.postArr = posts;
+        this.postSubject.next(posts);
+      })
+    );
+  }
+
   getAll(): Observable<IPost[]> {
     return this.http.get<{ content: IPost[] }>(this.postUrl).pipe(
       map(response => response.content),

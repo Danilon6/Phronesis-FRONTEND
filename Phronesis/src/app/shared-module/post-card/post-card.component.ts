@@ -7,8 +7,6 @@ import { LikeService } from '../../services/like.service';
 import { FavoriteService } from '../../services/favorite.service';
 import { IFavorite } from '../../models/i-favorite';
 import { IPost } from '../../models/i-post';
-import { IPostRequest } from '../../models/i-post-request';
-import { CreatePostDialogComponent } from '../../mainComponents/dialogs/create-post-dialog/create-post-dialog.component';
 import { EditPostDialogComponent } from '../../mainComponents/dialogs/edit-post-dialog/edit-post-dialog.component';
 import { EditCommentDialogComponent } from '../../mainComponents/dialogs/edit-comment-dialog/edit-comment-dialog.component';
 import { IComment } from '../../models/i-comment';
@@ -43,14 +41,10 @@ private favoriteSvc:FavoriteService) {
   ngOnInit(): void {
     this.postSvc.post$.subscribe(postArr => {
       this.postArr = postArr
-    console.log(postArr);
-    console.log(this.favoriteArr);
-
   });
   if (this.currentUserId) {
     this.favoriteSvc.getAllByUserId(this.currentUserId).subscribe(favorites => {
       this.favoriteArr = favorites;
-      console.log(this.favoriteArr);
       });
     }
   }

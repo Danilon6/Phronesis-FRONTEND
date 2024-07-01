@@ -1,0 +1,45 @@
+<div class="container mt-4">
+  <div class="card w-100 mb-4">
+    <div class="card-body">
+      <div class="d-flex">
+        <div class="profile-picture">
+          <img [src]="user.profilePicture" class="rounded-circle me-3" alt="Profile Picture" width="150" height="150">
+        </div>
+        <div class="user-info ms-3">
+          <h3>{{ user.firstName }} {{ user.lastName }}</h3>
+          <h5 class="text-muted">{{ user.username }}</h5>
+          <small class="text-muted">Joined: {{ user.createdAt | date:'short' }}</small>
+          <p class="mt-3">{{ user.bio }}</p>
+        </div>
+        <div class="ms-auto">
+          <button class="btn btn-primary" (click)="toggleFollow()">{{ isFollowing ? 'Unfollow' : 'Follow' }}</button>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer d-flex justify-content-around">
+      <div class="section" (click)="loadUserPosts()">
+        <i class="fas fa-pencil-alt"></i>
+        <span>I tuoi post</span>
+      </div>
+      <div class="section" (click)="loadLikedPosts()">
+        <i class="fas fa-heart"></i>
+        <span>I post a cui hai messo like</span>
+      </div>
+      <div class="section" (click)="loadFavoritePosts()">
+        <i class="fas fa-bookmark"></i>
+        <span>I tuoi post preferiti</span>
+      </div>
+    </div>
+  </div>
+  <div class="posts-section mt-4">
+    <ng-container *ngIf="selectedSection === 'posts'">
+      <app-post-card *ngFor="let post of userPosts" [post]="post" [currentUserId]="user.id"></app-post-card>
+    </ng-container>
+    <ng-container *ngIf="selectedSection === 'likedPosts'">
+      <app-post-card *ngFor="let post of likedPosts" [post]="post" [currentUserId]="user.id"></app-post-card>
+    </ng-container>
+    <ng-container *ngIf="selectedSection === 'favoritePosts'">
+      <app-post-card *ngFor="let post of favoritePosts" [post]="post" [currentUserId]="user.id"></app-post-card>
+    </ng-container>
+  </div>
+</div>

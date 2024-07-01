@@ -1,0 +1,42 @@
+.container {
+  .card {
+    .profile-picture {
+      img {
+        width: 150px;
+        height: 150px;
+      }
+    }
+
+    .user-info {
+      h3 {
+        margin-bottom: 0.5rem;
+      }
+      h5 {
+        margin-bottom: 0.5rem;
+      }
+      small {
+        display: block;
+        margin-bottom: 1rem;
+      }
+      p {
+        margin-top: 1rem;
+      }
+    }
+
+    .card-footer {
+      .section {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        i {
+          margin-right: 0.5rem;
+        }
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
