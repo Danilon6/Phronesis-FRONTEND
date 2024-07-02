@@ -14,6 +14,7 @@ import { FollowService } from '../../services/follow.service';
 import { IFollowResponse } from '../../models/i-follow-response';
 import { MatDialog } from '@angular/material/dialog';
 import { FollowListDialogComponent } from '../../mainComponents/dialogs/follow-list-dialog/follow-list-dialog.component';
+import { EditUserDialogComponent } from '../../mainComponents/dialogs/edit-user-dialog/edit-user-dialog.component';
 
 @Component({
   selector: 'app-profile',
@@ -128,6 +129,27 @@ export class ProfileComponent {
     this.followSvc.getFollowing(this.user.id).subscribe(following => {
       this.followingCount = following.length;
       this.followingList = following;
+    });
+  }
+
+  editProfile(): void {
+    const dialogRef = this.dialog.open(EditUserDialogComponent, {
+      width: '400px',
+      data: { user: this.user }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const editedUser:Partial<IUser> = {
+          firstName: result.firstName,
+          lastName: result.lastName,
+          email: result.email,
+          bio: result.bio
+        };
+        this.userSvc.updateUser(result.id, editedUser).subscribe(updatedUser => {
+          this.user = updatedUser;
+        });
+      }
     });
   }
 

@@ -21,6 +21,7 @@ import { EditCommentDialogComponent } from './mainComponents/dialogs/edit-commen
 import { EditPostDialogComponent } from './mainComponents/dialogs/edit-post-dialog/edit-post-dialog.component';
 import { LikeListDialogComponent } from './mainComponents/dialogs/like-list-dialog/like-list-dialog.component';
 import { FollowListDialogComponent } from './mainComponents/dialogs/follow-list-dialog/follow-list-dialog.component';
+import { EditUserDialogComponent } from './mainComponents/dialogs/edit-user-dialog/edit-user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { FollowListDialogComponent } from './mainComponents/dialogs/follow-list-
     EditPostDialogComponent,
     LikeListDialogComponent,
     FollowListDialogComponent,
+    EditUserDialogComponent,
   ],
   imports: [
     BrowserModule,

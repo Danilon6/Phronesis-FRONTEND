@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Modifica Profilo</h2>
+<mat-dialog-content>
+  <form>
+    <mat-form-field appearance="fill">
+      <mat-label>Nome</mat-label>
+      <input matInput [(ngModel)]="editedUser.firstName" name="firstName" placeholder="Nome">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Cognome</mat-label>
+      <input matInput [(ngModel)]="editedUser.lastName" name="lastName" placeholder="Cognome">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput [(ngModel)]="editedUser.email" name="email" placeholder="Email">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Bio</mat-label>
+      <textarea matInput [(ngModel)]="editedUser.bio" name="bio" placeholder="Bio"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Annulla</button>
+  <button mat-button (click)="onSave()" [disabled]="!editedUser.firstName || !editedUser.lastName || !editedUser.email || !editedUser.bio">Salva</button>
+</mat-dialog-actions>

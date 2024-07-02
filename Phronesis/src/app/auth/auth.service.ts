@@ -58,6 +58,7 @@ export class AuthService {
       return this.http.post<accessData>(this.loginUrl, loginData)
       .pipe(tap(data => {
         this.authSubject.next(data.user)
+        this.syncIsLoggedIn = true;
         if (rememberMe) {
           localStorage.setItem('accessData', JSON.stringify(data));
         } else {
@@ -69,6 +70,7 @@ export class AuthService {
 
     logout(){
       this.authSubject.next(null)
+      this.syncIsLoggedIn = false;
       localStorage.removeItem("accessData");
       sessionStorage.removeItem('accessData');
       this.router.navigate([""])
@@ -92,6 +94,7 @@ export class AuthService {
       if(this.jwtHelper.isTokenExpired(accessData.token)) return;
 
       this.authSubject.next(accessData.user)
+      this.syncIsLoggedIn = true;
       this.autologout(accessData.token)
     }
 

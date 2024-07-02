@@ -1,14 +1,19 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-2">
-      <app-header></app-header>
-    </div>
-    <div class="col-md-8">
-      <router-outlet></router-outlet>
-    </div>
-    <div class="col-md-2">
-      <app-ads></app-ads>
-      <app-footer></app-footer>
+<div *ngIf="authSvc.syncIsLoggedIn; else fullScreenLayout">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+        <app-header></app-header>
+      </div>
+      <div class="col-md-8">
+        <router-outlet></router-outlet>
+      </div>
+      <div class="col-md-2">
+        <app-ads></app-ads>
+        <app-footer></app-footer>
+      </div>
     </div>
   </div>
 </div>
+<ng-template #fullScreenLayout>
+  <router-outlet></router-outlet>
+</ng-template>

@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   loginUser: ILoginData = {
-    username: '',
-    password: ''
+    username: 'danilo8',
+    password: 'password'
   }
 
   rememberMe: boolean = false;

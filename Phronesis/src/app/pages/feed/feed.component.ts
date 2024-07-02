@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../auth/auth.service';
 import { FavoriteService } from '../../services/favorite.service';
 import { IFavorite } from '../../models/i-favorite';
+import { IPostRequest } from '../../models/i-post-request';
 
 @Component({
   selector: 'app-feed',
@@ -24,6 +25,8 @@ export class FeedComponent {
     private favoriteSvc: FavoriteService
   ) {
     this.currentUserId = this.authSvc.getCurrentUserId();
+    console.log(authSvc.syncIsLoggedIn);
+
   }
 
   ngOnInit(): void {
@@ -49,7 +52,7 @@ export class FeedComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const postRequest = {
+        const postRequest:IPostRequest = {
           title: result.title,
           content: result.content,
           userId: this.currentUserId as number
