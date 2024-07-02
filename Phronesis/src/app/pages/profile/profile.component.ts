@@ -179,5 +179,9 @@ export class ProfileComponent {
     this.selectedSection = 'favoritePosts';
     this.loadFavoritePosts();
   }
+
+  reportUser(user:IUser):void {
+
+  }
 }
 

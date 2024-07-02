@@ -14,6 +14,12 @@ import { ICommentRequest } from '../../models/i-comment-request';
 import { ILike } from '../../models/i-like';
 import { IUserPostInteractionRequest } from '../../models/i-user-post-interaction-request';
 import { LikeListDialogComponent } from '../../mainComponents/dialogs/like-list-dialog/like-list-dialog.component';
+import { IUser } from '../../models/i-user';
+import { ReportDialogComponent } from '../../mainComponents/dialogs/report-dialog/report-dialog.component';
+import { IUserReportRequest } from '../../models/report/i-user-report-request';
+import { UserReportService } from '../../services/user-report.service';
+import { PostReportService } from '../../services/post-report.service';
+import { IPostReportRequest } from '../../models/report/i-post-report-request';
 
 @Component({
   selector: 'app-post-card',
@@ -35,7 +41,9 @@ export class PostCardComponent {
   private authSvc:AuthService,
   private commentSvc:CommentService,
 private likeSvc:LikeService,
-private favoriteSvc:FavoriteService) {
+private favoriteSvc:FavoriteService,
+private userReportSvc:UserReportService,
+private postReportSvc:PostReportService) {
 }
 
   ngOnInit(): void {
@@ -188,11 +196,39 @@ private favoriteSvc:FavoriteService) {
     }
   }
 
-  reportPost(post: any): void {
-    // Logica per segnalare il post
+  reportPost(postId: number): void {
+    const dialogRef = this.dialog.open(ReportDialogComponent, {
+      width: '300px',
+      data: { reportType: 'post'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const reportRequest: IPostReportRequest = {
+          reportedById: this.currentUserId as number,
+          reportedPostId: postId,
+          reason: result.reason
+        };
+        this.postReportSvc.addPostReport(reportRequest).subscribe();
+      }
+    });
   }
 
-  reportComment(comment: any): void {
-    // Logica per segnalare il commento
+  reportUser(userId: number): void {
+    const dialogRef = this.dialog.open(ReportDialogComponent, {
+      width: '300px',
+      data: { reportType: 'user'}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const reportRequest: IUserReportRequest = {
+          reportedById: this.currentUserId as number,
+          reportedUserId: userId,
+          reason: result.reason
+        };
+        this.userReportSvc.addUserReport(reportRequest).subscribe();
+      }
+    });
   }
 }

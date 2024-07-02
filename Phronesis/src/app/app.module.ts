@@ -22,6 +22,7 @@ import { EditPostDialogComponent } from './mainComponents/dialogs/edit-post-dial
 import { LikeListDialogComponent } from './mainComponents/dialogs/like-list-dialog/like-list-dialog.component';
 import { FollowListDialogComponent } from './mainComponents/dialogs/follow-list-dialog/follow-list-dialog.component';
 import { EditUserDialogComponent } from './mainComponents/dialogs/edit-user-dialog/edit-user-dialog.component';
+import { ReportDialogComponent } from './mainComponents/dialogs/report-dialog/report-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { EditUserDialogComponent } from './mainComponents/dialogs/edit-user-dial
     LikeListDialogComponent,
     FollowListDialogComponent,
     EditUserDialogComponent,
+    ReportDialogComponent,
   ],
   imports: [
     BrowserModule,

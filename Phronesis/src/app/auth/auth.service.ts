@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment.development';
 import { ILoginData } from '../models/i-login-data';
+import { RoleType } from '../models/role-type';
 
 type accessData = {
   user:Partial<IUser>
@@ -42,6 +43,12 @@ export class AuthService {
     enablingUrl:string = environment.enablingUrl
     requestNewVerificationUrl:String = environment.requestNewVerificationUrl
 
+
+    isAdmin(user: Partial<IUser>): boolean {
+      return user.roles?.some(role => role.roleType === RoleType.ADMIN) || false;
+    }
+
+
     register(newUser:FormData):Observable<Partial<IUser>>{
       return this.http.post<Partial<IUser>>(this.registerUrl, newUser)
     }
@@ -63,6 +70,10 @@ export class AuthService {
           localStorage.setItem('accessData', JSON.stringify(data));
         } else {
           sessionStorage.setItem('accessData', JSON.stringify(data));
+        }
+        if (this.isAdmin(data.user)) {
+          console.log("L'utente è un amministratore");
+          // Puoi aggiungere ulteriori azioni qui se necessario
         }
         this.autologout(data.token)
       }))

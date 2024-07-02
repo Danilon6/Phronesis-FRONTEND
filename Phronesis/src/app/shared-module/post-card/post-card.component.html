@@ -17,7 +17,7 @@
         <button *ngIf="post.user.id === currentUserId" class="btn btn-sm btn-outline-danger me-2" (click)="deletePost(post.id)">
           <i class="fas fa-trash"></i> Elimina
         </button>
-        <button class="btn btn-sm btn-outline-danger" (click)="reportPost(post)">
+        <button class="btn btn-sm btn-outline-danger" (click)="reportPost(post.id)">
           <i class="fas fa-flag"></i>
         </button>
       </div>
@@ -60,7 +60,7 @@
               <button *ngIf="comment.user.id === currentUserId" class="btn btn-sm btn-outline-danger me-2" (click)="deleteComment(comment.id, post)">
                 <i class="fas fa-trash"></i>
               </button>
-              <button *ngIf="comment.user.id !== currentUserId" class="btn btn-sm btn-outline-danger" (click)="reportComment(comment)">
+              <button *ngIf="comment.user.id !== currentUserId" class="btn btn-sm btn-outline-danger" (click)="reportUser(comment.user.id)">
                 <i class="fas fa-flag"></i>
               </button>
             </div>
