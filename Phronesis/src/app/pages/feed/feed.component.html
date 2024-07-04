@@ -1,5 +1,6 @@
 <button mat-fab class="create-post-button" (click)="openCreatePostDialog()">
   <i class="fas fa-pen">Create</i>
 </button>
-<button (click)="logout()" class="col-10 col-md-3 col-lg-2 btn btn-danger me-2">Esci</button>
-<app-post-card *ngFor="let post of postArr" [post]="post" [currentUserId]="currentUserId"></app-post-card>
+<div class="my-3">
+  <app-post-card *ngFor="let post of postArr" [post]="post" [currentUserId]="currentUserId"></app-post-card>
+</div>

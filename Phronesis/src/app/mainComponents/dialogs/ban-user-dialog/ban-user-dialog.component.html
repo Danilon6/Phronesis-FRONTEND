@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Motivo del Ban</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>Ragione della segnalazione</mat-label>
+    <textarea matInput [(ngModel)]="reason" name="reason"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Annulla</button>
+  <button mat-button (click)="onSubmit()">Invia</button>
+</div>

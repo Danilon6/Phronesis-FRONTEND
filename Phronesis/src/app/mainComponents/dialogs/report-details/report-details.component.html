@@ -1,0 +1,51 @@
+<div *ngIf="report" mat-dialog-title>
+  <h2>Dettagli Report</h2>
+</div>
+<div mat-dialog-content>
+  <div *ngIf="isUserReport(report)">
+    <h3>Report su Utente</h3>
+    <p>ID Report: {{ report.createdAt }}</p>
+    <p>Segnalato da: {{ report.reportedBy.username }}</p>
+    <p>Motivo: {{ report.reason }}</p>
+    <p>Dettagli dell'utente segnalato</p>
+    <div class="card mb-3">
+      <div class="card-header bg-light">
+        <span>ID Utente: {{ report.reportedUser.id }}</span>
+      </div>
+      <div class="card-body d-flex align-items-center">
+        <img [src]="report.reportedUser.profilePicture" class="rounded-circle me-3" alt="Profile Picture" width="50" height="50">
+        <span>{{ report.reportedUser.username }}</span>
+      </div>
+    </div>
+    <div *ngIf="report.reportedUser.id">
+      <button class="btn btn-danger" (click)="openBanUserDialog(report.reportedUser.id)">Banna Utente</button>
+      <button class="btn btn-success" *ngIf="report.reportedUser.banned" (click)="unbanUser(report.reportedUser.id)">Sblocca Utente</button>
+    </div>
+  </div>
+  <div *ngIf="isPostReport(report)">
+    <h3>Report su Post</h3>
+    <p>ID Report: {{ report.id }}</p>
+    <p>Segnalato da: {{ report.reportedBy.username }}</p>
+    <p>Motivo: {{ report.reason }}</p>
+    <p>Dettagli del post segnalato</p>
+    <div class="card mb-3">
+      <div class="card-header bg-light">
+        <span>ID Post: {{ report.reportedPost.id }}</span>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Titolo: {{ report.reportedPost.title }}</h5>
+        <p>Autore del post:</p>
+        <div class="d-flex align-items-center">
+          <img [src]="report.reportedPost.user?.profilePicture" class="rounded-circle me-3" alt="Profile Picture" width="50" height="50">
+          <span>{{ report.reportedPost.user?.username }}</span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="report.reportedPost.id">
+      <button class="btn btn-danger" (click)="deletePost(report.reportedPost.id)">Elimina Post e report</button>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close()">Chiudi</button>
+</div>

@@ -25,8 +25,6 @@ export class FeedComponent {
     private favoriteSvc: FavoriteService
   ) {
     this.currentUserId = this.authSvc.getCurrentUserId();
-    console.log(authSvc.syncIsLoggedIn);
-
   }
 
   ngOnInit(): void {
@@ -39,10 +37,6 @@ export class FeedComponent {
         this.favoriteArr = favorites;
       });
     }
-  }
-
-  logout(): void {
-    this.authSvc.logout();
   }
 
   openCreatePostDialog(): void {

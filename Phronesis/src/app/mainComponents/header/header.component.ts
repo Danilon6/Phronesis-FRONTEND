@@ -8,7 +8,22 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class HeaderComponent {
 
-  show:boolean = false
+  isAdmin: boolean = false
+
+  userId!:number
+
+  constructor(
+    private authSvc: AuthService
+  ) {}
+
+  ngOnInit(): void {
+  this.isAdmin = this.authSvc.isAdmin()
+  this.userId = this.authSvc.getCurrentUserId() as number
+  }
+
+  logout(): void {
+    this.authSvc.logout();
+  }
 
 }
 

@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Aggiorna Immagine Profilo</h1>
+<div mat-dialog-content class="flex flex-col items-center">
+  <div class="relative mb-6 flex flex-col items-center">
+    <div class="w-24 h-24 bg-gray-600 rounded-full flex items-center justify-center overflow-hidden relative">
+      <img [src]="selectedFileUrl || data.currentImage" alt="Profile" class="w-full h-full object-cover" id="profileImage">
+      <input type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" (change)="onFileSelected($event)" accept="image/*">
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions class="flex justify-end">
+  <button mat-button (click)="onNoClick()">Annulla</button>
+  <button mat-button [mat-dialog-close]="selectedFile">Carica</button>
+</div>

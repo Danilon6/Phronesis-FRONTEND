@@ -3,8 +3,11 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-8 d-flex">
-          <div class="profile-picture">
+          <div class="profile-picture position-relative">
             <img [src]="user.profilePicture" class="rounded-circle me-3" alt="Profile Picture" width="150" height="150">
+            <button class="btn btn-primary position-absolute bottom-0 end-0" (click)="openImageUploadModal()">
+              <i class="fas fa-pencil-alt"></i>
+            </button>
           </div>
           <div class="user-info ms-3">
             <h3>{{ user.firstName }} {{ user.lastName }}</h3>
@@ -16,6 +19,9 @@
         <div class="col-md-4 d-flex justify-content-end align-items-start">
           <div *ngIf="!isOtherUser">
             <button class="btn btn-secondary" (click)="editProfile()">Modifica</button>
+          </div>
+          <div *ngIf="!isOtherUser">
+            <button class="btn btn-danger ms-3" (click)="deleteProfile(user.id)">Elimina</button>
           </div>
           <div *ngIf="isOtherUser">
             <button class="btn btn-primary" (click)="toggleFollow()">{{ isFollowing ? 'Unfollow' : 'Follow' }}</button>
@@ -36,23 +42,23 @@
           </div>
         </div>
         <div class="col-2 d-flex justify-content-end">
-          <button *ngIf="isOtherUser" class="btn btn-danger mt-3" (click)="reportUser(user)">
+          <button *ngIf="isOtherUser" class="btn btn-danger mt-3" (click)="reportUser(user.id)">
             <i class="fas fa-flag"></i>
           </button>
         </div>
       </div>
     </div>
     <div class="card-footer d-flex justify-content-around">
-      <div class="section" (click)="viewUserPosts()">
+      <div class="section" [class.active]="selectedSection === 'posts'" (click)="viewUserPosts()">
         <i class="fas fa-pencil-alt"></i>
         <span *ngIf="!isOtherUser">I tuoi post</span>
         <span *ngIf="isOtherUser">I post di {{ user.username }}</span>
       </div>
-      <div *ngIf="!isOtherUser" class="section" (click)="viewLikedPosts()">
+      <div *ngIf="!isOtherUser" class="section" [class.active]="selectedSection === 'likedPosts'" (click)="viewLikedPosts()">
         <i class="fas fa-heart"></i>
         <span>I post a cui hai messo like</span>
       </div>
-      <div *ngIf="!isOtherUser" class="section" (click)="viewFavoritePosts()">
+      <div *ngIf="!isOtherUser" class="section" [class.active]="selectedSection === 'favoritePosts'" (click)="viewFavoritePosts()">
         <i class="fas fa-bookmark"></i>
         <span>I tuoi post preferiti</span>
       </div>

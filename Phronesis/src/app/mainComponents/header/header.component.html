@@ -1,68 +1,24 @@
-<header class="p-3 mb-3 border-bottom">
-  <div class="container">
-    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-      <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
-        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-      </a>
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="d-flex flex-column bg-light p-3 border shadow">
+    <h2 class="text-secondary text-start fw-bolder mb-4">Menù del Sito</h2>
 
-      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-
-        <li><a href="#" class="nav-link px-2 link-secondary">Overview</a></li>
-        <li><a href="#" class="nav-link px-2 link-body-emphasis">Inventory</a></li>
-        <li><a href="#" class="nav-link px-2 link-body-emphasis">Customers</a></li>
-        <li><a href="#" class="nav-link px-2 link-body-emphasis">Products</a></li>
-      </ul>
-
-
-      <div class="dropdown text-end">
-        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" (click)="show = !show" data-bs-toggle="dropdown" aria-expanded="true">
-          <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-        </a>
-        <ul class="dropdown-menu text-small" [ngClass]="{show}" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 34px, 0px);" data-popper-placement="bottom-start">
-          <li><a class="dropdown-item" href="#">New project...</a></li>
-          <li><a class="dropdown-item" href="#">Settings</a></li>
-          <li><a class="dropdown-item" href="#">Profile</a></li>
-          <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
-
-        </ul>
-      </div>
-    </div>
+    <button *ngIf="!isAdmin" routerLink="/feed" class="btn btn-light d-flex align-items-center mb-2">
+      <i class="fas fa-home me-2"></i> Feed
+    </button>
+    <button *ngIf="!isAdmin" [routerLink]="['profile/',userId]" [queryParams]="{ section: 'favoritePosts' }" class="btn btn-light d-flex align-items-center mb-2">
+      <i class="fas fa-star me-2"></i> I Tuoi Preferiti
+    </button>
+    <button [routerLink]="['profile/',userId]" class="btn btn-light d-flex align-items-center mb-2">
+      <i class="fas fa-user me-2"></i> Profilo
+    </button>
+    <button *ngIf="isAdmin" routerLink="/sponsor" class="btn btn-light d-flex align-items-center mb-2">
+      <i class="fas fa-bullhorn me-2"></i> Sponsor
+    </button>
+    <button *ngIf="isAdmin" routerLink="/reports" class="btn btn-light d-flex align-items-center mb-2">
+      <i class="fas fa-chart-line me-2"></i> Report
+    </button>
+    <button class="btn btn-danger d-flex align-items-center mt-auto" (click)="logout()">
+      <i class="fas fa-sign-out-alt me-2"></i> Logout
+    </button>
   </div>
-</header>
-
-
-<!-- Aggiungre un off canavs al psoto del cerchio del profilo-->
-<!-- <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasNavbarDark" aria-labelledby="offcanvasNavbarDarkLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasNavbarDarkLabel">Offcanvas</h5>
-    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-          Dropdown
-        </a>
-        <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Another action</a></li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul>
-      </li>
-    </ul>
-    <form class="d-flex mt-3" role="search">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
-    </form>
-  </div>
-</div> -->
+</div>

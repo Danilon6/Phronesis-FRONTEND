@@ -44,8 +44,9 @@ export class AuthService {
     requestNewVerificationUrl:String = environment.requestNewVerificationUrl
 
 
-    isAdmin(user: Partial<IUser>): boolean {
-      return user.roles?.some(role => role.roleType === RoleType.ADMIN) || false;
+    isAdmin(): boolean {
+      const user = this.authSubject.value;
+      return user?.roles?.some(role => role.roleType === RoleType.ADMIN) || false;
     }
 
 
@@ -70,10 +71,6 @@ export class AuthService {
           localStorage.setItem('accessData', JSON.stringify(data));
         } else {
           sessionStorage.setItem('accessData', JSON.stringify(data));
-        }
-        if (this.isAdmin(data.user)) {
-          console.log("L'utente è un amministratore");
-          // Puoi aggiungere ulteriori azioni qui se necessario
         }
         this.autologout(data.token)
       }))

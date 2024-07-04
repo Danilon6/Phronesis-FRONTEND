@@ -15,6 +15,10 @@ import { IFollowResponse } from '../../models/i-follow-response';
 import { MatDialog } from '@angular/material/dialog';
 import { FollowListDialogComponent } from '../../mainComponents/dialogs/follow-list-dialog/follow-list-dialog.component';
 import { EditUserDialogComponent } from '../../mainComponents/dialogs/edit-user-dialog/edit-user-dialog.component';
+import { ReportDialogComponent } from '../../mainComponents/dialogs/report-dialog/report-dialog.component';
+import { IUserReportRequest } from '../../models/report/i-user-report-request';
+import { UserReportService } from '../../services/user-report.service';
+import { UpdateProfilePictureComponent } from '../../mainComponents/dialogs/update-profile-picture/update-profile-picture.component';
 
 @Component({
   selector: 'app-profile',
@@ -43,6 +47,7 @@ export class ProfileComponent {
     private likeSvc: LikeService,
     private favoriteSvc: FavoriteService,
     private followSvc: FollowService,
+    private userReportSvc: UserReportService,
     private dialog: MatDialog
   ) {
     this.currentUserId = this.authSvc.getCurrentUserId() as number;
@@ -59,6 +64,11 @@ export class ProfileComponent {
         }
         this.loadUserPosts();
         this.loadFollowCounts();
+      });
+
+      this.route.queryParams.subscribe(params => {
+        this.selectedSection = params['section'] || 'posts';
+        this.updatePosts();
       });
     }
 
@@ -153,6 +163,10 @@ export class ProfileComponent {
     });
   }
 
+  deleteProfile(userId:number):void {
+    this.userSvc.deleteUser(userId).subscribe()
+  }
+
   openFollowersModal(): void {
     this.dialog.open(FollowListDialogComponent, {
       data: { title: 'Followers', list: this.followersList, key: "follower" }
@@ -180,8 +194,48 @@ export class ProfileComponent {
     this.loadFavoritePosts();
   }
 
-  reportUser(user:IUser):void {
+  updatePosts(): void {
+    if (this.selectedSection === 'posts') {
+      this.loadUserPosts();
+    } else if (this.selectedSection === 'likedPosts') {
+      this.loadLikedPosts();
+    } else if (this.selectedSection === 'favoritePosts') {
+      this.loadFavoritePosts();
+    }
+  }
+  reportUser(userId: number): void {
+    const dialogRef = this.dialog.open(ReportDialogComponent, {
+      width: '300px',
+      data: { reportType: 'user'}
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const reportRequest: IUserReportRequest = {
+          reportedById: this.currentUserId as number,
+          reportedUserId: userId,
+          reason: result.reason
+        };
+        this.userReportSvc.addUserReport(reportRequest).subscribe();
+      }
+    });
+  }
+
+  openImageUploadModal(): void {
+    const dialogRef = this.dialog.open(UpdateProfilePictureComponent, {
+      width: '400px',
+      data: {currentImage: this.user.profilePicture }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Update the user's profile picture
+        this.userSvc.updateProfilePicture(this.user.id, result).subscribe(updatedUser => {
+          this.user.profilePicture = updatedUser.profilePicture;
+          this.updatePosts()
+        });
+      }
+    });
   }
 }
 

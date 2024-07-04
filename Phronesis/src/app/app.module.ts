@@ -23,7 +23,10 @@ import { LikeListDialogComponent } from './mainComponents/dialogs/like-list-dial
 import { FollowListDialogComponent } from './mainComponents/dialogs/follow-list-dialog/follow-list-dialog.component';
 import { EditUserDialogComponent } from './mainComponents/dialogs/edit-user-dialog/edit-user-dialog.component';
 import { ReportDialogComponent } from './mainComponents/dialogs/report-dialog/report-dialog.component';
-
+import { UpdateProfilePictureComponent } from './mainComponents/dialogs/update-profile-picture/update-profile-picture.component';
+import { ReportDetailsComponent } from './mainComponents/dialogs/report-details/report-details.component';
+import { BanUserDialogComponent } from './mainComponents/dialogs/ban-user-dialog/ban-user-dialog.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +40,9 @@ import { ReportDialogComponent } from './mainComponents/dialogs/report-dialog/re
     FollowListDialogComponent,
     EditUserDialogComponent,
     ReportDialogComponent,
+    UpdateProfilePictureComponent,
+    ReportDetailsComponent,
+    BanUserDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +55,8 @@ import { ReportDialogComponent } from './mainComponents/dialogs/report-dialog/re
     MatDialogModule,
     MatIconModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatExpansionModule
   ],
   providers: [
     {
