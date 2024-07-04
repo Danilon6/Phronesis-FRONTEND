@@ -9,5 +9,6 @@ export const environment = {
   usersUrl:'http://localhost:8080/api/user/',
   postUrl:'http://localhost:8080/api/post',
   postReportUrl:'http://localhost:8080/api/post-report',
-  userReportUrl:'http://localhost:8080/api/user-report'
+  userReportUrl:'http://localhost:8080/api/user-report',
+  advertUrl:'http://localhost:8080/api/adverts'
 };

@@ -27,6 +27,7 @@ import { UpdateProfilePictureComponent } from './mainComponents/dialogs/update-p
 import { ReportDetailsComponent } from './mainComponents/dialogs/report-details/report-details.component';
 import { BanUserDialogComponent } from './mainComponents/dialogs/ban-user-dialog/ban-user-dialog.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { CreateEditAdvertDialogComponent } from './mainComponents/dialogs/create-edit-advert-dialog/create-edit-advert-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +44,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     UpdateProfilePictureComponent,
     ReportDetailsComponent,
     BanUserDialogComponent,
+    CreateEditAdvertDialogComponent,
   ],
   imports: [
     BrowserModule,

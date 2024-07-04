@@ -8,6 +8,7 @@ const routes: Routes = [{
   { path: 'sharedModule', loadChildren: () => import('./shared-module/shared-module.module').then(m => m.SharedModuleModule) },
   { path: 'profile/:userId', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule) },
   { path: 'reports', loadChildren: () => import('./pages/reports/reports.module').then(m => m.ReportsModule) },
+  { path: 'advert', loadChildren: () => import('./pages/advert/advert.module').then(m => m.AdvertModule) },
   ];
 
 @NgModule({

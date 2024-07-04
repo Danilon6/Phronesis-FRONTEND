@@ -1,0 +1,33 @@
+<div class="container">
+  <button mat-fab class="create-post-button" (click)="openCreateAdvertDialog()">
+    <i class="fas fa-pen"></i> Create
+  </button>
+  <div class="row">
+    <div class="col-12">
+      <h1>Gestione Pubblicità</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let advert of advertArr">
+      <div class="card h-100">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h5>{{ advert.title }}</h5>
+              <p>{{ advert.description }}</p>
+              <img [src]="advert.imageUrl" class="img-fluid ad-image" alt="Ad Image">
+            </div>
+            <div>
+              <button class="btn btn-sm btn-outline-secondary me-2" (click)="openEditAdvertDialog(advert)">
+                <i class="fas fa-edit"></i> Modifica
+              </button>
+              <button class="btn btn-sm btn-outline-danger" (click)="deleteAdvert(advert.id)">
+                <i class="fas fa-trash"></i> Elimina
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

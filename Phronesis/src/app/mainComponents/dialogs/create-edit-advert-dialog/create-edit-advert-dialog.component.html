@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>{{ data?.advert ? 'Modifica Pubblicità' : 'Crea Nuova Pubblicità' }}</h2>
+<mat-dialog-content>
+  <form>
+    <mat-form-field appearance="fill">
+      <mat-label>Titolo</mat-label>
+      <input matInput [(ngModel)]="newAdvert.title" name="title" placeholder="Titolo">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Descrizione</mat-label>
+      <textarea matInput [(ngModel)]="newAdvert.description" name="description" placeholder="Descrizione"></textarea>
+    </mat-form-field>
+    <div *ngIf="imagePreview" class="image-preview-container">
+      <img [src]="imagePreview" alt="Anteprima Immagine" class="image-preview">
+    </div>
+    <div>
+      <label for="file">Immagine</label>
+      <input type="file" id="file" (change)="onFileChange($event)">
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Annulla</button>
+  <button mat-button (click)="onSubmit()" [disabled]="!newAdvert.title || !newAdvert.description">{{ data?.advert ? 'Aggiorna' : 'Crea' }}</button>
+</mat-dialog-actions>
