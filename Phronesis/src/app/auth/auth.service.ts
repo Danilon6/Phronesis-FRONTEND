@@ -22,7 +22,10 @@ export class AuthService {
 
   authSubject = new BehaviorSubject<Partial<IUser> | null>(null)
 
+  isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+
   $user = this.authSubject.asObservable()
+
 
   isLoggedIn$ = this.$user.pipe(
     map(user => !!user),
@@ -44,11 +47,13 @@ export class AuthService {
     requestNewVerificationUrl:String = environment.requestNewVerificationUrl
 
 
-    isAdmin(): boolean {
-      const user = this.authSubject.value;
-      return user?.roles?.some(role => role.roleType === RoleType.ADMIN) || false;
+    updateAdminStatus(user: Partial<IUser> | null): void {
+      if (user?.roles?.some(role => role.roleType === RoleType.ADMIN)) {
+        this.isAdmin$.next(true);
+      } else {
+        this.isAdmin$.next(false);
+      }
     }
-
 
     register(newUser:FormData):Observable<Partial<IUser>>{
       return this.http.post<Partial<IUser>>(this.registerUrl, newUser)
@@ -66,6 +71,7 @@ export class AuthService {
       return this.http.post<accessData>(this.loginUrl, loginData)
       .pipe(tap(data => {
         this.authSubject.next(data.user)
+        this.updateAdminStatus(data.user);
         this.syncIsLoggedIn = true;
         if (rememberMe) {
           localStorage.setItem('accessData', JSON.stringify(data));
@@ -78,6 +84,7 @@ export class AuthService {
 
     logout(){
       this.authSubject.next(null)
+      this.updateAdminStatus(null);
       this.syncIsLoggedIn = false;
       localStorage.removeItem("accessData");
       sessionStorage.removeItem('accessData');
@@ -102,6 +109,7 @@ export class AuthService {
       if(this.jwtHelper.isTokenExpired(accessData.token)) return;
 
       this.authSubject.next(accessData.user)
+      this.updateAdminStatus(accessData.user);
       this.syncIsLoggedIn = true;
       this.autologout(accessData.token)
     }

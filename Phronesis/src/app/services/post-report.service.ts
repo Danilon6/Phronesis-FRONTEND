@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { IPostReportRequest } from '../models/report/i-post-report-request';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,12 @@ export class PostReportService {
 
   postReportUrl: string = environment.postReportUrl
 
-  constructor(private http: HttpClient) {
-    this.getAllpostReports().subscribe();
+  constructor(private http: HttpClient, private authSvc:AuthService) {
+    this.authSvc.isAdmin$.subscribe(isAdmin =>{
+      if(isAdmin) {
+        this.getAllpostReports().subscribe();
+      }
+    })
   }
 
   getAllpostReports(): Observable<IPostReportResponse[]> {

@@ -4,12 +4,11 @@
       <div class="col-md-2">
         <app-header></app-header>
       </div>
-      <div class="col-md-8">
+      <div [ngClass]="!isAdmin ? 'col-md-8': 'col-md-10'">
         <router-outlet></router-outlet>
       </div>
-      <div class="col-md-2">
+      <div *ngIf="!isAdmin" class="col-md-2">
         <app-ads></app-ads>
-        <app-footer></app-footer>
       </div>
     </div>
   </div>

@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment.development';
 import { map, tap } from 'rxjs/operators';
 import { IUserReportResponse } from '../models/report/i-user-report-response';
 import { IUserReportRequest } from '../models/report/i-user-report-request';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,12 @@ export class UserReportService {
 
   userReportUrl: string = environment.userReportUrl
 
-  constructor(private http: HttpClient) {
-    this.getAllUserReports().subscribe();
+  constructor(private http: HttpClient, private authSvc:AuthService) {
+    this.authSvc.isAdmin$.subscribe(isAdmin =>{
+      if(isAdmin) {
+        this.getAllUserReports().subscribe();
+      }
+    })
   }
 
   getAllUserReports(): Observable<IUserReportResponse[]> {

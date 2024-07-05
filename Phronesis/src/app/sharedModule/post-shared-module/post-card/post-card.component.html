@@ -54,7 +54,7 @@
               </div>
             </div>
             <div>
-              <button *ngIf="comment.user.id === currentUserId" class="btn btn-sm btn-outline-secondary me-2" (click)="openEditCommentDialog(comment)">
+              <button *ngIf="comment.user.id === currentUserId" class="btn btn-sm btn-outline-secondary me-2" (click)="openEditCommentDialog(comment, post.id)">
                 <i class="fas fa-edit"></i>
               </button>
               <button *ngIf="comment.user.id === currentUserId" class="btn btn-sm btn-outline-danger me-2" (click)="deleteComment(comment.id, post)">

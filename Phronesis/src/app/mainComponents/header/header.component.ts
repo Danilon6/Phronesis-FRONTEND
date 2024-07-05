@@ -17,7 +17,9 @@ export class HeaderComponent {
   ) {}
 
   ngOnInit(): void {
-  this.isAdmin = this.authSvc.isAdmin()
+  this.authSvc.isAdmin$.subscribe(isAdmin =>{
+    this.isAdmin = isAdmin
+  })
   this.userId = this.authSvc.getCurrentUserId() as number
   }
 

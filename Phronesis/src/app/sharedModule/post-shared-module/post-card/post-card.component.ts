@@ -81,16 +81,28 @@ private postReportSvc:PostReportService) {
   }
 
 
-  openEditCommentDialog(comment: IComment): void {
+  openEditCommentDialog(comment: IComment, postId:number): void {
+    console.log(comment,"comemnto da modficare");
     const dialogRef = this.dialog.open(EditCommentDialogComponent, {
       width: '250px',
       data: { comment }
+
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+
       if (result) {
         const editedComment = { ...comment, content: result.content };
-        this.commentSvc.update(editedComment).subscribe();
+        this.commentSvc.update(editedComment).subscribe(updatedComment => {
+          const postIndex = this.postArr.findIndex(p => p.id === postId);
+          if (postIndex !== -1) {
+            const commentIndex = this.postArr[postIndex].comments.findIndex(c => c.id === updatedComment.id);
+            if (commentIndex !== -1) {
+              this.postArr[postIndex].comments[commentIndex] = updatedComment;
+            }
+          }
+        });
       }
     });
   }
@@ -102,6 +114,8 @@ private postReportSvc:PostReportService) {
       // Se i commenti non sono visibili, impostali su visibili e carica i commenti
       this.showComments[postId] = true;
       this.commentSvc.getAllByPostId(postId).subscribe(comments => {
+        console.log(comments);
+
         post.comments = comments;
       });
     } else {
