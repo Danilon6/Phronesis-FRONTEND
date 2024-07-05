@@ -13,7 +13,10 @@ export class AdvertComponent {
 
   advertArr: IAdvert[] = [];
 
-  constructor(private advertSvc: AdsService, public dialog: MatDialog) {}
+  constructor(private advertSvc: AdsService, public dialog: MatDialog) {
+    console.log("sono qui");
+
+  }
 
   ngOnInit(): void {
     this.advertSvc.advert$.subscribe(advertArr => {
@@ -30,9 +33,7 @@ export class AdvertComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.advertSvc.createAdvert(result.newAdvert, result.imageFile).subscribe(advert => {
-          this.advertArr = [...this.advertArr, advert];
-        });
+        this.advertSvc.createAdvert(result.newAdvert, result.imageFile).subscribe();
       }
     });
   }
@@ -45,7 +46,7 @@ export class AdvertComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.advertSvc.updateAdvert(advert.id, result.newAdvert).subscribe(updatedAdvert => {
+        this.advertSvc.updateAdvert(advert.id, result.newAdvert, result.imageFile).subscribe(updatedAdvert => {
           const index = this.advertArr.findIndex(ad => ad.id === updatedAdvert.id);
           if (index !== -1) {
             this.advertArr[index] = updatedAdvert;
@@ -62,4 +63,5 @@ export class AdvertComponent {
       this.advertSvc.advertSubject.next(this.advertArr);
     });
   }
+
 }

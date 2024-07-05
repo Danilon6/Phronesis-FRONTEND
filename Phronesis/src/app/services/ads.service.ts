@@ -55,8 +55,13 @@ export class AdsService {
     );
   }
 
-  updateAdvert(id: number, advert: IAdvert): Observable<IAdvert> {
-    return this.http.put<IAdvert>(`${this.advertsUrl}/${id}`, advert).pipe(
+  updateAdvert(id: number, newAdvert: Partial<IAdvert>, image: File): Observable<IAdvert> {
+    const formData = new FormData();
+    formData.append('advert', new Blob([JSON.stringify(newAdvert)], { type: 'application/json' }));
+    if (image) {
+      formData.append('advertImage', image);
+    }
+    return this.http.put<IAdvert>(`${this.advertsUrl}/${id}`, formData).pipe(
       tap(updatedAdvert => {
         const index = this.advertArr.findIndex(a => a.id === id);
         if (index !== -1) {

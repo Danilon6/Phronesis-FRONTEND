@@ -1,25 +1,25 @@
 import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { PostService } from '../../services/post.service';
-import { AuthService } from '../../auth/auth.service';
-import { CommentService } from '../../services/comment.service';
-import { LikeService } from '../../services/like.service';
-import { FavoriteService } from '../../services/favorite.service';
-import { IFavorite } from '../../models/i-favorite';
-import { IPost } from '../../models/i-post';
-import { EditPostDialogComponent } from '../../mainComponents/dialogs/edit-post-dialog/edit-post-dialog.component';
-import { EditCommentDialogComponent } from '../../mainComponents/dialogs/edit-comment-dialog/edit-comment-dialog.component';
-import { IComment } from '../../models/i-comment';
-import { ICommentRequest } from '../../models/i-comment-request';
-import { ILike } from '../../models/i-like';
-import { IUserPostInteractionRequest } from '../../models/i-user-post-interaction-request';
-import { LikeListDialogComponent } from '../../mainComponents/dialogs/like-list-dialog/like-list-dialog.component';
-import { IUser } from '../../models/i-user';
-import { ReportDialogComponent } from '../../mainComponents/dialogs/report-dialog/report-dialog.component';
-import { IUserReportRequest } from '../../models/report/i-user-report-request';
-import { UserReportService } from '../../services/user-report.service';
-import { PostReportService } from '../../services/post-report.service';
-import { IPostReportRequest } from '../../models/report/i-post-report-request';
+import { PostService } from '../../../services/post.service';
+import { AuthService } from '../../../auth/auth.service';
+import { CommentService } from '../../../services/comment.service';
+import { LikeService } from '../../../services/like.service';
+import { FavoriteService } from '../../../services/favorite.service';
+import { IFavorite } from '../../../models/i-favorite';
+import { IPost } from '../../../models/i-post';
+import { EditPostDialogComponent } from '../../../mainComponents/dialogs/edit-post-dialog/edit-post-dialog.component';
+import { EditCommentDialogComponent } from '../../../mainComponents/dialogs/edit-comment-dialog/edit-comment-dialog.component';
+import { IComment } from '../../../models/i-comment';
+import { ICommentRequest } from '../../../models/i-comment-request';
+import { ILike } from '../../../models/i-like';
+import { IUserPostInteractionRequest } from '../../../models/i-user-post-interaction-request';
+import { LikeListDialogComponent } from '../../../mainComponents/dialogs/like-list-dialog/like-list-dialog.component';
+import { IUser } from '../../../models/i-user';
+import { ReportDialogComponent } from '../../../mainComponents/dialogs/report-dialog/report-dialog.component';
+import { IUserReportRequest } from '../../../models/report/i-user-report-request';
+import { UserReportService } from '../../../services/user-report.service';
+import { PostReportService } from '../../../services/post-report.service';
+import { IPostReportRequest } from '../../../models/report/i-post-report-request';
 
 @Component({
   selector: 'app-post-card',

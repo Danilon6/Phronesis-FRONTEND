@@ -10,21 +10,17 @@
   <div class="row">
     <div class="col-md-4 mb-4" *ngFor="let advert of advertArr">
       <div class="card h-100">
+        <img [src]="advert.imageUrl" class="card-img-top ad-image" alt="Ad Image">
         <div class="card-body">
-          <div class="d-flex justify-content-between">
-            <div>
-              <h5>{{ advert.title }}</h5>
-              <p>{{ advert.description }}</p>
-              <img [src]="advert.imageUrl" class="img-fluid ad-image" alt="Ad Image">
-            </div>
-            <div>
-              <button class="btn btn-sm btn-outline-secondary me-2" (click)="openEditAdvertDialog(advert)">
-                <i class="fas fa-edit"></i> Modifica
-              </button>
-              <button class="btn btn-sm btn-outline-danger" (click)="deleteAdvert(advert.id)">
-                <i class="fas fa-trash"></i> Elimina
-              </button>
-            </div>
+          <h5 class="card-title">{{ advert.title }}</h5>
+          <p class="card-text">{{ advert.description }}</p>
+          <div class="admin-actions">
+            <button class="btn btn-sm btn-outline-secondary me-2" (click)="openEditAdvertDialog(advert)">
+              <i class="fas fa-edit"></i> Modifica
+            </button>
+            <button class="btn btn-sm btn-outline-danger" (click)="deleteAdvert(advert.id)">
+              <i class="fas fa-trash"></i> Elimina
+            </button>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { SharedModuleModule } from '../../shared-module/shared-module.module';
+import { SharedModuleModule } from '../../sharedModule/post-shared-module/post-shared-module.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 

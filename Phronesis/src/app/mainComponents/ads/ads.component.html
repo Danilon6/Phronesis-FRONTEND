@@ -1,1 +1,18 @@
-<p>ads works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h1>Elenco Pubblicità</h1>
+    </div>
+  </div>
+  <div class="row d-flex flex-column">
+    <div class="col mb-4" *ngFor="let advert of randomAdverts">
+      <div class="card h-100">
+        <img [src]="advert.imageUrl" class="card-img-top ad-image" alt="Ad Image">
+        <div class="card-body">
+          <h5 class="card-title">{{ advert.title }}</h5>
+          <p class="card-text">{{ advert.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
