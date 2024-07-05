@@ -111,8 +111,8 @@ export class UserService {
     );
   }
 
-  banUser(id: number, reason: string): Observable<IUser> {
-    return this.http.put<IUser>(`${this.userUrl}/${id}/ban`, { reason }).pipe(
+  banUser(id: number, reason: string): Observable<string> {
+    return this.http.put<string>(`${this.userUrl}/${id}/ban`, { reason }, {responseType: 'text' as 'json' }).pipe(
       tap(() => {
         const index = this.userArr.findIndex(u => u.id === id);
         if (index !== -1) {
@@ -123,8 +123,8 @@ export class UserService {
     );
   }
 
-  unbanUser(id: number): Observable<IUser> {
-    return this.http.put<IUser>(`${this.userUrl}/${id}/unban`, {}).pipe(
+  unbanUser(id: number): Observable<string> {
+    return this.http.put<string>(`${this.userUrl}/${id}/unban`, {}, {responseType: 'text' as 'json' }).pipe(
       tap(() => {
         const index = this.userArr.findIndex(u => u.id === id);
         if (index !== -1) {

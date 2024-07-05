@@ -9,6 +9,7 @@ const routes: Routes = [{
   { path: 'profile/:userId', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule) },
   { path: 'reports', loadChildren: () => import('./pages/reports/reports.module').then(m => m.ReportsModule) },
   { path: 'advert', loadChildren: () => import('./pages/advert/advert.module').then(m => m.AdvertModule) },
+  { path: 'user-managment', loadChildren: () => import('./pages/user-managment/user-managment.module').then(m => m.RolesModule) },
   ];
 
 @NgModule({

@@ -93,10 +93,12 @@ export class ProfileComponent {
     if (this.isFollowing) {
       this.followSvc.unfollow(this.currentUserId, this.user.id).subscribe(() => {
         this.isFollowing = false;
+        this.loadFollowCounts();
       });
     } else {
       this.followSvc.follow(this.currentUserId, this.user.id).subscribe(() => {
         this.isFollowing = true;
+        this.loadFollowCounts();
       });
     }
   }

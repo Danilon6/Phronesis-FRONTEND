@@ -1,0 +1,32 @@
+<div class="container mt-5">
+  <h2>Utenti Registrati</h2>
+  <div class="row">
+    <div class="col-12" *ngFor="let user of userArr">
+      <div class="card mb-3">
+        <div class="card-body d-flex">
+          <img [src]="user.profilePicture || '../../../assets/defaultpng.png'" alt="Avatar" class="img-thumbnail" />
+          <div>
+            <h5 class="card-title">{{ user.firstName }} {{ user.lastName }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ user.username }}</h6>
+            <p class="card-text">{{ user.bio }}</p>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Email: {{ user.email }}</li>
+            </ul>
+            <div class="mt-3">
+              <button class="btn" [ngClass]="{'btn-success': !userHasRole(user, 'ADMIN'), 'btn-danger': userHasRole(user, 'ADMIN')}" (click)="toggleAdminRole(user)">
+                {{ userHasRole(user, 'ADMIN') ? 'Rimuovi ruolo Admin' : 'Aggiungi ruolo Admin' }}
+              </button>
+              <button class="btn" [ngClass]="{'btn-success': !userHasRole(user, 'USER'), 'btn-danger': userHasRole(user, 'USER')}" (click)="toggleUserRole(user)">
+                {{ userHasRole(user, 'USER') ? 'Rimuovi ruolo User' : 'Aggiungi ruolo User' }}
+              </button>
+              <button class="btn" [ngClass]="{'btn-danger': !user.banned, 'btn-warning': user.banned}" (click)="toggleBanStatus(user)" [disabled]="userHasRole(user, 'ADMIN')">
+                <i class="fas" [ngClass]="{'fa-ban': !user.banned, 'fa-unlock': user.banned}"></i>
+                {{ user.banned ? 'Sblocca Utente' : 'Banna Utente' }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
