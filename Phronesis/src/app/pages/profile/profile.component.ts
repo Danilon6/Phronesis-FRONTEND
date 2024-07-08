@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IUser } from '../../models/i-user';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../auth/auth.service';
 import { IPost } from '../../models/i-post';
@@ -48,31 +48,35 @@ export class ProfileComponent {
     private favoriteSvc: FavoriteService,
     private followSvc: FollowService,
     private userReportSvc: UserReportService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router,
   ) {
     this.currentUserId = this.authSvc.getCurrentUserId() as number;
   }
 
   ngOnInit(): void {
-    const userId = +this.route.snapshot.paramMap.get('userId')!;
-    if (userId) {
-      this.userSvc.getUserById(userId).subscribe(user => {
-        this.user = user;
-        this.isOtherUser = user.id !== this.currentUserId;
-        if (this.isOtherUser) {
-          this.checkIfFollowing();
-        }
-        this.loadUserPosts();
-        this.loadFollowCounts();
-      });
+    this.route.params.subscribe(params => {
+      const userId = +params['userId'];
+      if (userId) {
+        this.userSvc.getUserById(userId).subscribe(user => {
+          this.user = user;
+          this.isOtherUser = user.id !== this.currentUserId;
+          if (this.isOtherUser) {
+            this.checkIfFollowing();
+          }
+          this.loadUserPosts();
+          this.loadFollowCounts();
+        });
 
-      this.route.queryParams.subscribe(params => {
-        this.selectedSection = params['section'] || 'posts';
-        this.updatePosts();
-      });
-    }
+        this.route.queryParams.subscribe(params => {
+          this.selectedSection = params['section'] || 'posts';
+          this.updatePosts();
+        });
+      }
+    })
 
     this.postSvc.post$.subscribe(posts => {
+
       if (this.selectedSection === 'posts') {
         this.userPosts = posts;
       } else if (this.selectedSection === 'likedPosts') {
@@ -183,16 +187,31 @@ export class ProfileComponent {
 
   viewUserPosts(): void {
     this.selectedSection = 'posts';
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { section: 'posts' },
+      queryParamsHandling: 'merge'
+    });
     this.loadUserPosts();
   }
 
   viewLikedPosts(): void {
     this.selectedSection = 'likedPosts';
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { section: 'likedPosts' },
+      queryParamsHandling: 'merge'
+    });
     this.loadLikedPosts();
   }
 
   viewFavoritePosts(): void {
     this.selectedSection = 'favoritePosts';
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { section: 'favoritePosts' },
+      queryParamsHandling: 'merge'
+    });
     this.loadFavoritePosts();
   }
 

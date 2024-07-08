@@ -1,6 +1,32 @@
-<button mat-fab class="create-post-button" (click)="openCreatePostDialog()">
-  <i class="fas fa-pen">Create</i>
-</button>
-<div class="my-3">
+<div class="container mt-4 text-center">
+  <button *ngIf="!showCreatePostForm" class="btn btn-primary mb-4 create-post-button" (click)="toggleCreatePostForm()">Crea Post</button>
+  <div class="card w-75 mx-auto create-post-section" [ngClass]="{'show': showCreatePostForm, 'hide': hideCreatePostForm}">
+    <div class="card-body">
+      <div class="d-flex align-items-start mb-4">
+        <a [routerLink]="['/profile', user?.id]">
+          <img [src]="user?.profilePicture" class="rounded-circle me-3" alt="Profile Picture" width="50" height="50">
+        </a>
+        <div class="flex-grow-1">
+          <div class="mb-2">
+            <input type="text" class="form-control" placeholder="Titolo" [(ngModel)]="postRequest.title">
+          </div>
+          <div>
+            <textarea class="form-control" rows="3" placeholder="Cosa sta succedendo?" [(ngModel)]="postRequest.content"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+        </div>
+        <div class="d-flex">
+          <button class="btn btn-secondary me-2" (click)="toggleCreatePostForm()">Annulla</button>
+          <button class="btn btn-primary" (click)="createPost()" [disabled]="!postRequest.title.trim() || !postRequest.content.trim()">Posta</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="feed p-4">
   <app-post-card *ngFor="let post of postArr" [post]="post" [currentUserId]="currentUserId"></app-post-card>
 </div>

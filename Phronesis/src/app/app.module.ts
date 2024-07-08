@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './mainComponents/header/header.component';
-import { FooterComponent } from './mainComponents/footer/footer.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -32,7 +31,6 @@ import { CreateEditAdvertDialogComponent } from './mainComponents/dialogs/create
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent,
     AdsComponent,
     CreatePostDialogComponent,
     EditCommentDialogComponent,

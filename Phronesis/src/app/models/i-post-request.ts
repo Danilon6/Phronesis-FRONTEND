@@ -1,5 +1,5 @@
 export interface IPostRequest {
     title:string
     content:string,
-    userId:number
+    userId:number | null
 }

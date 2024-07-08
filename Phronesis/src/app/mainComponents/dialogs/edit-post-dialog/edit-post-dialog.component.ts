@@ -1,29 +1,28 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { IPost } from '../../../models/i-post';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-edit-post-dialog',
   templateUrl: './edit-post-dialog.component.html',
-  styleUrl: './edit-post-dialog.component.scss'
+  styleUrls: ['./edit-post-dialog.component.scss'],
+  providers: [NgbActiveModal]
 })
 export class EditPostDialogComponent {
   editedPost: Partial<IPost>;
 
-  constructor(
-    public dialogRef: MatDialogRef<EditPostDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { post: IPost }
-  ) {
+  constructor(public activeModal: NgbActiveModal, @Inject(MAT_DIALOG_DATA) public data: { post: IPost }) {
     this.editedPost = { ...data.post };
   }
 
   onCancel(): void {
-    this.dialogRef.close();
+    this.activeModal.dismiss();
   }
 
   onSave(): void {
     if (this.editedPost.title && this.editedPost.content) {
-      this.dialogRef.close(this.editedPost);
+      this.activeModal.close(this.editedPost);
     }
   }
 }

@@ -1,0 +1,151 @@
+$primary-color: #1C77C3; // Blu scuro
+$secondary-color: #39A9DB; // Blu chiaro
+$accent-color: #40BCD8; // Turchese
+$warning-color: #F39237; // Arancione
+$error-color: #D63230; // Rosso
+$dark-gray: #333333; // Grigio scuro
+$background-color: #111827; // Colore di sfondo scuro
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+.home-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  background-color: $background-color;
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5);
+}
+
+.left-section {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .logo-placeholder {
+    width: 200px;
+    height: 200px;
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.right-section {
+  width: 50%;
+  color: #fff;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .slogan h1 {
+    font-family: 'Roboto', sans-serif; // Font differente per il titolo
+    font-size: 48px;
+    font-weight: bold;
+    margin-bottom: 40px;
+    color: #fff;
+    text-align: center;
+  }
+
+  .auth-section {
+    width: 80%;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s;
+
+    h2 {
+      font-family: 'Roboto', sans-serif; // Font differente per il testo
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .neon-btn {
+      outline: none;
+      cursor: pointer;
+      border: none;
+      padding: 15px 0;
+      font-family: 'Roboto', sans-serif; // Font differente per i bottoni
+      font-size: 18px;
+      font-weight: 600;
+      text-align: center;
+      border-radius: 5px;
+      display: block;
+      width: 100%;
+      margin-bottom: 10px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(45deg, $accent-color, $secondary-color);
+      color: ghostwhite;
+      text-decoration: none;
+      box-shadow: 0 0 5px $accent-color, 0 0 10px $accent-color, 0 0 20px $accent-color, 0 0 40px $accent-color;
+      transition: all 0.4s;
+
+      &:hover {
+        box-shadow: 0 0 10px $accent-color, 0 0 20px $accent-color, 0 0 30px $accent-color, 0 0 50px $accent-color;
+        background: linear-gradient(45deg, $secondary-color, $accent-color);
+      }
+
+      span {
+        position: relative;
+        z-index: 10;
+      }
+
+      &::before,
+      &::after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+      }
+
+      &::before {
+        content: "";
+        background: #000;
+        width: 120%;
+        left: -10%;
+        transform: skew(30deg);
+        transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+      }
+
+      &:hover::before {
+        transform: translate3d(100%, 0, 0);
+      }
+    }
+
+    .btn-success {
+      background-color: $accent-color;
+    }
+
+    .btn-primary {
+      background-color: $secondary-color;
+    }
+
+    .terms {
+      font-size: 12px;
+      color: #fff;
+      margin: 10px 0 20px;
+
+      a {
+        color: #fff;
+        text-decoration: underline;
+      }
+    }
+
+    p {
+      margin: 5px 0;
+      color: #fff;
+    }
+  }
+}

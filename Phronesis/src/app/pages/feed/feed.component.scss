@@ -1,10 +1,96 @@
+.card {
+  width: 75%;
+  margin-bottom: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
 
+.card-body {
+  position: relative;
+}
+
+img.rounded-circle {
+  width: 50px;
+  height: 50px;
+}
+
+textarea.form-control {
+  resize: none;
+}
 
 .create-post-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 1000;
-  background-color: #007bff; /* Colore di sfondo del cerchio */
-  color: white; /* Colore dell'icona */
+  display: inline-block;
+  margin: 0 auto;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 50%;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.create-post-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.1);
+}
+
+.feed {
+  padding: 1rem;
+}
+
+.create-post-section {
+  display: none;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+.create-post-section.show {
+  display: block;
+  max-height: 1000px; /* Assicurati che sia abbastanza grande da contenere il contenuto */
+  opacity: 1;
+  animation: expandFromCenter 0.5s ease-in-out forwards;
+}
+
+.create-post-section.hide {
+  display: block;
+  max-height: 0;
+  opacity: 0;
+  animation: contractToCenter 0.5s ease-in-out forwards;
+}
+
+@keyframes expandFromCenter {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes contractToCenter {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+.container {
+  text-align: center;
+}
+
+@keyframes expandFromCenter {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

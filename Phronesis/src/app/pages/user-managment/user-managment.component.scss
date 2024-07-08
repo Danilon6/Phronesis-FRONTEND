@@ -16,15 +16,24 @@
 
 .card-body {
   padding: 20px;
+  display: flex;
+  align-items: center;
 }
 
-.img-thumbnail {
-  border-radius: 50%;
-  object-fit: cover;
+.profile-image-container {
   width: 100px;
   height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
   margin-right: 15px;
-  border: 3px solid #114384;
+  border: 3px solid #4e5052;
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .card-title {
