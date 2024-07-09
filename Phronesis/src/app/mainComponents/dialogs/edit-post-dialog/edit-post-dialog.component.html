@@ -1,24 +1,17 @@
-<div role="document" class="modal-dialog modal-dialog-centered">
-  <div class="modal-content custom-modal-content">
-    <div class="modal-header">
-      <h4 class="modal-title">Modifica Post</h4>
-      <button type="button" aria-label="Close" class="btn-close" (click)="onCancel()"></button>
-    </div>
-    <div class="modal-body">
-      <form>
-        <div class="mb-3">
-          <label for="title" class="form-label">Titolo</label>
-          <input type="text" class="form-control" id="title" [(ngModel)]="editedPost.title" name="title" placeholder="Titolo">
-        </div>
-        <div class="mb-3">
-          <label for="content" class="form-label">Contenuto</label>
-          <textarea class="form-control" id="content" [(ngModel)]="editedPost.content" name="content" placeholder="Contenuto"></textarea>
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer custom-modal-actions">
-      <button type="button" class="btn btn-secondary" (click)="onCancel()">Annulla</button>
-      <button type="button" class="btn btn-primary" (click)="onSave()" [disabled]="!editedPost.title || !editedPost.content">Salva</button>
-    </div>
-  </div>
-</div>
+<h2 mat-dialog-title>Modifica Post</h2>
+<mat-dialog-content>
+  <form>
+    <mat-form-field appearance="fill">
+      <mat-label>Titolo</mat-label>
+      <input matInput [(ngModel)]="editedPost.title" name="title" placeholder="Titolo">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Contenuto</mat-label>
+      <textarea matInput [(ngModel)]="editedPost.content" name="content" placeholder="Contenuto"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Annulla</button>
+  <button mat-button (click)="onSave()" [disabled]="!editedPost.title || !editedPost.content">Salva</button>
+</mat-dialog-actions>

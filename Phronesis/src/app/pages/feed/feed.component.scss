@@ -23,9 +23,9 @@ textarea.form-control {
   margin: 0 auto;
   background-color: #007bff;
   color: #fff;
-  border-radius: 50%;
-  width: 3.5rem;
-  height: 3.5rem;
+  border-radius: 50px; /* Cambiato da 50% a 50px per renderlo ovale */
+  width: 10rem; /* Larghezza del pulsante ovale */
+  height: 3rem; /* Altezza del pulsante ovale */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,13 +84,4 @@ textarea.form-control {
 
 .container {
   text-align: center;
-}
-
-@keyframes expandFromCenter {
-  0% {
-    transform: scale(0);
-  }
-  100% {
-    transform: scale(1);
-  }
 }

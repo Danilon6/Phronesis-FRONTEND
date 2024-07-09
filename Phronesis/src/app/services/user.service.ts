@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, tap, throwError } from 'rxjs';
 import { environment } from '../../environments/environment.development';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { IUser } from '../models/i-user';
 import { IRole } from '../models/i-role';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class UserService {
   user$ = this.userSubject.asObservable();
   userUrl: string = environment.usersUrl;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private notificationSvc:NotificationService) {
     this.getAllUsers().subscribe();
   }
 
@@ -63,6 +64,7 @@ export class UserService {
     );
   }
 
+
   addUserRole(id: number, role: string): Observable<IRole> {
     return this.http.patch<IRole>(`${this.userUrl}/${id}/addToRole?role=${role}`, null).pipe(
       tap(updatedUser => {
@@ -71,7 +73,8 @@ export class UserService {
           this.userArr[index] = { ...this.userArr[index], ...updatedUser };
           this.userSubject.next([...this.userArr]);
         }
-      })
+      }),
+      catchError(this.handleError.bind(this))
     );
   }
 
@@ -83,8 +86,25 @@ export class UserService {
           this.userArr[index] = { ...this.userArr[index], ...updatedUser };
           this.userSubject.next([...this.userArr]);
         }
-      })
+      }),
+      catchError(this.handleError.bind(this))
     );
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'Unknown error!';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side errors
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // Server-side errors
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      if (typeof error.error === 'string') {
+        errorMessage = error.error;
+      }
+    }
+    this.notificationSvc.notify(errorMessage, 'error');
+    return throwError(() => new Error(errorMessage));
   }
 
   deleteUser(id: number): Observable<IUser> {

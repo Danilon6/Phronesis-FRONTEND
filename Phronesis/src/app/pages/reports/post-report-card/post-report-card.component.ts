@@ -18,7 +18,7 @@ export class PostReportCardComponent {
     this.viewDetails.emit(this.report);
   }
 
-  deleteReport(reportId:number): void {
+  deleteReport(): void {
     this.postReportSvc.removePostReport(this.report.id).subscribe(() => {
       this.delete.emit(this.report.id);
     });

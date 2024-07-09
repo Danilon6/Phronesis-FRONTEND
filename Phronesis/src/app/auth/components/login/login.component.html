@@ -1,20 +1,45 @@
-<form>
-  <input
-  type="username"
-  name="username"
-  [(ngModel)]="loginUser.username"
-  placeholder="username"
-  class="form-control my-2">
-  <input
-  type="password"
-  name="password"
-  [(ngModel)]="loginUser.password"
-  placeholder="password"
-  class="form-control my-2">
-  <div class="form-check">
-    <input type="checkbox" class="form-check-input" id="rememberMe" [(ngModel)]="rememberMe" name="rememberMe">
-    <label class="form-check-label" for="rememberMe">Ricordami</label>
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <div class="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
+    <form (ngSubmit)="login()" class="space-y-4" #loginForm="ngForm">
+      <div>
+        <input
+          type="text"
+          name="username"
+          [(ngModel)]="loginUser.username"
+          #username="ngModel"
+          placeholder="Username"
+          class="w-full p-3 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2"
+          [ngClass]="{'border-red-500': username.invalid && (username.dirty || username.touched), 'border-green-500': username.valid && (username.dirty || username.touched)}"
+          required
+        >
+        <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-red-600 font-bold">
+          Username obbligatorio
+        </div>
+      </div>
+      <div>
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="loginUser.password"
+          #password="ngModel"
+          placeholder="Password"
+          class="w-full p-3 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2"
+          [ngClass]="{'border-red-500': (password.dirty || password.touched), 'border-green-500': (password.dirty || password.touched)}"
+          required
+        >
+        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-red-600 font-bold">
+          Password obbligatoria
+        </div>
+      </div>
+      <div class="flex items-center">
+        <input type="checkbox" class="form-check-input" id="rememberMe" [(ngModel)]="rememberMe" name="rememberMe">
+        <label class="ml-2 form-check-label" for="rememberMe">Ricordami</label>
+      </div>
+      <div>
+        <button type="submit" class="w-full py-3 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600" [disabled]="loginForm.invalid">
+          INVIA
+        </button>
+      </div>
+    </form>
   </div>
-  <button (click)="login()" class="btn btn-primary">INVIA</button>
-  <div *ngIf="errorMessage" class="text-danger fw-bold" role="alert">{{ errorMessage }}</div>
-</form>
+</div>

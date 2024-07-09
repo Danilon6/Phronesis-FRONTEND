@@ -2,7 +2,7 @@
   <div class="d-flex flex-column menu-container bg-light p-3 border shadow">
     <h2 class="text-secondary text-start fw-bolder mb-4">Menù del Sito</h2>
 
-    <button *ngIf="!isAdmin" routerLink="/feed" class="btn btn-light d-flex align-items-center mb-2 menu-button">
+    <button routerLink="/feed" class="btn btn-light d-flex align-items-center mb-2 menu-button">
       <i class="fas fa-home me-2"></i> Feed
     </button>
     <button *ngIf="!isAdmin" [routerLink]="['profile/',userId]" [queryParams]="{ section: 'favoritePosts' }" class="btn btn-light d-flex align-items-center mb-2 menu-button">

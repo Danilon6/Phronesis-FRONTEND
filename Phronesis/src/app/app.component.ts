@@ -20,6 +20,4 @@ export class AppComponent {
     console.log(this.isAdmin);
 
   }
-  ngOnDestroy(){
-  }
 }

@@ -10,28 +10,20 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   loginUser: ILoginData = {
-    username: 'danilo8',
-    password: 'password'
-  }
-
+    username: '',
+    password: ''
+  };
   rememberMe: boolean = false;
   errorMessage: string = '';
+
   constructor(
     private authSvc: AuthService,
     private router: Router
   ) { }
 
   login() {
-    this.authSvc.login(this.loginUser, this.rememberMe)
-    .subscribe({
-      next: (data) => {
-        this.router.navigate(['/feed']);
-      },
-      error: (request) => {
-        console.log(request);
-        this.errorMessage = request.error.message
-
-      }
+    this.authSvc.login(this.loginUser, this.rememberMe).subscribe(() => {
+      this.router.navigate(['/feed']);
     });
   }
 }

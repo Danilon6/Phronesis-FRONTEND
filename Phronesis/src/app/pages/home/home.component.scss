@@ -4,7 +4,7 @@ $accent-color: #40BCD8; // Turchese
 $warning-color: #F39237; // Arancione
 $error-color: #D63230; // Rosso
 $dark-gray: #333333; // Grigio scuro
-$background-color: #111827; // Colore di sfondo scuro
+$background-color: #f5f5f5; // Colore di sfondo chiaro
 
 html, body {
   height: 100%;
@@ -26,7 +26,7 @@ html, body {
   justify-content: center;
   align-items: center;
 
-  .logo-placeholder {
+  .image-placeholder {
     width: 200px;
     height: 200px;
     background-color: #fff;
@@ -36,7 +36,7 @@ html, body {
 
 .right-section {
   width: 50%;
-  color: #fff;
+  color: #333;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -48,7 +48,7 @@ html, body {
     font-size: 48px;
     font-weight: bold;
     margin-bottom: 40px;
-    color: #fff;
+    color: #333;
     text-align: center;
   }
 
@@ -56,20 +56,27 @@ html, body {
     width: 80%;
     max-width: 400px;
     padding: 20px;
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     transition: all 0.3s;
+
+    .glassmorphism {
+      padding: 20px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.14);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
 
     h2 {
       font-family: 'Roboto', sans-serif; // Font differente per il testo
       font-size: 24px;
       font-weight: bold;
       margin-bottom: 20px;
-      color: #fff;
+      color: #333;
     }
 
-    .neon-btn {
+    .btn {
       outline: none;
       cursor: pointer;
       border: none;
@@ -87,17 +94,17 @@ html, body {
       background: linear-gradient(45deg, $accent-color, $secondary-color);
       color: ghostwhite;
       text-decoration: none;
-      box-shadow: 0 0 5px $accent-color, 0 0 10px $accent-color, 0 0 20px $accent-color, 0 0 40px $accent-color;
+      box-shadow: 0 0 5px $accent-color;
       transition: all 0.4s;
-
-      &:hover {
-        box-shadow: 0 0 10px $accent-color, 0 0 20px $accent-color, 0 0 30px $accent-color, 0 0 50px $accent-color;
-        background: linear-gradient(45deg, $secondary-color, $accent-color);
-      }
 
       span {
         position: relative;
         z-index: 10;
+        transition: color 0.4s;
+      }
+
+      &:hover span {
+        color: black;
       }
 
       &::before,
@@ -124,28 +131,25 @@ html, body {
       }
     }
 
-    .btn-success {
-      background-color: $accent-color;
-    }
-
+    .btn-success,
     .btn-primary {
-      background-color: $secondary-color;
+      background-color: $accent-color;
     }
 
     .terms {
       font-size: 12px;
-      color: #fff;
+      color: #333;
       margin: 10px 0 20px;
 
       a {
-        color: #fff;
+        color: #333;
         text-decoration: underline;
       }
     }
 
     p {
       margin: 5px 0;
-      color: #fff;
+      color: #333;
     }
   }
 }

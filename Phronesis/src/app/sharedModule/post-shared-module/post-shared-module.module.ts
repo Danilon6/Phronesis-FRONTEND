@@ -6,7 +6,6 @@ import { PostCardComponent } from './post-card/post-card.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModuleRoutingModule } from './post-shared-module-routing.module';
 
-
 @NgModule({
   declarations: [
     PostCardComponent

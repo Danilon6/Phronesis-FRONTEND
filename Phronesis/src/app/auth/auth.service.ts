@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { IUser } from '../models/i-user';
-import { BehaviorSubject, Observable, map, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, tap, throwError } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment.development';
 import { ILoginData } from '../models/i-login-data';
 import { RoleType } from '../models/role-type';
+import { NotificationService } from '../services/notification.service';
 
 type accessData = {
   user:Partial<IUser>
@@ -36,7 +37,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private notificationSvc:NotificationService
   ) {
     this.getUserAfterRefresh()
   }
@@ -55,31 +57,35 @@ export class AuthService {
       }
     }
 
-    register(newUser:FormData):Observable<Partial<IUser>>{
+    register(newUser: FormData): Observable<Partial<IUser>> {
       return this.http.post<Partial<IUser>>(this.registerUrl, newUser)
+        .pipe(catchError(this.handleError.bind(this)));
     }
 
-    enable(token:String):Observable<String>{
-      return this.http.get<String>(`${this.enablingUrl}?token=${token}`)
+    enable(token:String):Observable<any>{
+      return this.http.get<any>(`${this.enablingUrl}?token=${token}`, { responseType: 'text' as 'json' })
     }
 
-    requestNewVerificationToken(email:String):Observable<String> {
-      return this.http.get<String>(`${this.requestNewVerificationUrl}?email=${email}`)
+    requestNewVerificationToken(email:string):Observable<any> {
+      return this.http.get<any>(`${this.requestNewVerificationUrl}?email=${email}`, { responseType: 'text' as 'json' })
     }
 
-    login(loginData:ILoginData, rememberMe:boolean):Observable<accessData>{
+    login(loginData: ILoginData, rememberMe: boolean): Observable<accessData> {
       return this.http.post<accessData>(this.loginUrl, loginData)
-      .pipe(tap(data => {
-        this.authSubject.next(data.user)
-        this.updateAdminStatus(data.user);
-        this.syncIsLoggedIn = true;
-        if (rememberMe) {
-          localStorage.setItem('accessData', JSON.stringify(data));
-        } else {
-          sessionStorage.setItem('accessData', JSON.stringify(data));
-        }
-        this.autologout(data.token)
-      }))
+        .pipe(
+          tap(data => {
+            this.authSubject.next(data.user);
+            this.updateAdminStatus(data.user);
+            this.syncIsLoggedIn = true;
+            if (rememberMe) {
+              localStorage.setItem('accessData', JSON.stringify(data));
+            } else {
+              sessionStorage.setItem('accessData', JSON.stringify(data));
+            }
+            this.autologout(data.token);
+          }),
+          catchError(this.handleError.bind(this))
+        );
     }
 
     logout(){
@@ -127,5 +133,14 @@ export class AuthService {
     getCurrentUserId(): number | null {
       const currentUser = this.authSubject.value;
       return currentUser?.id ?? null;
+    }
+
+    private handleError(error: HttpErrorResponse): Observable<never> {
+      let errorMessage = 'Unknown error!';
+        // Client-side errors
+        errorMessage = `Error: ${error.error.message}`;
+
+      this.notificationSvc.notify(errorMessage, 'error');
+      return throwError(() => new Error(errorMessage));
     }
   }

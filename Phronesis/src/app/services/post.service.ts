@@ -77,7 +77,9 @@ export class PostService {
   delete(id:number):Observable<IPost> {
     return this.http.delete<IPost>(`${this.postUrl}/${id}`)
     .pipe(tap(() => {
-      this.postArr = this.postArr.filter(p => p.id != id)
+      const index = this.postArr.findIndex(p => p.id == id)
+      this.postArr.splice(index, 1)
+      // this.postArr = this.postArr.filter(p => p.id != id)
       this.postSubject.next(this.postArr)
     }))
   }

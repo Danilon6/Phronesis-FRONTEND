@@ -6,6 +6,7 @@ import { map, tap } from 'rxjs/operators';
 import { IUserReportResponse } from '../models/report/i-user-report-response';
 import { IUserReportRequest } from '../models/report/i-user-report-request';
 import { AuthService } from '../auth/auth.service';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,14 +19,14 @@ export class UserReportService {
 
   userReports$ = this.userReportSubject.asObservable();
 
-  userReportUrl: string = environment.userReportUrl
+  userReportUrl: string = environment.userReportUrl;
 
-  constructor(private http: HttpClient, private authSvc:AuthService) {
-    this.authSvc.isAdmin$.subscribe(isAdmin =>{
-      if(isAdmin) {
+  constructor(private http: HttpClient, private authSvc: AuthService, private notificationSvc: NotificationService) {
+    this.authSvc.isAdmin$.subscribe(isAdmin => {
+      if (isAdmin) {
         this.getAllUserReports().subscribe();
       }
-    })
+    });
   }
 
   getAllUserReports(): Observable<IUserReportResponse[]> {
@@ -65,16 +66,28 @@ export class UserReportService {
       tap(newUserReport => {
         this.userReportArr.push(newUserReport);
         this.userReportSubject.next([...this.userReportArr]);
+        this.notificationSvc.notify('Segnalazione utente aggiunta con successo', 'success');
       })
     );
   }
 
   removeUserReport(id: number): Observable<IUserReportResponse> {
-    return this.http.delete<IUserReportResponse>(`${this.userReportUrl}/${id}`).pipe(
-      tap(() => {
-        this.userReportArr = this.userReportArr.filter(report => report.id !== id);
-        this.userReportSubject.next([...this.userReportArr]);
-      })
-    );
+    return new Observable(observer => {
+      this.notificationSvc.confirm('Sei sicuro di voler eliminare questa segnalazione?').then(result => {
+        if (result.isConfirmed) {
+          this.http.delete<IUserReportResponse>(`${this.userReportUrl}/${id}`).pipe(
+            tap(() => {
+              this.userReportArr = this.userReportArr.filter(report => report.id !== id);
+              this.userReportSubject.next([...this.userReportArr]);
+              this.notificationSvc.notify('Segnalazione utente rimossa con successo', 'success');
+              observer.next();
+              observer.complete();
+            })
+          ).subscribe();
+        } else {
+          observer.complete();
+        }
+      });
+    });
   }
 }

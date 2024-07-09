@@ -22,6 +22,7 @@ export class FeedComponent {
   showCreatePostForm: boolean = false;
   hideCreatePostForm: boolean = false;
 
+
   postRequest:IPostRequest = {
     title: "",
     content:"",

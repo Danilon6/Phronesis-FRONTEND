@@ -1,0 +1,62 @@
+.enabling-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+.enabling-card {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  animation: float 2s infinite ease-in-out;
+  border-left: 5px solid;
+}
+
+.enabling-card.success {
+  border-color: #28a745;
+}
+
+.enabling-card.error {
+  border-color: #dc3545;
+}
+
+.enabling-card h2 {
+  color: #28a745; /* Verde per il titolo di successo */
+}
+
+.enabling-card.error h2 {
+  color: #dc3545; /* Rosso per il titolo di errore */
+}
+
+.enabling-card p {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.enabling-card button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.enabling-card button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}

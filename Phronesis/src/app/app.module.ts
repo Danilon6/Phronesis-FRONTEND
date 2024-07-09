@@ -27,6 +27,8 @@ import { ReportDetailsComponent } from './mainComponents/dialogs/report-details/
 import { BanUserDialogComponent } from './mainComponents/dialogs/ban-user-dialog/ban-user-dialog.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { CreateEditAdvertDialogComponent } from './mainComponents/dialogs/create-edit-advert-dialog/create-edit-advert-dialog.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +44,7 @@ import { CreateEditAdvertDialogComponent } from './mainComponents/dialogs/create
     UpdateProfilePictureComponent,
     ReportDetailsComponent,
     BanUserDialogComponent,
-    CreateEditAdvertDialogComponent,
+    CreateEditAdvertDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,8 @@ import { CreateEditAdvertDialogComponent } from './mainComponents/dialogs/create
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatExpansionModule
+    MatExpansionModule,
+    SweetAlert2Module.forRoot()  // Importa SweetAlert2
   ],
   providers: [
     {

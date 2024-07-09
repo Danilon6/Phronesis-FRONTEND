@@ -20,6 +20,7 @@ import { IUserReportRequest } from '../../../models/report/i-user-report-request
 import { UserReportService } from '../../../services/user-report.service';
 import { PostReportService } from '../../../services/post-report.service';
 import { IPostReportRequest } from '../../../models/report/i-post-report-request';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-post-card',
@@ -28,43 +29,47 @@ import { IPostReportRequest } from '../../../models/report/i-post-report-request
 })
 export class PostCardComponent {
   @Input() post!: IPost;
-
   @Input() currentUserId!: number | null;
 
   showComments: { [key: number]: boolean } = {};
   newComment: { content: string } = { content: '' };
-  postArr:IPost[] = []
+  postArr: IPost[] = [];
   favoriteArr: IFavorite[] = [];
 
   constructor(private dialog: MatDialog,
-    private postSvc:PostService,
-  private authSvc:AuthService,
-  private commentSvc:CommentService,
-private likeSvc:LikeService,
-private favoriteSvc:FavoriteService,
-private userReportSvc:UserReportService,
-private postReportSvc:PostReportService) {
-}
+              private postSvc: PostService,
+              private authSvc: AuthService,
+              private commentSvc: CommentService,
+              private likeSvc: LikeService,
+              private favoriteSvc: FavoriteService,
+              private userReportSvc: UserReportService,
+              private postReportSvc: PostReportService,
+              private notificationSvc: NotificationService) {}
 
   ngOnInit(): void {
     this.postSvc.post$.subscribe(postArr => {
-      this.postArr = postArr
-  });
-  if (this.currentUserId) {
-    this.favoriteSvc.getAllByUserId(this.currentUserId).subscribe(favorites => {
-      this.favoriteArr = favorites;
+      this.postArr = postArr;
+    });
+
+    if (this.currentUserId) {
+      this.favoriteSvc.getAllByUserId(this.currentUserId).subscribe(favorites => {
+        this.favoriteArr = favorites;
       });
     }
   }
 
-
-
-  //ELIMINAZIONE DEL POST
-  deletePost(postId:number) {
-    this.postSvc.delete(postId).subscribe()
+  // ELIMINAZIONE DEL POST
+  deletePost(postId: number) {
+    this.notificationSvc.confirm('Sei sicuro di voler eliminare questo post?').then(result => {
+      if (result.isConfirmed) {
+        this.postSvc.delete(postId).subscribe(() => {
+          this.notificationSvc.notify('Post eliminato con successo', 'success');
+        });
+      }
+    });
   }
 
-  //GESTIONE DEI DIALOGS
+  // GESTIONE DEI DIALOGS
 
   openEditPostDialog(post: IPost): void {
     const dialogRef = this.dialog.open(EditPostDialogComponent, {
@@ -74,33 +79,39 @@ private postReportSvc:PostReportService) {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const editedPost:Partial<IPost> = {title: result.title, content: result.content };
-        this.postSvc.update(result.id, editedPost).subscribe();
+        this.notificationSvc.confirm('Sei sicuro di voler modificare questo post?').then(confirmResult => {
+          if (confirmResult.isConfirmed) {
+            const editedPost: Partial<IPost> = { title: result.title, content: result.content };
+            this.postSvc.update(post.id, editedPost).subscribe(postUpdated => {
+              this.notificationSvc.notify(`Post: '${post.title}' modificato con successo`, 'success');
+            });
+          }
+        });
       }
     });
   }
 
-
-  openEditCommentDialog(comment: IComment, postId:number): void {
-    console.log(comment,"comemnto da modficare");
+  openEditCommentDialog(comment: IComment, postId: number): void {
     const dialogRef = this.dialog.open(EditCommentDialogComponent, {
       width: '250px',
       data: { comment }
-
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-
       if (result) {
-        const editedComment = { ...comment, content: result.content };
-        this.commentSvc.update(editedComment).subscribe(updatedComment => {
-          const postIndex = this.postArr.findIndex(p => p.id === postId);
-          if (postIndex !== -1) {
-            const commentIndex = this.postArr[postIndex].comments.findIndex(c => c.id === updatedComment.id);
-            if (commentIndex !== -1) {
-              this.postArr[postIndex].comments[commentIndex] = updatedComment;
-            }
+        this.notificationSvc.confirm('Sei sicuro di voler modificare questo commento?').then(confirmResult => {
+          if (confirmResult.isConfirmed) {
+            const editedComment = { ...comment, content: result.content };
+            this.commentSvc.update(editedComment).subscribe(updatedComment => {
+              const postIndex = this.postArr.findIndex(p => p.id === postId);
+              if (postIndex !== -1) {
+                const commentIndex = this.postArr[postIndex].comments.findIndex(c => c.id === updatedComment.id);
+                if (commentIndex !== -1) {
+                  this.postArr[postIndex].comments[commentIndex] = updatedComment;
+                  this.notificationSvc.notify('Commento modificato con successo', 'success');
+                }
+              }
+            });
           }
         });
       }
@@ -111,15 +122,11 @@ private postReportSvc:PostReportService) {
   toggleComments(post: IPost): void {
     const postId = post.id;
     if (!this.showComments[postId]) {
-      // Se i commenti non sono visibili, impostali su visibili e carica i commenti
       this.showComments[postId] = true;
       this.commentSvc.getAllByPostId(postId).subscribe(comments => {
-        console.log(comments);
-
         post.comments = comments;
       });
     } else {
-      // Se i commenti sono già visibili, nascondili
       this.showComments[postId] = false;
     }
   }
@@ -131,15 +138,19 @@ private postReportSvc:PostReportService) {
       userId: this.currentUserId as number
     };
     this.commentSvc.addComment(newCommentRequest).subscribe(comment => {
-      console.log(post.comments);
       post.comments.push(comment);
       this.newComment.content = '';
     });
   }
 
   deleteComment(commentId: number, post: IPost) {
-    this.commentSvc.delete(commentId).subscribe(() => {
-      post.comments = post.comments.filter(comment => comment.id !== commentId);
+    this.notificationSvc.confirm('Sei sicuro di voler eliminare questo commento?').then(result => {
+      if (result.isConfirmed) {
+        this.commentSvc.delete(commentId).subscribe(() => {
+          post.comments = post.comments.filter(comment => comment.id !== commentId);
+          this.notificationSvc.notify('Commento eliminato con successo', 'success');
+        });
+      }
     });
   }
 
@@ -161,21 +172,17 @@ private postReportSvc:PostReportService) {
         userId: this.currentUserId as number
       };
       this.likeSvc.addLike(newLike).subscribe(like => {
-        console.log(like);
         if (!post.likes) {
           post.likes = [];
         }
-        console.log(post.likes);
-        post.likes. push(like as ILike);
-
-
+        post.likes.push(like as ILike);
       });
     }
   }
 
   viewLikes(post: IPost): void {
     this.likeSvc.getAllLikesByPostId(post.id).subscribe(likes => {
-      const dialogRef = this.dialog.open(LikeListDialogComponent, {
+      this.dialog.open(LikeListDialogComponent, {
         width: '400px',
         data: { likes }
       });
@@ -191,7 +198,6 @@ private postReportSvc:PostReportService) {
     const userId = this.currentUserId as number;
 
     if (this.isFavorite(postId)) {
-      // Rimuovi dai preferiti
       const favorite = this.favoriteArr.find(fav => fav.post.id === postId && fav.user.id === userId);
       if (favorite) {
         this.favoriteSvc.removeFromFavorite(favorite.id).subscribe(() => {
@@ -199,7 +205,6 @@ private postReportSvc:PostReportService) {
         });
       }
     } else {
-      // Aggiungi ai preferiti
       const newFavorite: IUserPostInteractionRequest = {
         postId: postId,
         userId: userId
@@ -211,37 +216,49 @@ private postReportSvc:PostReportService) {
   }
 
   reportPost(postId: number): void {
-    const dialogRef = this.dialog.open(ReportDialogComponent, {
-      width: '300px',
-      data: { reportType: 'post'}
-    });
+    this.notificationSvc.confirm('Sei sicuro di voler segnalare questo post?').then(result => {
+      if (result.isConfirmed) {
+        const dialogRef = this.dialog.open(ReportDialogComponent, {
+          width: '300px',
+          data: { reportType: 'post'}
+        });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const reportRequest: IPostReportRequest = {
-          reportedById: this.currentUserId as number,
-          reportedPostId: postId,
-          reason: result.reason
-        };
-        this.postReportSvc.addPostReport(reportRequest).subscribe();
+        dialogRef.afterClosed().subscribe(dialogResult => {
+          if (dialogResult) {
+            const reportRequest: IPostReportRequest = {
+              reportedById: this.currentUserId as number,
+              reportedPostId: postId,
+              reason: dialogResult.reason
+            };
+            this.postReportSvc.addPostReport(reportRequest).subscribe(() => {
+              this.notificationSvc.notify('Post segnalato con successo', 'success');
+            });
+          }
+        });
       }
     });
   }
 
   reportUser(userId: number): void {
-    const dialogRef = this.dialog.open(ReportDialogComponent, {
-      width: '300px',
-      data: { reportType: 'user'}
-    });
+    this.notificationSvc.confirm('Sei sicuro di voler segnalare questo utente?').then(result => {
+      if (result.isConfirmed) {
+        const dialogRef = this.dialog.open(ReportDialogComponent, {
+          width: '300px',
+          data: { reportType: 'user'}
+        });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const reportRequest: IUserReportRequest = {
-          reportedById: this.currentUserId as number,
-          reportedUserId: userId,
-          reason: result.reason
-        };
-        this.userReportSvc.addUserReport(reportRequest).subscribe();
+        dialogRef.afterClosed().subscribe(dialogResult => {
+          if (dialogResult) {
+            const reportRequest: IUserReportRequest = {
+              reportedById: this.currentUserId as number,
+              reportedUserId: userId,
+              reason: dialogResult.reason
+            };
+            this.userReportSvc.addUserReport(reportRequest).subscribe(() => {
+              this.notificationSvc.notify('Utente segnalato con successo', 'success');
+            });
+          }
+        });
       }
     });
   }

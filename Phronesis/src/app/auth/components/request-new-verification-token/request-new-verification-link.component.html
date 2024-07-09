@@ -1,1 +1,12 @@
-<p>request-new-verification-link works!</p>
+<div *ngIf="!isReady" class="loader-container">
+  <div class="loader"></div>
+</div>
+
+<div *ngIf="isReady" class="request-new-token-container">
+  <div class="request-new-token-card" [ngClass]="{'error': isError, 'success': !isError}">
+    <h2 *ngIf="!isError">Nuovo link inviato</h2>
+    <h2 *ngIf="isError">Errore</h2>
+    <p>{{ message }}</p>
+    <button (click)="redirectToLogin()">Vai al Login</button>
+  </div>
+</div>
