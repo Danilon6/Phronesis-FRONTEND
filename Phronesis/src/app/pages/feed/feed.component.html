@@ -1,5 +1,5 @@
 <div class="container mt-4 text-center">
-  <button *ngIf="!showCreatePostForm" class="btn btn-primary mb-4 create-post-button" (click)="toggleCreatePostForm()">Crea Post</button>
+  <button *ngIf="!showCreatePostForm" class="btn btn-primary mb-4 create-post-button" (click)="toggleCreatePostForm()"> <i class="fas fa-pen me-2"></i> Crea Post</button>
   <div class="card w-75 mx-auto create-post-section" [ngClass]="{'show': showCreatePostForm, 'hide': hideCreatePostForm}">
     <div class="card-body">
       <div class="d-flex align-items-start mb-4">

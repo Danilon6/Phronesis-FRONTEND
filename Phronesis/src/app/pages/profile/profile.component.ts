@@ -57,6 +57,7 @@ export class ProfileComponent {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       const userId = +params['userId'];
+
       if (userId) {
         this.userSvc.getUserById(userId).subscribe(user => {
           this.user = user;
@@ -64,16 +65,16 @@ export class ProfileComponent {
           if (this.isOtherUser) {
             this.checkIfFollowing();
           }
-          this.loadUserPosts();
           this.loadFollowCounts();
-        });
 
-        this.route.queryParams.subscribe(params => {
-          this.selectedSection = params['section'] || 'posts';
-          this.updatePosts();
+          // Update posts based on the selected section
+          this.route.queryParams.subscribe(queryParams => {
+            this.selectedSection = queryParams['section'] || 'posts';
+            this.updatePosts();
+          });
         });
       }
-    })
+    });
 
     this.postSvc.post$.subscribe(posts => {
 

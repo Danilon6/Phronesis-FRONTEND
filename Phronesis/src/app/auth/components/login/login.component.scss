@@ -1,8 +1,30 @@
-/* Aggiungi questi stili al tuo file SCSS */
-.border-red-500 {
-  border-color: #f56565; /* Rosso */
+.relative {
+  position: relative;
 }
 
-.border-green-500 {
-  border-color: #48bb78; /* Verde */
+label.transtionall {
+  position: absolute;
+  left: 1rem;
+  top: 0.75rem;
+  color: gray;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+input:focus + label,
+input:not(:placeholder-shown) + label {
+  top: -0.75rem;
+  left: 0.75rem;
+  font-size: 0.75rem;
+  background: white;
+  padding: 0 0.25rem;
+}
+
+.text-green-500 {
+  color: green;
+}
+
+.text-red-500 {
+  color: red;
 }

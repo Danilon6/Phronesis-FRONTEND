@@ -5,6 +5,7 @@ import { RoleType } from '../../models/role-type';
 import { MatDialog } from '@angular/material/dialog';
 import { BanUserDialogComponent } from '../../mainComponents/dialogs/ban-user-dialog/ban-user-dialog.component';
 import { NotificationService } from '../../services/notification.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-roles',

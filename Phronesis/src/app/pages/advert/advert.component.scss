@@ -4,3 +4,23 @@
   aspect-ratio: 16/9;
   object-fit: cover;
 }
+
+.create-post-button {
+  display: inline-block;
+  margin: 0 auto;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 50px; /* Cambiato da 50% a 50px per renderlo ovale */
+  width: 10rem; /* Larghezza del pulsante ovale */
+  height: 3rem; /* Altezza del pulsante ovale */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.create-post-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.1);
+}

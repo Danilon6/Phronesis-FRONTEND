@@ -8,6 +8,7 @@ import { UserService } from '../../../services/user.service';
 import { PostService } from '../../../services/post.service';
 import { BanUserDialogComponent } from '../ban-user-dialog/ban-user-dialog.component';
 import { NotificationService } from '../../../services/notification.service';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-report-details',
@@ -17,17 +18,22 @@ import { NotificationService } from '../../../services/notification.service';
 export class ReportDetailsComponent {
   report: IUserReportResponse | IPostReportResponse;
   type: 'user' | 'post';
-
+  isAdmin!:boolean
   constructor(
+
     @Inject(MAT_DIALOG_DATA) public data: { report: IUserReportResponse | IPostReportResponse, type: 'user' | 'post' },
     public dialogRef: MatDialogRef<ReportDetailsComponent>,
     public dialogUserBan: MatDialog,
     private userSvc: UserService,
     private postSvc: PostService,
-    private notificationSvc: NotificationService
+    private notificationSvc: NotificationService,
+    private authSvc:AuthService
   ) {
     this.report = data.report;
+    console.log(data.report
+    );
     this.type = data.type;
+    this.authSvc.isAdmin$.subscribe(isAdmin => this.isAdmin = isAdmin)
   }
 
   isUserReport(report: IUserReportResponse | IPostReportResponse): report is IUserReportResponse {

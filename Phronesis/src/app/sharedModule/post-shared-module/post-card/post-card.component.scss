@@ -7,12 +7,39 @@
   position: relative;
 }
 
-img.rounded-circle {
+.image-wrapper {
   width: 50px;
   height: 50px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 2px solid #4e5052; /* Aggiunta di un bordo grigio */
+}
+
+img.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 textarea.form-control {
   resize: none;
 }
 
+.image-wrapper-small {
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 2px solid #4e5052; /* Aggiunta di un bordo grigio */
+}
+
+.profile-link {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s,
+}
+
+.profile-link:hover {
+  color: #007bff;
+}

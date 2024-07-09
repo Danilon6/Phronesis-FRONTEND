@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { IPostReportRequest } from '../models/report/i-post-report-request';
 import { AuthService } from '../auth/auth.service';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class PostReportService {
 
   postReportUrl: string = environment.postReportUrl
 
-  constructor(private http: HttpClient, private authSvc:AuthService) {
+  constructor(private http: HttpClient, private authSvc:AuthService, private notificationSvc:NotificationService) {
     this.authSvc.isAdmin$.subscribe(isAdmin =>{
       if(isAdmin) {
         this.getAllpostReports().subscribe();
@@ -72,6 +73,7 @@ export class PostReportService {
       tap(() => {
         this.postReportArr = this.postReportArr.filter(report => report.id !== id);
         this.postReportSubject.next([...this.postReportArr]);
+        this.notificationSvc.notify('Report post eliminato con successo', 'success');
       })
     );
   }

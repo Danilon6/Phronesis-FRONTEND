@@ -2,10 +2,12 @@
   <div class="card-body">
     <div class="d-flex justify-content-between">
       <div class="d-flex align-items-center">
-        <img [src]="post.user.profilePicture" class="rounded-circle me-3" alt="Profile Picture">
+        <div class="image-wrapper me-3">
+          <img [src]="post.user.profilePicture" class="profile-image rounded-circle" alt="Profile Picture">
+        </div>
         <div>
           <h5 class="mb-0">
-            <a [routerLink]="['/profile', post.user.id]">{{ post.user.username }}</a>
+            <a [routerLink]="['/profile', post.user.id]" class="profile-link">{{ post.user.username }}</a>
           </h5>
           <small class="text-muted">{{ post.createdAt | date:'short' }}</small>
         </div>
@@ -47,7 +49,9 @@
         <div class="card-body">
           <div class="d-flex justify-content-between">
             <div class="d-flex align-items-center">
-              <img [src]="comment.user.profilePicture" class="rounded-circle me-3" alt="Profile Picture" width="30">
+              <div class="image-wrapper-small me-3">
+                <img [src]="comment.user.profilePicture" class="profile-image rounded-circle" alt="Profile Picture">
+              </div>
               <div>
                 <h6 class="mb-0">{{ comment.user.username }}</h6>
                 <small class="text-muted">{{ comment.createdAt | date:'short' }}</small>

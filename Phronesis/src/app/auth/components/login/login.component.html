@@ -1,40 +1,51 @@
 <div class="flex items-center justify-center min-h-screen bg-gray-100">
   <div class="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
     <form (ngSubmit)="login()" class="space-y-4" #loginForm="ngForm">
-      <div>
+      <div class="relative">
         <input
           type="text"
           name="username"
           [(ngModel)]="loginUser.username"
           #username="ngModel"
-          placeholder="Username"
           class="w-full p-3 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2"
           [ngClass]="{'border-red-500': username.invalid && (username.dirty || username.touched), 'border-green-500': username.valid && (username.dirty || username.touched)}"
           required
+        />
+        <label
+          class="absolute left-3 top-3 text-gray-500 transition-all"
+          [ngClass]="{'top-[-10px] text-xs text-green-500': username.value, 'top-3 text-base': !username.value, 'text-red-500': username.invalid && (username.dirty || username.touched)}"
         >
+          Username
+        </label>
         <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-red-600 font-bold">
           Username obbligatorio
         </div>
       </div>
-      <div>
+      <div class="relative">
         <input
           type="password"
           name="password"
           [(ngModel)]="loginUser.password"
           #password="ngModel"
-          placeholder="Password"
           class="w-full p-3 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2"
-          [ngClass]="{'border-red-500': (password.dirty || password.touched), 'border-green-500': (password.dirty || password.touched)}"
+          [ngClass]="{'border-red-500': password.invalid && (password.dirty || password.touched), 'border-green-500': password.valid && (password.dirty || password.touched)}"
           required
+        />
+        <label
+          class="absolute left-3 top-3 text-gray-500 transition-all"
+          [ngClass]="{'top-[-10px] text-xs text-green-500': password.value, 'top-3 text-base': !password.value, 'text-red-500': password.invalid && (password.dirty || password.touched)}"
         >
+          Password
+        </label>
         <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-red-600 font-bold">
           Password obbligatoria
         </div>
       </div>
-      <div class="flex items-center">
+      <div class="flex items-center space-x-2">
         <input type="checkbox" class="form-check-input" id="rememberMe" [(ngModel)]="rememberMe" name="rememberMe">
-        <label class="ml-2 form-check-label" for="rememberMe">Ricordami</label>
+        <label class="form-check-label text-gray-700" for="rememberMe">Ricordami</label>
       </div>
+
       <div>
         <button type="submit" class="w-full py-3 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600" [disabled]="loginForm.invalid">
           INVIA

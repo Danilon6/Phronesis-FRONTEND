@@ -72,22 +72,12 @@ export class UserReportService {
   }
 
   removeUserReport(id: number): Observable<IUserReportResponse> {
-    return new Observable(observer => {
-      this.notificationSvc.confirm('Sei sicuro di voler eliminare questa segnalazione?').then(result => {
-        if (result.isConfirmed) {
-          this.http.delete<IUserReportResponse>(`${this.userReportUrl}/${id}`).pipe(
-            tap(() => {
-              this.userReportArr = this.userReportArr.filter(report => report.id !== id);
-              this.userReportSubject.next([...this.userReportArr]);
-              this.notificationSvc.notify('Segnalazione utente rimossa con successo', 'success');
-              observer.next();
-              observer.complete();
-            })
-          ).subscribe();
-        } else {
-          observer.complete();
-        }
-      });
-    });
+    return this.http.delete<IUserReportResponse>(`${this.userReportUrl}/${id}`).pipe(
+      tap(() => {
+        this.userReportArr = this.userReportArr.filter(report => report.id !== id);
+        this.userReportSubject.next([...this.userReportArr]);
+        this.notificationSvc.notify('Segnalazione utente rimossa con successo', 'success');
+      })
+    );
   }
 }

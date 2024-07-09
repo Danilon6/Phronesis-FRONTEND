@@ -1,51 +1,55 @@
-<div *ngIf="report" mat-dialog-title>
-  <h2>Dettagli Report</h2>
+<div *ngIf="report" mat-dialog-title class="report-dialog-title d-flex justify-content-between align-items-center">
+  <h2 class="title">Dettagli del Report</h2>
+  <button mat-icon-button (click)="dialogRef.close()" aria-label="Close" class="close-button">
+    <mat-icon>close</mat-icon>
+  </button>
 </div>
-<div mat-dialog-content>
+<div mat-dialog-content class="report-dialog-content">
   <div *ngIf="isUserReport(report)">
     <h3>Report su Utente</h3>
-    <p>ID Report: {{ report.createdAt }}</p>
-    <p>Segnalato da: {{ report.reportedBy.username }}</p>
-    <p>Motivo: {{ report.reason }}</p>
-    <p>Dettagli dell'utente segnalato</p>
+    <p><strong>ID Report:</strong> {{ report.createdAt }}</p>
+    <p><strong>Segnalato da:</strong> {{ report.reportedBy.username }}</p>
+    <p><strong>Motivo:</strong> {{ report.reason }}</p>
+    <h4 class="mt-4">Dettagli dell'utente segnalato</h4>
     <div class="card mb-3">
       <div class="card-header bg-light">
-        <span>ID Utente: {{ report.reportedUser.id }}</span>
+        <span><strong>ID Utente:</strong> {{ report.reportedUser.id }}</span>
       </div>
       <div class="card-body d-flex align-items-center">
         <img [src]="report.reportedUser.profilePicture" class="rounded-circle me-3" alt="Profile Picture" width="50" height="50">
-        <span>{{ report.reportedUser.username }}</span>
+        <span class="fw-bold">{{ report.reportedUser.username }}</span>
       </div>
     </div>
-    <div *ngIf="report.reportedUser.id">
-      <button class="btn btn-danger" (click)="openBanUserDialog(report.reportedUser.id)">Banna Utente</button>
-      <button class="btn btn-success" *ngIf="report.reportedUser.banned" (click)="unbanUser(report.reportedUser.id)">Sblocca Utente</button>
+    <div *ngIf="report.reportedUser.id" class="text-center mt-3">
+      <button (click)="report.reportedUser.banned ? unbanUser(report.reportedUser.id) : openBanUserDialog(report.reportedUser.id)"
+              class="btn"
+              [ngClass]="{'btn-danger': !report.reportedUser.banned, 'btn-warning': report.reportedUser.banned}" [disabled]="isAdmin">
+        <i class="fas" [ngClass]="{'fa-ban': !report.reportedUser.banned, 'fa-unlock': report.reportedUser.banned}"></i>
+        {{ report.reportedUser.banned ? 'Sblocca Utente' : 'Banna Utente' }}
+      </button>
     </div>
   </div>
   <div *ngIf="isPostReport(report)">
-    <h3>Report su Post</h3>
-    <p>ID Report: {{ report.id }}</p>
-    <p>Segnalato da: {{ report.reportedBy.username }}</p>
-    <p>Motivo: {{ report.reason }}</p>
-    <p>Dettagli del post segnalato</p>
+    <h3 class="text">Report su Post</h3>
+    <p><strong>ID Report:</strong> {{ report.id }}</p>
+    <p><strong>Segnalato da:</strong> {{ report.reportedBy.username }}</p>
+    <p><strong>Motivo:</strong> {{ report.reason }}</p>
+    <h4 class="mt-4">Dettagli del post segnalato</h4>
     <div class="card mb-3">
       <div class="card-header bg-light">
-        <span>ID Post: {{ report.reportedPost.id }}</span>
+        <span><strong>ID Post:</strong> {{ report.reportedPost.id }}</span>
       </div>
       <div class="card-body">
-        <h5 class="card-title">Titolo: {{ report.reportedPost.title }}</h5>
-        <p>Autore del post:</p>
+        <h5 class="card-title"><strong>Titolo:</strong> {{ report.reportedPost.title }}</h5>
+        <p><strong>Autore del post:</strong></p>
         <div class="d-flex align-items-center">
           <img [src]="report.reportedPost.user?.profilePicture" class="rounded-circle me-3" alt="Profile Picture" width="50" height="50">
-          <span>{{ report.reportedPost.user?.username }}</span>
+          <span class="fw-bold">{{ report.reportedPost.user?.username }}</span>
         </div>
       </div>
     </div>
-    <div *ngIf="report.reportedPost.id">
+    <div *ngIf="report.reportedPost.id" class="text-center mt-3">
       <button class="btn btn-danger" (click)="deletePost(report.reportedPost.id)">Elimina Post e report</button>
     </div>
   </div>
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="dialogRef.close()">Chiudi</button>
 </div>

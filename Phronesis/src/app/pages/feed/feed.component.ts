@@ -8,6 +8,7 @@ import { FavoriteService } from '../../services/favorite.service';
 import { IFavorite } from '../../models/i-favorite';
 import { IPostRequest } from '../../models/i-post-request';
 import { IUser } from '../../models/i-user';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-feed',
@@ -33,7 +34,8 @@ export class FeedComponent {
     private dialog: MatDialog,
     private postSvc: PostService,
     private authSvc: AuthService,
-    private favoriteSvc: FavoriteService
+    private favoriteSvc: FavoriteService,
+    private notificationSvc:NotificationService
   ) {
     this.currentUserId = this.authSvc.getCurrentUserId();
     this.authSvc.$user.subscribe(user=>{
@@ -96,7 +98,17 @@ export class FeedComponent {
     };
 
     this.postSvc.addPost(postRequest).subscribe(() =>{
+      this.notificationSvc.notify('Post creato con successo', 'success');
+      this.resetPostRequest();
       this.hideCreatePost();
     });
+  }
+
+  private resetPostRequest(): void {
+    this.postRequest = {
+      title: "",
+      content: "",
+      userId: this.currentUserId
+    };
   }
 }

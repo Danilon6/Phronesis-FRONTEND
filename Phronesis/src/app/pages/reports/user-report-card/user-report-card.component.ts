@@ -25,13 +25,15 @@ export class UserReportCardComponent {
   }
 
   deleteReport(): void {
-    // this.notificationSvc.confirm('Sei sicuro di voler eliminare questo report utente?').then(result => {
-    //   if (result.isConfirmed) {
+    this.notificationSvc.confirm('Sei sicuro di voler eliminare questo report utente?').then(result => {
+      if (result.isConfirmed) {
         this.userReportSvc.removeUserReport(this.report.id).subscribe(() => {
           this.delete.emit(this.report.id);
           this.notificationSvc.notify('Report utente eliminato con successo', 'success');
         });
-      // }
-    // });
+      }
+    });
   }
 }
+
+
