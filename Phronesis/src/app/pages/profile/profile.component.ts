@@ -18,7 +18,7 @@ import { EditUserDialogComponent } from '../../mainComponents/dialogs/edit-user-
 import { ReportDialogComponent } from '../../mainComponents/dialogs/report-dialog/report-dialog.component';
 import { IUserReportRequest } from '../../models/report/i-user-report-request';
 import { UserReportService } from '../../services/user-report.service';
-import { UpdateProfilePictureComponent } from '../../mainComponents/dialogs/update-profile-picture/update-profile-picture.component';
+import { UpdatePictureComponent } from '../../mainComponents/dialogs/update-picture/update-picture.component';
 
 @Component({
   selector: 'app-profile',
@@ -244,7 +244,7 @@ export class ProfileComponent {
   }
 
   openImageUploadModal(): void {
-    const dialogRef = this.dialog.open(UpdateProfilePictureComponent, {
+    const dialogRef = this.dialog.open(UpdatePictureComponent, {
       width: '400px',
       data: { currentImage: this.user.profilePicture, title: 'Aggiorna Immagine Profilo' }
     });

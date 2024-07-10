@@ -22,7 +22,7 @@ import { LikeListDialogComponent } from './mainComponents/dialogs/like-list-dial
 import { FollowListDialogComponent } from './mainComponents/dialogs/follow-list-dialog/follow-list-dialog.component';
 import { EditUserDialogComponent } from './mainComponents/dialogs/edit-user-dialog/edit-user-dialog.component';
 import { ReportDialogComponent } from './mainComponents/dialogs/report-dialog/report-dialog.component';
-import { UpdateProfilePictureComponent } from './mainComponents/dialogs/update-profile-picture/update-profile-picture.component';
+import { UpdatePictureComponent } from './mainComponents/dialogs/update-picture/update-picture.component';
 import { ReportDetailsComponent } from './mainComponents/dialogs/report-details/report-details.component';
 import { BanUserDialogComponent } from './mainComponents/dialogs/ban-user-dialog/ban-user-dialog.component';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -41,7 +41,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     FollowListDialogComponent,
     EditUserDialogComponent,
     ReportDialogComponent,
-    UpdateProfilePictureComponent,
+    UpdatePictureComponent,
     ReportDetailsComponent,
     BanUserDialogComponent,
     CreateEditAdvertDialogComponent

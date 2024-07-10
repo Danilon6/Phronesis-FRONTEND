@@ -2,16 +2,16 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject } from '@angular/core';
 
 @Component({
-  selector: 'app-update-profile-picture',
-  templateUrl: './update-profile-picture.component.html',
-  styleUrl: './update-profile-picture.component.scss'
+  selector: 'app-update-picture',
+  templateUrl: './update-picture.component.html',
+  styleUrl: './update-picture.component.scss'
 })
-export class UpdateProfilePictureComponent {
+export class UpdatePictureComponent {
   selectedFile: File | null = null;
   selectedFileUrl: string | null = null;
 
   constructor(
-    public dialogRef: MatDialogRef<UpdateProfilePictureComponent>,
+    public dialogRef: MatDialogRef<UpdatePictureComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { currentImage: string, title: string }
   ) {}
 

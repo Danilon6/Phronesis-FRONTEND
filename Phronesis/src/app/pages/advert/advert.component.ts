@@ -4,7 +4,7 @@ import { AdsService } from '../../services/ads.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateEditAdvertDialogComponent } from '../../mainComponents/dialogs/create-edit-advert-dialog/create-edit-advert-dialog.component';
 import { NotificationService } from '../../services/notification.service';
-import { UpdateProfilePictureComponent } from '../../mainComponents/dialogs/update-profile-picture/update-profile-picture.component';
+import { UpdatePictureComponent } from '../../mainComponents/dialogs/update-picture/update-picture.component';
 
 @Component({
   selector: 'app-advert',
@@ -89,7 +89,7 @@ export class AdvertComponent {
   }
 
   openImageUploadModal(advert:IAdvert): void {
-    const dialogRef = this.dialog.open(UpdateProfilePictureComponent, {
+    const dialogRef = this.dialog.open(UpdatePictureComponent, {
       width: '400px',
       data: { currentImage: advert.imageUrl, title: 'Aggiorna Immagine Annuncio' }
     });
