@@ -21,7 +21,7 @@ export class AdvertComponent {
 
   constructor(private advertSvc: AdsService,
     public dialog: MatDialog,
-    private notificationSvc:NotificationService) {}
+    private notificationSvc: NotificationService) {}
 
   ngOnInit(): void {
     this.advertSvc.advert$.subscribe(advertArr => {
@@ -82,13 +82,14 @@ export class AdvertComponent {
           if (index !== -1) {
             this.advertArr[index] = updatedAdvert;
             this.advertSvc.advertSubject.next(this.advertArr);
+            this.notificationSvc.notify('Annuncio aggiornato con successo!', 'success');
           }
         });
       }
     });
   }
 
-  openImageUploadModal(advert:IAdvert): void {
+  openImageUploadModal(advert: IAdvert): void {
     const dialogRef = this.dialog.open(UpdatePictureComponent, {
       width: '400px',
       data: { currentImage: advert.imageUrl, title: 'Aggiorna Immagine Annuncio' }
@@ -96,18 +97,23 @@ export class AdvertComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // Update the user's profile picture
         this.advertSvc.updateAdvertImage(advert.id, result).subscribe(updatedAdvert => {
           advert.imageUrl = updatedAdvert.imageUrl;
+          this.notificationSvc.notify('Immagine aggiornata con successo!', 'success');
         });
       }
     });
   }
 
   deleteAdvert(id: number): void {
-    this.advertSvc.deleteAdvert(id).subscribe(() => {
-      this.advertArr = this.advertArr.filter(ad => ad.id !== id);
-      this.advertSvc.advertSubject.next(this.advertArr);
+    this.notificationSvc.confirm('Sei sicuro di voler eliminare questo annuncio?').then(result => {
+      if (result.isConfirmed) {
+        this.advertSvc.deleteAdvert(id).subscribe(() => {
+          this.advertArr = this.advertArr.filter(ad => ad.id !== id);
+          this.advertSvc.advertSubject.next(this.advertArr);
+          this.notificationSvc.notify('Annuncio eliminato con successo!', 'success');
+        });
+      }
     });
   }
 }
