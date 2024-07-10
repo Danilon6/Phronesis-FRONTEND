@@ -22,6 +22,9 @@ export class UserReportService {
   userReportUrl: string = environment.userReportUrl;
 
   constructor(private http: HttpClient, private authSvc: AuthService, private notificationSvc: NotificationService) {
+  }
+
+  ngOnInit():void {
     this.authSvc.isAdmin$.subscribe(isAdmin => {
       if (isAdmin) {
         this.getAllUserReports().subscribe();

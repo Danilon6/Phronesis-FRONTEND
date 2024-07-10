@@ -1,0 +1,22 @@
+.profile-edit-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+mat-dialog-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}

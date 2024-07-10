@@ -12,7 +12,7 @@ export class UpdateProfilePictureComponent {
 
   constructor(
     public dialogRef: MatDialogRef<UpdateProfilePictureComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {currentImage: string }
+    @Inject(MAT_DIALOG_DATA) public data: { currentImage: string, title: string }
   ) {}
 
   onFileSelected(event: Event): void {

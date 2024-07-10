@@ -1,5 +1,7 @@
-<div class="container mt-4 text-center">
-  <button *ngIf="!showCreatePostForm" class="btn btn-primary mb-4 create-post-button" (click)="toggleCreatePostForm()"> <i class="fas fa-pen me-2"></i> Crea Post</button>
+<div class="container text-center">
+  <div class="section-header">
+    <button *ngIf="!showCreatePostForm" class="btn btn-primary mb-4 create-post-button" (click)="toggleCreatePostForm()"> <i class="fas fa-pen me-2"></i> Crea Post</button>
+  </div>
   <div class="card w-75 mx-auto create-post-section" [ngClass]="{'show': showCreatePostForm, 'hide': hideCreatePostForm}">
     <div class="card-body">
       <div class="d-flex align-items-start mb-4">
@@ -27,6 +29,6 @@
   </div>
 </div>
 
-<div class="feed p-4">
+<div class="feed p-4 pt-0">
   <app-post-card *ngFor="let post of postArr" [post]="post" [currentUserId]="currentUserId"></app-post-card>
 </div>

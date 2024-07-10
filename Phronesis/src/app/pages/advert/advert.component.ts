@@ -1,41 +1,72 @@
 import { Component } from '@angular/core';
 import { IAdvert } from '../../models/i-advert';
 import { AdsService } from '../../services/ads.service';
-import { CreateEditAdvertDialogComponent } from '../../mainComponents/dialogs/create-edit-advert-dialog/create-edit-advert-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { CreateEditAdvertDialogComponent } from '../../mainComponents/dialogs/create-edit-advert-dialog/create-edit-advert-dialog.component';
+import { NotificationService } from '../../services/notification.service';
+import { UpdateProfilePictureComponent } from '../../mainComponents/dialogs/update-profile-picture/update-profile-picture.component';
 
 @Component({
   selector: 'app-advert',
   templateUrl: './advert.component.html',
-  styleUrl: './advert.component.scss'
+  styleUrls: ['./advert.component.scss']
 })
 export class AdvertComponent {
-
   advertArr: IAdvert[] = [];
+  showCreateAdvertForm = false;
+  hideCreateAdvertForm = false;
+  advertRequest = { title: '', description: '' };
+  imagePreview: string | ArrayBuffer | null = null;
+  selectedFile: File | null = null;
 
-  constructor(private advertSvc: AdsService, public dialog: MatDialog) {
-    console.log("sono qui");
-
-  }
+  constructor(private advertSvc: AdsService,
+    public dialog: MatDialog,
+    private notificationSvc:NotificationService) {}
 
   ngOnInit(): void {
     this.advertSvc.advert$.subscribe(advertArr => {
       this.advertArr = advertArr;
-      console.log(advertArr);
-
     });
   }
 
-  openCreateAdvertDialog(): void {
-    const dialogRef = this.dialog.open(CreateEditAdvertDialogComponent, {
-      width: '400px'
-    });
+  toggleCreateAdvertForm(): void {
+    if (this.showCreateAdvertForm) {
+      this.hideCreateAdvertForm = true;
+      setTimeout(() => {
+        this.showCreateAdvertForm = false;
+        this.hideCreateAdvertForm = false;
+      }, 500);
+    } else {
+      this.showCreateAdvertForm = true;
+    }
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.advertSvc.createAdvert(result.newAdvert, result.imageFile).subscribe();
-      }
-    });
+  onFileChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.selectedFile = file;
+      const reader = new FileReader();
+      reader.onload = e => this.imagePreview = reader.result;
+      reader.readAsDataURL(file);
+    }
+  }
+
+  createAdvert(): void {
+    if (this.selectedFile) {
+      this.advertSvc.createAdvert(this.advertRequest, this.selectedFile).subscribe(advert => {
+        this.advertRequest = { title: '', description: '' };
+        this.imagePreview = null;
+        this.selectedFile = null;
+        this.notificationSvc.notify('Annuncio creato con successo!', 'success');
+        this.toggleCreateAdvertForm();
+      });
+    }
+  }
+
+  triggerFileInput(): void {
+    const fileInput = document.getElementById('file') as HTMLInputElement;
+    fileInput.click();
   }
 
   openEditAdvertDialog(advert: IAdvert): void {
@@ -57,11 +88,26 @@ export class AdvertComponent {
     });
   }
 
+  openImageUploadModal(advert:IAdvert): void {
+    const dialogRef = this.dialog.open(UpdateProfilePictureComponent, {
+      width: '400px',
+      data: { currentImage: advert.imageUrl, title: 'Aggiorna Immagine Annuncio' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Update the user's profile picture
+        this.advertSvc.updateAdvertImage(advert.id, result).subscribe(updatedAdvert => {
+          advert.imageUrl = updatedAdvert.imageUrl;
+        });
+      }
+    });
+  }
+
   deleteAdvert(id: number): void {
     this.advertSvc.deleteAdvert(id).subscribe(() => {
       this.advertArr = this.advertArr.filter(ad => ad.id !== id);
       this.advertSvc.advertSubject.next(this.advertArr);
     });
   }
-
 }

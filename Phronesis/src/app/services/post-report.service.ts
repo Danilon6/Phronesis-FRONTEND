@@ -20,6 +20,10 @@ export class PostReportService {
   postReportUrl: string = environment.postReportUrl
 
   constructor(private http: HttpClient, private authSvc:AuthService, private notificationSvc:NotificationService) {
+
+  }
+
+  ngOnInit():void {
     this.authSvc.isAdmin$.subscribe(isAdmin =>{
       if(isAdmin) {
         this.getAllpostReports().subscribe();

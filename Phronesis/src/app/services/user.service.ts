@@ -5,6 +5,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { IUser } from '../models/i-user';
 import { IRole } from '../models/i-role';
 import { NotificationService } from './notification.service';
+import { ErrorHandlingServiceService } from './error-handling-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,10 @@ export class UserService {
   user$ = this.userSubject.asObservable();
   userUrl: string = environment.usersUrl;
 
-  constructor(private http: HttpClient, private notificationSvc:NotificationService) {
+  constructor(private http: HttpClient,
+    private notificationSvc:NotificationService,
+    private errorHandlingSvc: ErrorHandlingServiceService
+  ) {
     this.getAllUsers().subscribe();
   }
 
@@ -74,7 +78,7 @@ export class UserService {
           this.userSubject.next([...this.userArr]);
         }
       }),
-      catchError(this.handleError.bind(this))
+      catchError(this.errorHandlingSvc.handleError.bind(this.errorHandlingSvc))
     );
   }
 
@@ -87,24 +91,8 @@ export class UserService {
           this.userSubject.next([...this.userArr]);
         }
       }),
-      catchError(this.handleError.bind(this))
+      catchError(this.errorHandlingSvc.handleError.bind(this.errorHandlingSvc))
     );
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    let errorMessage = 'Unknown error!';
-    if (error.error instanceof ErrorEvent) {
-      // Client-side errors
-      errorMessage = `Error: ${error.error.message}`;
-    } else {
-      // Server-side errors
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-      if (typeof error.error === 'string') {
-        errorMessage = error.error;
-      }
-    }
-    this.notificationSvc.notify(errorMessage, 'error');
-    return throwError(() => new Error(errorMessage));
   }
 
   deleteUser(id: number): Observable<IUser> {
@@ -132,7 +120,7 @@ export class UserService {
   }
 
   banUser(id: number, reason: string): Observable<string> {
-    return this.http.put<string>(`${this.userUrl}/${id}/ban`, { reason }, {responseType: 'text' as 'json' }).pipe(
+    return this.http.put<string>(`${this.userUrl}/${id}/ban`, reason , {responseType: 'text' as 'json' }).pipe(
       tap(() => {
         const index = this.userArr.findIndex(u => u.id === id);
         if (index !== -1) {

@@ -1,8 +1,8 @@
-<h1 mat-dialog-title>Aggiorna Immagine Profilo</h1>
+<h1 mat-dialog-title class="text-center">{{ data.title }}</h1>
 <div mat-dialog-content class="flex flex-col items-center">
   <div class="relative mb-6 flex flex-col items-center">
     <div class="w-24 h-24 bg-gray-600 rounded-full flex items-center justify-center overflow-hidden relative">
-      <img [src]="selectedFileUrl || data.currentImage" alt="Profile" class="w-full h-full object-cover" id="profileImage">
+      <img [src]="selectedFileUrl || data.currentImage" alt="Immagine" class="w-full h-full object-cover" id="image">
       <input type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" (change)="onFileSelected($event)" accept="image/*">
     </div>
   </div>

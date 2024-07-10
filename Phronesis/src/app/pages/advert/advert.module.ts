@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AdvertRoutingModule } from './advert-routing.module';
 import { AdvertComponent } from './advert.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { AdvertComponent } from './advert.component';
   ],
   imports: [
     CommonModule,
-    AdvertRoutingModule
+    AdvertRoutingModule,
+    FormsModule
   ]
 })
 export class AdvertModule { }

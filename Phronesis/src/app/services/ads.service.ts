@@ -1,8 +1,10 @@
 import { environment } from './../../environments/environment.development';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IAdvert } from '../models/i-advert';
-import { BehaviorSubject, Observable, map, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, tap, throwError } from 'rxjs';
+import { NotificationService } from './notification.service';
+import { ErrorHandlingServiceService } from './error-handling-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,10 @@ export class AdsService {
   advert$ = this.advertSubject.asObservable();
   advertsUrl: string = environment.advertUrl;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+    private notificationSvc:NotificationService,
+    private errorHandlingSvc: ErrorHandlingServiceService
+  ) {
     this.getAdverts().subscribe();
   }
 
@@ -51,7 +56,8 @@ export class AdsService {
       tap(advert => {
         this.advertArr.push(advert);
         this.advertSubject.next([...this.advertArr]);
-      })
+      }),
+      catchError(this.errorHandlingSvc.handleError.bind(this.errorHandlingSvc))
     );
   }
 
@@ -94,4 +100,5 @@ export class AdsService {
       })
     );
   }
+
 }

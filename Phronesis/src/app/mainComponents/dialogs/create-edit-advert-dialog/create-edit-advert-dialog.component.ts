@@ -3,9 +3,9 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IAdvert } from '../../../models/i-advert';
 
 @Component({
-  selector: 'app-create-advert-dialog',
+  selector: 'app-create-edit-advert-dialog',
   templateUrl: './create-edit-advert-dialog.component.html',
-  styleUrl: './create-edit-advert-dialog.component.scss'
+  styleUrls: ['./create-edit-advert-dialog.component.scss']
 })
 export class CreateEditAdvertDialogComponent {
 
@@ -38,6 +38,11 @@ export class CreateEditAdvertDialogComponent {
       };
       reader.readAsDataURL(this.imageFile);
     }
+  }
+
+  triggerFileInput(): void {
+    const fileInput = document.getElementById('file') as HTMLInputElement;
+    fileInput.click();
   }
 
   onCancel(): void {

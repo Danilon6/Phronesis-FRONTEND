@@ -246,7 +246,7 @@ export class ProfileComponent {
   openImageUploadModal(): void {
     const dialogRef = this.dialog.open(UpdateProfilePictureComponent, {
       width: '400px',
-      data: {currentImage: this.user.profilePicture }
+      data: { currentImage: this.user.profilePicture, title: 'Aggiorna Immagine Profilo' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -254,7 +254,7 @@ export class ProfileComponent {
         // Update the user's profile picture
         this.userSvc.updateProfilePicture(this.user.id, result).subscribe(updatedUser => {
           this.user.profilePicture = updatedUser.profilePicture;
-          this.updatePosts()
+          this.updatePosts();
         });
       }
     });

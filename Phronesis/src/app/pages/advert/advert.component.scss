@@ -5,22 +5,225 @@
   object-fit: cover;
 }
 
+.ad-image-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* Aspect ratio 16:9 */
+}
+
+.ad-image-container .ad-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.3s;
+}
+
+.ad-image-container:hover .ad-image {
+  opacity: 0.5;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+
+.ad-image-container:hover .overlay,
+.uploaded-image-container:hover .overlay {
+  opacity: 1;
+}
+
+.btn-edit-ad,
+.btn-edit-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: black;
+}
+
 .create-post-button {
   display: inline-block;
   margin: 0 auto;
   background-color: #007bff;
   color: #fff;
-  border-radius: 50px; /* Cambiato da 50% a 50px per renderlo ovale */
-  width: 10rem; /* Larghezza del pulsante ovale */
-  height: 3rem; /* Altezza del pulsante ovale */
+  border-radius: 50px;
+  width: 10rem;
+  height: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease-in-out;
+  border-radius: 10px;
 }
 
 .create-post-button:hover {
   background-color: #0056b3;
   transform: scale(1.1);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: auto;
+}
+
+.create-advert-section {
+  display: none;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+.create-advert-section.show {
+  display: block;
+  max-height: 1000px; /* Assicurati che sia abbastanza grande da contenere il contenuto */
+  opacity: 1;
+  animation: expandFromCenter 0.5s ease-in-out forwards;
+}
+
+.create-advert-section.hide {
+  display: block;
+  max-height: 0;
+  opacity: 0;
+  animation: contractToCenter 0.5s ease-in-out forwards;
+}
+
+@keyframes expandFromCenter {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes contractToCenter {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+.image-preview-container {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.image-preview {
+  max-width: 100%;
+  max-height: 200px; /* Limita l'altezza dell'immagine */
+  height: auto;
+  border-radius: 10px;
+}
+
+.img-fluid {
+  margin: 0 auto;
+}
+
+.custum-file-upload {
+  height: 200px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  justify-content: center;
+  background-color: rgba(200, 200, 200, 0.3); /* Grigio chiaro con opacità */
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0px 48px 35px -48px #e8e8e8;
+  margin: 0 auto; /* Centrare */
+}
+
+.custum-file-upload .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .icon svg {
+  height: 80px;
+  fill: #4f4a4a;
+}
+
+.custum-file-upload .text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custum-file-upload .text span {
+  font-weight: 400;
+  color: #4f4a4a;
+}
+
+.custum-file-upload input {
+  display: none;
+}
+
+.uploaded-image-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 150px; /* Ridotta dimensione */
+  margin: 0 auto;
+}
+
+.uploaded-image {
+  width: 100%;
+  border-radius: 10px; /* Puoi cambiare il valore in base alla tua necessità */
+  transition: opacity 0.3s;
+}
+
+.uploaded-image-container:hover .uploaded-image {
+  opacity: 0.5;
+}
+
+.uploaded-image-container:hover .overlay {
+  opacity: 1;
+}
+
+.btn-edit-image {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: black;
 }
