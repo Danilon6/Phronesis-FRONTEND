@@ -26,8 +26,8 @@ import { UpdatePictureComponent } from './mainComponents/dialogs/update-picture/
 import { ReportDetailsComponent } from './mainComponents/dialogs/report-details/report-details.component';
 import { BanUserDialogComponent } from './mainComponents/dialogs/ban-user-dialog/ban-user-dialog.component';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { CreateEditAdvertDialogComponent } from './mainComponents/dialogs/create-edit-advert-dialog/create-edit-advert-dialog.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { EditAdvertDialogComponent } from './mainComponents/dialogs/edit-advert-dialog/edit-advert-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     UpdatePictureComponent,
     ReportDetailsComponent,
     BanUserDialogComponent,
-    CreateEditAdvertDialogComponent
+    EditAdvertDialogComponent
   ],
   imports: [
     BrowserModule,

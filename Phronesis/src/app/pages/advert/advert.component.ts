@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { IAdvert } from '../../models/i-advert';
 import { AdsService } from '../../services/ads.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateEditAdvertDialogComponent } from '../../mainComponents/dialogs/create-edit-advert-dialog/create-edit-advert-dialog.component';
 import { NotificationService } from '../../services/notification.service';
 import { UpdatePictureComponent } from '../../mainComponents/dialogs/update-picture/update-picture.component';
+import { EditAdvertDialogComponent } from '../../mainComponents/dialogs/edit-advert-dialog/edit-advert-dialog.component';
 
 @Component({
   selector: 'app-advert',
@@ -70,7 +70,7 @@ export class AdvertComponent {
   }
 
   openEditAdvertDialog(advert: IAdvert): void {
-    const dialogRef = this.dialog.open(CreateEditAdvertDialogComponent, {
+    const dialogRef = this.dialog.open(EditAdvertDialogComponent, {
       width: '400px',
       data: { advert }
     });

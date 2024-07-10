@@ -3,18 +3,18 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IAdvert } from '../../../models/i-advert';
 
 @Component({
-  selector: 'app-create-edit-advert-dialog',
-  templateUrl: './create-edit-advert-dialog.component.html',
-  styleUrls: ['./create-edit-advert-dialog.component.scss']
+  selector: 'app-edit-advert-dialog',
+  templateUrl: './edit-advert-dialog.component.html',
+  styleUrls: ['./edit-advert-dialog.component.scss']
 })
-export class CreateEditAdvertDialogComponent {
+export class EditAdvertDialogComponent {
 
   newAdvert: Partial<IAdvert> = {};
   imageFile: File | null = null;
   imagePreview: string | ArrayBuffer | null = null;
 
   constructor(
-    public dialogRef: MatDialogRef<CreateEditAdvertDialogComponent>,
+    public dialogRef: MatDialogRef<EditAdvertDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { advert?: IAdvert } | null
   ) {}
 
@@ -41,7 +41,7 @@ export class CreateEditAdvertDialogComponent {
   }
 
   triggerFileInput(): void {
-    const fileInput = document.getElementById('file') as HTMLInputElement;
+    const fileInput = document.getElementById('file-input') as HTMLInputElement;
     fileInput.click();
   }
 
