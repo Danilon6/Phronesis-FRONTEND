@@ -4,7 +4,7 @@
 <div mat-dialog-content class="report-dialog-content">
   <div *ngIf="isUserReport(report)">
     <h3>Report su Utente</h3>
-    <p><strong>ID Report:</strong> {{ report.createdAt }}</p>
+    <p><strong>Report Date:</strong> {{ report.createdAt | date : 'short' }}</p>
     <p><strong>Segnalato da:</strong> {{ report.reportedBy.username }}</p>
     <p><strong>Motivo:</strong> {{ report.reason }}</p>
     <h4 class="mt-4">Dettagli dell'utente segnalato</h4>
@@ -28,7 +28,7 @@
   </div>
   <div *ngIf="isPostReport(report)">
     <h3 class="text">Report su Post</h3>
-    <p><strong>ID Report:</strong> {{ report.id }}</p>
+    <p><strong>Report date:</strong> {{ report.createdAt | date : 'short' }}</p>
     <p><strong>Segnalato da:</strong> {{ report.reportedBy.username }}</p>
     <p><strong>Motivo:</strong> {{ report.reason }}</p>
     <h4 class="mt-4">Dettagli del post segnalato</h4>
