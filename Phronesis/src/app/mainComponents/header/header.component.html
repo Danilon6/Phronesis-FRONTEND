@@ -1,8 +1,7 @@
 <div class="section-header"></div>
 <div class="d-flex justify-content-center align-items-start vh-100">
   <div class="d-flex flex-column menu-container bg-light p-3 border shadow">
-    <h2 class="text-secondary text-center fw-bolder mb-4">Menù del Sito</h2>
-    <button routerLink="/feed" class="btn btn-light d-flex align-items-end mb-2 menu-button">
+    <button routerLink="/feed" class="btn btn-light d-flex align-items-center mb-2 menu-button">
       <i class="fas fa-home me-2"></i> Feed
     </button>
     <button *ngIf="!isAdmin" [routerLink]="['profile/',userId]" [queryParams]="{ section: 'favoritePosts' }" class="btn btn-light d-flex align-items-center mb-2 menu-button">
@@ -20,7 +19,7 @@
     <button *ngIf="isAdmin" routerLink="/user-managment" class="btn btn-light d-flex align-items-center mb-2 menu-button">
       <i class="fas fa-users-cog me-2"></i> Gestione utenti
     </button>
-    <button class="btn btn-danger d-flex align-items-center mt-auto menu-button" (click)="logout()">
+    <button class="btn btn-danger d-flex align-items-center mt-auto" (click)="logout()">
       <i class="fas fa-sign-out-alt me-2"></i> Logout
     </button>
   </div>

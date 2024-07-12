@@ -2,7 +2,7 @@
   position: relative;
 }
 
-label.transtionall {
+.floating-label {
   position: absolute;
   left: 1rem;
   top: 0.75rem;
@@ -12,8 +12,8 @@ label.transtionall {
   transition: all 0.3s ease;
 }
 
-input:focus + label,
-input:not(:placeholder-shown) + label {
+input:focus + .floating-label,
+input:not(:placeholder-shown) + .floating-label {
   top: -0.75rem;
   left: 0.75rem;
   font-size: 0.75rem;
@@ -28,3 +28,54 @@ input:not(:placeholder-shown) + label {
 .text-red-500 {
   color: red;
 }
+
+.form-check-input {
+  margin-right: 0.5rem;
+}
+
+.normal-label {
+  position: static;
+  color: inherit;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.form-check-input {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 0.25rem;
+  border: 2px solid #ccc;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  appearance: none;
+  outline: none;
+  position: relative;
+}
+
+.home-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  top: 10px;
+  left:10px;
+  background-color: #3182ce; /* Colore di sfondo iniziale */
+  color: #fff;
+  transition: background-color 0.3s ease; /* Transizione per l'effetto hover */
+
+  &:hover {
+    background-color: #2b6cb0; /* Colore di sfondo quando si passa con il mouse */
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.6); /* Effetto focus */
+  }
+
+  i {
+    font-size: 1.5rem; /* Dimensione dell'icona */
+  }
+}
+

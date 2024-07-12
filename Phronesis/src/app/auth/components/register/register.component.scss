@@ -1,0 +1,76 @@
+.relative {
+  position: relative;
+}
+
+.floating-label {
+  position: absolute;
+  left: 1rem;
+  top: 0.75rem;
+  color: gray;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+input:focus + .floating-label,
+input:not(:placeholder-shown) + .floating-label,
+textarea:focus + .floating-label,
+textarea:not(:placeholder-shown) + .floating-label {
+  top: -0.75rem;
+  left: 0.75rem;
+  font-size: 0.75rem;
+  background: white;
+  padding: 0 0.25rem;
+}
+
+.text-green-500 {
+  color: green;
+}
+
+.text-red-500 {
+  color: red;
+}
+
+.home-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  top: 10px;
+  left:10px;
+  background-color: #3182ce; /* Colore di sfondo iniziale */
+  color: #fff;
+  transition: background-color 0.3s ease; /* Transizione per l'effetto hover */
+
+  &:hover {
+    background-color: #2b6cb0; /* Colore di sfondo quando si passa con il mouse */
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.6); /* Effetto focus */
+  }
+
+  i {
+    font-size: 1.5rem; /* Dimensione dell'icona */
+  }
+}
+
+.bg-blue-600 {
+  background-color: #3182ce;
+}
+
+.bg-blue-700 {
+  background-color: #2b6cb0;
+}
+
+.max-w-md {
+  max-width: 28rem;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(66, 153, 225, 0.6);
+}

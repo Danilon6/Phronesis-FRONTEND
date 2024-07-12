@@ -1,8 +1,5 @@
-<div *ngIf="report" mat-dialog-title class="report-dialog-title d-flex justify-content-between align-items-center">
+<div *ngIf="report" mat-dialog-title class="report-dialog-title d-flex justify-content-center align-items-center mt-3">
   <h2 class="title">Dettagli del Report</h2>
-  <button mat-icon-button (click)="dialogRef.close()" aria-label="Close" class="close-button">
-    <mat-icon>close</mat-icon>
-  </button>
 </div>
 <div mat-dialog-content class="report-dialog-content">
   <div *ngIf="isUserReport(report)">
@@ -53,3 +50,6 @@
     </div>
   </div>
 </div>
+<mat-dialog-actions class="d-flex justify-content-center">
+  <button mat-button (click)="dialogRef.close()">Chiudi</button>
+</mat-dialog-actions>

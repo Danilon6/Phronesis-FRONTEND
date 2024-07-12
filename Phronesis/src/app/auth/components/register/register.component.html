@@ -1,90 +1,126 @@
-<div class="flex flex-col items-center justify-center min-h-screen bg-gray-900 px-4">
-  <div class="w-full max-w-md bg-gray-800 rounded-lg shadow-md p-6">
-    <h2 class="text-2xl font-bold text-gray-200 mb-6">Registrazione</h2>
-    <form class="space-y-4" #registerForm="ngForm" (ngSubmit)="register()">
-      <input
-        type="text"
-        name="firstName"
-        #firstName="ngModel"
-        [(ngModel)]="newUser.firstName"
-        placeholder="Nome"
-        class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
-        required
-      >
-      <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="text-danger fw-bold">
-        Nome obbligatorio
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <a routerLink="/" class="home-button bg-blue-600 text-white rounded-full p-2 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600">
+    <i class="fas fa-home"></i>
+  </a>
+  <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+    <h2 class="text-2xl font-bold text-center mb-4">Registrazione</h2>
+    <form (ngSubmit)="register(registerForm)" #registerForm="ngForm" class="space-y-4">
+      <div class="flex flex-wrap -mx-2">
+        <div class="relative w-full md:w-1/2 px-2">
+          <input
+            type="text"
+            name="firstName"
+            [(ngModel)]="newUser.firstName"
+            #firstName="ngModel"
+            class="w-full p-3 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2"
+            [ngClass]="{'border-red-500': firstName.invalid && (firstName.dirty || firstName.touched), 'border-green-500': firstName.valid && (firstName.dirty || firstName.touched)}"
+            required
+          />
+          <label
+            class="floating-label"
+            [ngClass]="{'floating-label-active': firstName.value, 'text-green-500': firstName.valid && (firstName.dirty || firstName.touched), 'text-red-500': firstName.invalid && (firstName.dirty || firstName.touched)}"
+          >
+            Nome
+          </label>
+        </div>
+        <div class="relative w-full md:w-1/2 px-2">
+          <input
+            type="text"
+            name="lastName"
+            [(ngModel)]="newUser.lastName"
+            #lastName="ngModel"
+            class="w-full p-3 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2"
+            [ngClass]="{'border-red-500': lastName.invalid && (lastName.dirty || lastName.touched), 'border-green-500': lastName.valid && (lastName.dirty || lastName.touched)}"
+            required
+          />
+          <label
+            class="floating-label"
+            [ngClass]="{'floating-label-active': lastName.value, 'text-green-500': lastName.valid && (lastName.dirty || lastName.touched), 'text-red-500': lastName.invalid && (lastName.dirty || lastName.touched)}"
+          >
+            Cognome
+          </label>
+        </div>
       </div>
-      <input
-        type="text"
-        name="lastName"
-        #lastName="ngModel"
-        [(ngModel)]="newUser.lastName"
-        placeholder="Cognome"
-        class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
-        required
-      >
-      <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="text-danger fw-bold">
-        Cognome obbligatorio
+      <div class="relative">
+        <input
+          type="text"
+          name="username"
+          [(ngModel)]="newUser.username"
+          #username="ngModel"
+          class="w-full p-3 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2"
+          maxlength="50"
+          [ngClass]="{'border-red-500': username.invalid && (username.dirty || username.touched), 'border-green-500': username.valid && (username.dirty || username.touched)}"
+          required
+        />
+        <label
+          class="floating-label"
+          [ngClass]="{'floating-label-active': username.value, 'text-green-500': username.valid && (username.dirty || username.touched), 'text-red-500': username.invalid && (username.dirty || username.touched)}"
+        >
+          Username
+        </label>
       </div>
-      <input
-        type="text"
-        name="username"
-        #username="ngModel"
-        [(ngModel)]="newUser.username"
-        placeholder="Username"
-        class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
-        maxlength="50"
-        required
-      >
-      <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-danger fw-bold">
-        Username obbligatorio
+      <div class="relative">
+        <input
+          type="email"
+          name="email"
+          [(ngModel)]="newUser.email"
+          #email="ngModel"
+          class="w-full p-3 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2"
+          [ngClass]="{'border-red-500': email.invalid && (email.dirty || email.touched), 'border-green-500': email.valid && (email.dirty || email.touched)}"
+          required
+        />
+        <label
+          class="floating-label"
+          [ngClass]="{'floating-label-active': email.value, 'text-green-500': email.valid && (email.dirty || email.touched), 'text-red-500': email.invalid && (email.dirty || email.touched)}"
+        >
+          Email
+        </label>
       </div>
-      <input
-        type="email"
-        name="email"
-        #email="ngModel"
-        [(ngModel)]="newUser.email"
-        placeholder="Email"
-        class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
-        required
-      >
-      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger fw-bold">
-        Email obbligatoria e deve essere in formato corretto
+      <div class="relative">
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="newUser.password"
+          #password="ngModel"
+          class="w-full p-3 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2"
+          maxlength="125"
+          [ngClass]="{'border-red-500': password.invalid && (password.dirty || password.touched), 'border-green-500': password.valid && (password.dirty || password.touched)}"
+          required
+        />
+        <label
+          class="floating-label"
+          [ngClass]="{'floating-label-active': password.value, 'text-green-500': password.valid && (password.dirty || password.touched), 'text-red-500': password.invalid && (password.dirty || password.touched)}"
+        >
+          Password
+        </label>
       </div>
-      <input
-        type="password"
-        name="password"
-        #password="ngModel"
-        [(ngModel)]="newUser.password"
-        placeholder="Password"
-        class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
-        maxlength="125"
-        required
-      >
-      <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger fw-bold">
-        Password obbligatoria
+      <div class="relative">
+        <textarea
+          name="bio"
+          [(ngModel)]="newUser.bio"
+          #bio="ngModel"
+          class="w-full p-3 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2"
+          [ngClass]="{'border-red-500': bio.invalid && (bio.dirty || bio.touched), 'border-green-500': bio.valid && (bio.dirty || bio.touched)}"
+          required
+        ></textarea>
+        <label
+          class="floating-label"
+          [ngClass]="{'floating-label-active': bio.value, 'text-green-500': bio.valid && (bio.dirty || bio.touched), 'text-red-500': bio.invalid && (bio.dirty || bio.touched)}"
+        >
+          Bio
+        </label>
       </div>
-      <textarea
-        name="bio"
-        placeholder="Bio"
-        #bio="ngModel"
-        [(ngModel)]="newUser.bio"
-        class="bg-gray-700 text-gray-200 border-0 rounded-md p-2 focus:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-blue-500 transition ease-in-out duration-150 w-full"
-        required
-      ></textarea>
-      <div *ngIf="bio.invalid && (bio.dirty || bio.touched)" class="text-danger fw-bold">
-        Bio obbligatoria
-      </div>
-      <div class="relative mb-6 flex flex-col items-center">
-        <div class="w-24 h-24 bg-gray-600 rounded-full flex items-center justify-center overflow-hidden relative">
+      <div class="flex items-center justify-center my-4">
+        <div class="relative w-24 h-24 bg-gray-200 rounded-full overflow-hidden">
           <img [src]="profileImageUrl" alt="Profile" class="w-full h-full object-cover" id="profileImage">
           <input type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" (change)="onFileChange($event)" accept="image/*">
         </div>
       </div>
-
-      <button type="submit" [disabled]="registerForm.invalid" class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-indigo-600 hover:to-blue-600 transition ease-in-out duration-150 w-full">Registrati</button>
-      <div *ngIf="registerForm.invalid" > Compila tutti i campi per poter proseguire. </div>
-      <div *ngIf="errorMessage" class="text-danger fw-bold" role="alert">{{ errorMessage }}</div>
+      <div>
+        <button type="submit" class="w-full py-3 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600" [disabled]="registerForm.invalid">
+          Registrati
+        </button>
+      </div>
     </form>
   </div>
 </div>

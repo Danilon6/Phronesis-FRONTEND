@@ -1,11 +1,11 @@
-<div class="card report-card mb-3 shadow-sm" (click)="onDetailClick()">
+<div class="card report-card mb-3 shadow-sm">
   <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white">
     <span>ID Report: {{ report.id }}</span>
     <button class="btn btn-outline-light btn-sm btn-delete" (click)="deleteReport()">
       <i class="fas fa-trash-alt"></i>
     </button>
   </div>
-  <div class="card-body">
+  <div class="card-body"  (click)="onDetailClick()">
     <h5 class="card-title">Segnalato da: {{ report.reportedBy.username }}</h5>
     <p class="card-text">Motivo: {{ report.reason }}</p>
   </div>

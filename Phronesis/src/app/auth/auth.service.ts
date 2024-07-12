@@ -70,22 +70,29 @@ export class AuthService {
       return this.http.get<any>(`${this.requestNewVerificationUrl}?email=${email}`, { responseType: 'text' as 'json' })
     }
 
-    login(loginData: ILoginData, rememberMe: boolean): Observable<accessData> {
-      return this.http.post<accessData>(this.loginUrl, loginData)
-        .pipe(
-          tap(data => {
-            this.authSubject.next(data.user);
-            this.updateAdminStatus(data.user);
-            this.syncIsLoggedIn = true;
-            if (rememberMe) {
-              localStorage.setItem('accessData', JSON.stringify(data));
-            } else {
-              sessionStorage.setItem('accessData', JSON.stringify(data));
-            }
-            this.autologout(data.token);
-          }),
-          catchError(this.handleError.bind(this))
-        );
+    login(loginData: ILoginData, rememberMe: boolean): Observable<accessData | string> {
+      return this.http.post<accessData | string>(this.loginUrl, loginData).pipe(
+        tap(data => {
+          if (typeof data === 'string') {
+            // Se la risposta è una stringa, non facciamo nulla nel tap
+            return;
+          }
+
+          // Se la risposta è di tipo accessData
+          this.authSubject.next(data.user);
+          this.updateAdminStatus(data.user);
+          this.syncIsLoggedIn = true;
+
+          if (rememberMe) {
+            localStorage.setItem('accessData', JSON.stringify(data));
+          } else {
+            sessionStorage.setItem('accessData', JSON.stringify(data));
+          }
+
+          this.autologout(data.token);
+        }),
+        catchError(this.handleError.bind(this))
+      );
     }
 
     logout(){
@@ -137,8 +144,22 @@ export class AuthService {
 
     private handleError(error: HttpErrorResponse): Observable<never> {
       let errorMessage = 'Unknown error!';
+
+      if (error.error instanceof ErrorEvent) {
         // Client-side errors
         errorMessage = `Error: ${error.error.message}`;
+      } else if (typeof error.error === 'string') {
+        // Parse the string error response
+        try {
+          const parsedError = JSON.parse(error.error);
+          errorMessage = parsedError.message || parsedError;
+        } catch (e) {
+          errorMessage = error.error; // use the string as is if JSON parsing fails
+        }
+      } else {
+        // Server-side errors
+        errorMessage = `Error: ${error.error.message}`;
+      }
 
       this.notificationSvc.notify(errorMessage, 'error');
       return throwError(() => new Error(errorMessage));

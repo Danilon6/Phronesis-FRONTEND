@@ -1,3 +1,24 @@
+.menu-button, .btn-danger {
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.menu-button:hover, .btn-danger:hover {
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.menu-button:hover {
+  background-color: #9c9d9e;
+}
+
+.menu-button:hover i {
+  color: white;
+}
+
 .d-flex.flex-column {
   width: 100%;
   max-width: 250px;
@@ -15,4 +36,9 @@
 .btn i {
   width: 24px;
   text-align: center;
+}
+
+.btn-light {
+  display: flex;
+  align-items: center;
 }
