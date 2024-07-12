@@ -2,11 +2,13 @@
   <div class="loader"></div>
 </div>
 
-<div class="enabling-container">
+<div *ngIf="isReady" class="enabling-container">
   <div class="enabling-card" [ngClass]="{'error': isError, 'success': !isError}">
     <h2 *ngIf="!isError">Account Attivato!</h2>
     <h2 *ngIf="isError">Errore</h2>
     <p>{{ message }}</p>
-    <button class="btn btn-primary" (click)="redirectToLogin()">Vai al Login</button>
+    <button class="custom-btn custom-btn-primary" (click)="redirectToLogin()">
+      <span>Vai al Login</span>
+    </button>
   </div>
 </div>

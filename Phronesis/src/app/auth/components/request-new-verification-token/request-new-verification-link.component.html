@@ -7,6 +7,10 @@
     <h2 *ngIf="!isError">Nuovo link inviato</h2>
     <h2 *ngIf="isError">Errore</h2>
     <p>{{ message }}</p>
-    <button (click)="redirectToLogin()">Vai al Login</button>
+    <button class="custom-btn custom-btn-primary" (click)="redirectToLogin()">
+      <span>
+        Vai al Login
+    </span>
+    </button>
   </div>
 </div>

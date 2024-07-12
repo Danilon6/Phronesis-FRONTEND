@@ -26,7 +26,7 @@
       </div>
       <div class="relative">
         <input
-          type="password"
+          [type]="showPassword ? 'text' : 'password'"
           name="password"
           [(ngModel)]="loginUser.password"
           #password="ngModel"
@@ -40,6 +40,9 @@
         >
           Password
         </label>
+        <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
+          <i class="fas" [ngClass]="{'fa-eye': showPassword, 'fa-eye-slash': !showPassword}" (click)="toggleShowPassword()"></i>
+        </div>
         <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-red-600 font-bold">
           Password obbligatoria
         </div>
@@ -49,8 +52,10 @@
         <label class="form-check-label text-gray-700" for="rememberMe">Ricordami</label>
       </div>
       <div>
-        <button type="submit" class="w-full py-3 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600" [disabled]="loginForm.invalid">
-          INVIA
+        <button type="submit" class="custom-btn custom-btn-primary w-full py-3 text-white rounded" [disabled]="loginForm.invalid">
+          <span>
+            INVIA
+          </span>
         </button>
       </div>
     </form>

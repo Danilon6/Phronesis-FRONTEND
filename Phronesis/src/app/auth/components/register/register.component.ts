@@ -9,43 +9,43 @@ import { ErrorHandlingServiceService } from '../../../services/error-handling-se
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
 
-  newUser:Partial<IUser> = {}
+  newUser: Partial<IUser> = {};
   file: File | undefined;
   profileImageUrl: string | ArrayBuffer | null = "https://res.cloudinary.com/ddcghtsnn/image/upload/v1719225290/aavszufvpxsxdrqiyn8s.png";
   errorMessage: string = '';
+  showPassword: boolean = false;
+
   constructor(
-    private authSvc:AuthService,
-    private router:Router,
-    private notificationSvc:NotificationService,
-    private errorHandlingSvc:ErrorHandlingServiceService
-    ){}
+    private authSvc: AuthService,
+    private router: Router,
+    private notificationSvc: NotificationService,
+    private errorHandlingSvc: ErrorHandlingServiceService
+  ) {}
 
-    register(registerForm: NgForm) {
-      if (registerForm.invalid) {
-        this.notificationSvc.notifyValidationErrors(registerForm);
-        return;
-      }
-
-      const formData = new FormData();
-      formData.append('newUser', new Blob([JSON.stringify(this.newUser)], { type: 'application/json' }));
-      if (this.file) {
-        formData.append('profilePictureFile', this.file);
-      }
-
-      this.authSvc.register(formData).subscribe({
-        next: () => {
-          this.router.navigate(['/auth/login']);
-          this.notificationSvc.notify('Registrazione avvenuta con successo', 'success');
-        },
-        error: (error) => this.errorHandlingSvc.handleError(error)
-      });
+  register(registerForm: NgForm) {
+    if (registerForm.invalid) {
+      this.notificationSvc.notifyValidationErrors(registerForm);
+      return;
     }
 
+    const formData = new FormData();
+    formData.append('newUser', new Blob([JSON.stringify(this.newUser)], { type: 'application/json' }));
+    if (this.file) {
+      formData.append('profilePictureFile', this.file);
+    }
 
+    this.authSvc.register(formData).subscribe({
+      next: () => {
+        this.router.navigate(['/auth/login']);
+        this.notificationSvc.notify('Registrazione avvenuta con successo', 'success');
+      },
+      error: (error) => this.errorHandlingSvc.handleError(error)
+    });
+  }
 
   onFileChange(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -60,4 +60,7 @@ export class RegisterComponent {
     }
   }
 
+  toggleShowPassword(): void {
+    this.showPassword = !this.showPassword;
+  }
 }

@@ -5,13 +5,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-enable',
   templateUrl: './enable.component.html',
-  styleUrl: './enable.component.scss'
+  styleUrls: ['./enable.component.scss']
 })
 export class EnableComponent {
 
   message: string = '';
   isError: boolean = false;
-  isReady:boolean = false;
+  isReady: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,15 +33,11 @@ export class EnableComponent {
       if (token) {
         this.authSvc.enable(token).subscribe({
           next: (response: string) => {
-            console.log('Response:', response);
-            // Assegna direttamente la risposta alla variabile message
             this.message = response;
             this.isError = false;
             this.isReady = true;
           },
           error: (error: any) => {
-            console.error('Error:', error);
-            // Tenta di fare il parsing dell'errore come JSON
             try {
               const parsedError = JSON.parse(error.error);
               if (parsedError && parsedError.message) {
@@ -53,6 +49,7 @@ export class EnableComponent {
               this.message = error.error || 'Si è verificato un errore durante l\'attivazione del tuo account.';
             }
             this.isError = true;
+            this.isReady = true;
           }
         });
       } else {
@@ -62,5 +59,4 @@ export class EnableComponent {
       }
     });
   }
-
 }

@@ -14,7 +14,6 @@ html, body {
 
 .home-container {
   display: flex;
-  background-image: url("https://res.cloudinary.com/ddcghtsnn/image/upload/v1720694621/wkw5paiweicgd5cb6bpb.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
@@ -29,12 +28,6 @@ html, body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.14);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
 
   .logo-container {
     width: 100%;
@@ -57,58 +50,11 @@ html, body {
     align-items: center;
     h1 {
       font-family: 'Roboto', sans-serif;
-      font-size: 24px;
+      font-size: 36px;
       font-weight: bold;
       color: $dark-gray;
-    }
-    .btn-primary {
-      margin-top: 20px;
-      outline: none;
-      cursor: pointer;
-      border: none;
-      padding: 15px 0;
-      font-family: 'Roboto', sans-serif;
-      font-size: 18px;
-      font-weight: 600;
-      text-align: center;
-      border-radius: 5px;
-      display: block;
-      width: 100%;
-      margin-bottom: 10px;
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(45deg, $accent-color, $secondary-color);
-      color: ghostwhite; // Colore bianco per il testo
-      text-decoration: none;
-      transition: all 0.4s;
-
-      span {
-        position: relative;
-        z-index: 10;
-        transition: color 0.4s;
-      }
-
-      &:hover span {
-        color: black;
-      }
-
-      &::before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        content: "";
-        background: #000;
-        width: 120%;
-        left: -10%;
-        transform: skew(30deg);
-        transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
-      }
-
-      &:hover::before {
-        transform: translate3d(100%, 0, 0);
-      }
+      margin-bottom: 1rem; /* Aggiungi spazio sotto il titolo */
+      margin-top: -1rem; /* Sposta leggermente verso l'alto */
     }
   }
 
@@ -154,16 +100,6 @@ html, body {
     padding: 20px;
     transition: all 0.3s;
 
-    .glassmorphism {
-      padding: 20px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.14);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
     h2 {
       font-family: 'Roboto', sans-serif;
       font-size: 24px;
@@ -172,67 +108,12 @@ html, body {
       color: $dark-gray;
     }
 
-    .btn {
-      outline: none;
-      cursor: pointer;
-      border: none;
-      padding: 15px 0;
-      font-family: 'Roboto', sans-serif;
-      font-size: 18px;
-      font-weight: 600;
-      text-align: center;
-      border-radius: 5px;
-      display: block;
-      width: 100%;
-      margin-bottom: 10px;
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(45deg, $accent-color, $secondary-color);
-      color: ghostwhite;
-      text-decoration: none;
-      transition: all 0.4s;
-
-      span {
-        position: relative;
-        z-index: 10;
-        transition: color 0.4s;
-      }
-
-      &:hover span {
-        color: black;
-      }
-
-      &::before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        content: "";
-        background: #000;
-        width: 120%;
-        left: -10%;
-        transform: skew(30deg);
-        transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
-      }
-
-      &:hover::before {
-        transform: translate3d(100%, 0, 0);
-      }
-    }
-
-    .btn-success,
-    .btn-primary {
-      background-color: $accent-color;
-    }
-
     p {
       margin: 5px 0;
       color: $dark-gray;
     }
   }
 }
-
 @keyframes float {
   0%, 100% {
     transform: translateY(0);

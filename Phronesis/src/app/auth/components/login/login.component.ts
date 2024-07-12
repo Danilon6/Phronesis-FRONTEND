@@ -15,6 +15,7 @@ export class LoginComponent {
   };
   rememberMe: boolean = false;
   errorMessage: string = '';
+  showPassword:boolean = false
 
   constructor(
     private authSvc: AuthService,
@@ -25,5 +26,9 @@ export class LoginComponent {
     this.authSvc.login(this.loginUser, this.rememberMe).subscribe(() => {
       this.router.navigate(['/feed']);
     });
+  }
+
+  toggleShowPassword(): void {
+    this.showPassword = !this.showPassword;
   }
 }
