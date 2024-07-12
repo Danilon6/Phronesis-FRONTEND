@@ -2,14 +2,30 @@
   <div class="row">
     <div class="col-6">
       <h3>Report Utenti</h3>
+      <div *ngIf="userReports.length === 0" class="card report-card mb-3">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          Nessun utente è stato segnalato.
+        </div>
+        <div class="card-body">
+          <p class="card-text">Al momento non ci sono segnalazioni di utenti.</p>
+        </div>
+      </div>
       <div *ngFor="let report of userReports" class="mb-3">
         <app-user-report-card [report]="report" (viewDetails)="openReportDetail($event, 'user')" (delete)="onUserReportDeleted($event)"></app-user-report-card>
       </div>
     </div>
     <div class="col-6">
       <h3>Report Post</h3>
+      <div *ngIf="postReports.length === 0" class="card report-card mb-3">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          Nessun post è stato ancora segnalato.
+        </div>
+        <div class="card-body">
+          <p class="card-text">Al momento non ci sono segnalazioni di post.</p>
+        </div>
+      </div>
       <div *ngFor="let report of postReports" class="mb-3">
-        <app-post-report-card [report]="report"(viewDetails)="openReportDetail($event, 'post')" (delete)="onPostReportDeleted($event)"></app-post-report-card>
+        <app-post-report-card [report]="report" (viewDetails)="openReportDetail($event, 'post')" (delete)="onPostReportDeleted($event)"></app-post-report-card>
       </div>
     </div>
   </div>

@@ -13,7 +13,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { CreatePostDialogComponent } from './mainComponents/dialogs/create-post-dialog/create-post-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { EditCommentDialogComponent } from './mainComponents/dialogs/edit-comment-dialog/edit-comment-dialog.component';
@@ -34,7 +33,6 @@ import { EditAdvertDialogComponent } from './mainComponents/dialogs/edit-advert-
     AppComponent,
     HeaderComponent,
     AdsComponent,
-    CreatePostDialogComponent,
     EditCommentDialogComponent,
     EditPostDialogComponent,
     LikeListDialogComponent,

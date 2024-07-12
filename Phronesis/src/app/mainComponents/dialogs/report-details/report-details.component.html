@@ -20,7 +20,7 @@
     <div *ngIf="report.reportedUser.id" class="text-center mt-3">
       <button (click)="report.reportedUser.banned ? unbanUser(report.reportedUser.id) : openBanUserDialog(report.reportedUser.id)"
               class="btn"
-              [ngClass]="{'btn-danger': !report.reportedUser.banned, 'btn-warning': report.reportedUser.banned}" [disabled]="isAdmin">
+              [ngClass]="{'btn-danger': !report.reportedUser.banned, 'btn-warning': report.reportedUser.banned}">
         <i class="fas" [ngClass]="{'fa-ban': !report.reportedUser.banned, 'fa-unlock': report.reportedUser.banned}"></i>
         {{ report.reportedUser.banned ? 'Sblocca Utente' : 'Banna Utente' }}
       </button>

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { PostService } from '../../services/post.service';
 import { IPost } from '../../models/i-post';
-import { CreatePostDialogComponent } from '../../mainComponents/dialogs/create-post-dialog/create-post-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../auth/auth.service';
 import { FavoriteService } from '../../services/favorite.service';
@@ -70,23 +69,6 @@ export class FeedComponent {
     }
   }
 
-  openCreatePostDialog(): void {
-    const dialogRef = this.dialog.open(CreatePostDialogComponent, {
-      width: '600px'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        const postRequest:IPostRequest = {
-          title: result.title,
-          content: result.content,
-          userId: this.currentUserId as number
-        };
-
-        this.postSvc.addPost(postRequest).subscribe();
-      }
-    });
-  }
 
   createPost(): void {
     if (!this.postRequest.title.trim() || !this.postRequest.content.trim()) return;
