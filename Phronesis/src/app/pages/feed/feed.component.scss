@@ -85,3 +85,20 @@ textarea.form-control {
 .container {
   text-align: center;
 }
+
+.feed {
+  height: 900px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.feed::-webkit-scrollbar {
+  display: none;
+}
+
+.cdk-virtual-scroll-content-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+

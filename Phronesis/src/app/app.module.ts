@@ -27,6 +27,7 @@ import { BanUserDialogComponent } from './mainComponents/dialogs/ban-user-dialog
 import { MatExpansionModule } from '@angular/material/expansion';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { EditAdvertDialogComponent } from './mainComponents/dialogs/edit-advert-dialog/edit-advert-dialog.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { EditAdvertDialogComponent } from './mainComponents/dialogs/edit-advert-
     MatFormFieldModule,
     MatInputModule,
     MatExpansionModule,
-    SweetAlert2Module.forRoot()  // Importa SweetAlert2
+    ScrollingModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [
     {

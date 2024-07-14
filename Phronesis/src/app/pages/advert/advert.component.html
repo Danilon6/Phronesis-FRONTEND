@@ -42,29 +42,33 @@
     </div>
   </div>
   <div class="row mt-4">
-    <div class="col-md-4 mb-4" *ngFor="let advert of advertArr">
-      <div class="card h-100 d-flex flex-column">
-        <div class="ad-image-container position-relative">
-          <img [src]="advert.imageUrl" class="card-img-top ad-image" alt="Ad Image">
-          <div class="overlay d-flex justify-content-center align-items-center">
-            <button class="btn btn-primary btn-edit-ad" (click)="openImageUploadModal(advert)">
-              <i class="fas fa-pencil-alt"></i>
-            </button>
-          </div>
-        </div>
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title">{{ advert.title }}</h5>
-          <p class="card-text">{{ advert.description }}</p>
-          <div class="admin-actions mt-auto d-flex justify-content-end">
-            <button class="btn btn-sm btn-outline-secondary me-2" (click)="openEditAdvertDialog(advert)">
-              <i class="fas fa-edit"></i>
-            </button>
-            <button class="btn btn-sm btn-outline-danger" (click)="deleteAdvert(advert.id)">
-              <i class="fas fa-trash"></i>
-            </button>
+    <cdk-virtual-scroll-viewport [itemSize]="220" class="advert" [ngStyle]="{'height': showCreateAdvertForm ? '530px' : '900px'}">
+      <div class="d-flex flex-wrap justify-content-evenly">
+        <div class="col-md-4 mb-4" *ngFor="let advert of advertArr">
+          <div class="card h-100 d-flex flex-column">
+            <div class="ad-image-container position-relative">
+              <img [src]="advert.imageUrl" class="card-img-top ad-image" alt="Ad Image">
+              <div class="overlay d-flex justify-content-center align-items-center">
+                <button class="btn btn-primary btn-edit-ad" (click)="openImageUploadModal(advert)">
+                  <i class="fas fa-pencil-alt"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">{{ advert.title }}</h5>
+              <p class="card-text">{{ advert.description }}</p>
+              <div class="admin-actions mt-auto d-flex justify-content-end">
+                <button class="btn btn-sm btn-outline-secondary me-2" (click)="openEditAdvertDialog(advert)">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-danger" (click)="deleteAdvert(advert.id)">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </cdk-virtual-scroll-viewport>
   </div>
 </div>

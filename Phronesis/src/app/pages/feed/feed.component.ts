@@ -8,6 +8,14 @@ import { IFavorite } from '../../models/i-favorite';
 import { IPostRequest } from '../../models/i-post-request';
 import { IUser } from '../../models/i-user';
 import { NotificationService } from '../../services/notification.service';
+import { ErrorHandlingServiceService } from '../../services/error-handling-service.service';
+import { catchError, of } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+
+type IErrorResponse = {
+  message:string,
+  key:string
+}
 
 @Component({
   selector: 'app-feed',
@@ -34,7 +42,8 @@ export class FeedComponent {
     private postSvc: PostService,
     private authSvc: AuthService,
     private favoriteSvc: FavoriteService,
-    private notificationSvc:NotificationService
+    private notificationSvc:NotificationService,
+    private errorHandlingSvc:ErrorHandlingServiceService
   ) {
     this.currentUserId = this.authSvc.getCurrentUserId();
     this.authSvc.$user.subscribe(user=>{
@@ -79,12 +88,31 @@ export class FeedComponent {
       userId: this.currentUserId as number
     };
 
-    this.postSvc.addPost(postRequest).subscribe(() =>{
-      this.notificationSvc.notify('Post creato con successo', 'success');
-      this.resetPostRequest();
-      this.hideCreatePost();
+    this.postSvc.addPost(postRequest).pipe(
+      catchError((error: HttpErrorResponse) => {
+        this.errorHandlingSvc.handleError(error);
+        return of(null);
+      })
+    ).subscribe(response => {
+      if (!response) {
+        // Errore gestito dalla chiamata HTTP
+        return;
+      }
+      if ('message' in response) {
+        // Risposta di errore dal server
+        const errorResponse = response as unknown as IErrorResponse;
+        this.notificationSvc.notify(errorResponse.message, 'error');
+      } else {
+        // Risposta di successo
+        const postResponse = response as IPost;
+        this.notificationSvc.notify('Post creato con successo', 'success');
+        this.resetPostRequest();
+        this.hideCreatePost();
+        this.postArr.unshift(postResponse);
+      }
     });
   }
+
 
   private resetPostRequest(): void {
     this.postRequest = {

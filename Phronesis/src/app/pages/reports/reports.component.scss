@@ -44,3 +44,20 @@
     color: #555;
   }
 }
+
+.report {
+  height: 1000px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.report::-webkit-scrollbar {
+  display: none;
+}
+
+.cdk-virtual-scroll-content-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+

@@ -28,6 +28,7 @@ html, body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  height: 100vh; /* Assicura che occupi tutta l'altezza */
 
   .logo-container {
     width: 100%;
@@ -48,6 +49,7 @@ html, body {
     flex-direction: column;
     justify-content: center; /* Centra verticalmente */
     align-items: center;
+
     h1 {
       font-family: 'Roboto', sans-serif;
       font-size: 36px;
@@ -55,17 +57,6 @@ html, body {
       color: $dark-gray;
       margin-bottom: 1rem; /* Aggiungi spazio sotto il titolo */
       margin-top: -1rem; /* Sposta leggermente verso l'alto */
-    }
-  }
-
-  .details-container {
-    display: none; /* Inizialmente nascosto */
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%; /* Aggiungi questa linea per centrare verticalmente */
-    &.active {
-      display: flex; /* Mostra quando attivo */
     }
   }
 
@@ -114,6 +105,7 @@ html, body {
     }
   }
 }
+
 @keyframes float {
   0%, 100% {
     transform: translateY(0);

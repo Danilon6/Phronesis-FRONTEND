@@ -114,3 +114,19 @@
 .card-footer .section i {
   margin-right: 8px;
 }
+
+.posts-viewport {
+  height: 700px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.cdk-virtual-scroll-content-wrapper {
+  display: flex;
+  flex-direction: column;
+}

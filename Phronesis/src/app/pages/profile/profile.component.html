@@ -68,13 +68,25 @@
   </div>
   <div class="posts-section mt-4">
     <ng-container *ngIf="selectedSection === 'posts'">
-      <app-post-card *ngFor="let post of userPosts" [post]="post" [currentUserId]="currentUserId"></app-post-card>
+      <cdk-virtual-scroll-viewport itemSize="150" class="posts-viewport">
+        <div *cdkVirtualFor="let post of userPosts; let i = index" [ngClass]="'item-' + i">
+          <app-post-card [post]="post" [currentUserId]="currentUserId"></app-post-card>
+        </div>
+      </cdk-virtual-scroll-viewport>
     </ng-container>
     <ng-container *ngIf="selectedSection === 'likedPosts' && !isOtherUser">
-      <app-post-card *ngFor="let post of likedPosts" [post]="post" [currentUserId]="currentUserId"></app-post-card>
+      <cdk-virtual-scroll-viewport itemSize="150" class="posts-viewport">
+        <div *cdkVirtualFor="let post of likedPosts; let i = index" [ngClass]="'item-' + i">
+          <app-post-card [post]="post" [currentUserId]="currentUserId"></app-post-card>
+        </div>
+      </cdk-virtual-scroll-viewport>
     </ng-container>
     <ng-container *ngIf="selectedSection === 'favoritePosts' && !isOtherUser">
-      <app-post-card *ngFor="let post of favoritePosts" [post]="post" [currentUserId]="currentUserId"></app-post-card>
+      <cdk-virtual-scroll-viewport itemSize="150" class="posts-viewport">
+        <div *cdkVirtualFor="let post of favoritePosts; let i = index" [ngClass]="'item-' + i">
+          <app-post-card [post]="post" [currentUserId]="currentUserId"></app-post-card>
+        </div>
+      </cdk-virtual-scroll-viewport>
     </ng-container>
   </div>
 </div>

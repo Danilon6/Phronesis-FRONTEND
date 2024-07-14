@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path:'register',
     component: RegisterComponent,
-    title:'Register'
+    title:'Registrati'
   },
   {
     path:'login',
@@ -19,12 +19,12 @@ const routes: Routes = [
   {
     path:'enable',
     component: EnableComponent,
-    title:'Enable'
+    title:'Attivazione'
   },
   {
     path:'request-new-verification-link',
     component: RequestNewVerificationLinkComponent,
-    title:'New Verification Link'
+    title:'Nuovo Link Di Verifica'
   }
 ];
 

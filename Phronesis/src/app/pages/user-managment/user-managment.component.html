@@ -1,8 +1,8 @@
-<div class="container mt-5">
+<div class="container-fluid mt-5">
   <h2>Utenti Registrati</h2>
-  <div class="row">
-    <div class="col-12" *ngFor="let user of userArr">
-      <div class="card mb-3">
+  <cdk-virtual-scroll-viewport itemSize="150" class="user-managment">
+    <div *cdkVirtualFor="let user of userArr; let i = index" class="mb-3">
+      <div class="card">
         <div class="card-body d-flex">
           <div class="profile-image-container">
             <img [src]="user.profilePicture" alt="Avatar" class="profile-image" />
@@ -30,5 +30,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </cdk-virtual-scroll-viewport>
 </div>

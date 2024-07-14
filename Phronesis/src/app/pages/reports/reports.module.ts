@@ -5,6 +5,7 @@ import { ReportsRoutingModule } from './reports-routing.module';
 import { ReportsComponent } from './reports.component';
 import { UserReportCardComponent } from './user-report-card/user-report-card.component';
 import { PostReportCardComponent } from './post-report-card/post-report-card.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { PostReportCardComponent } from './post-report-card/post-report-card.com
   ],
   imports: [
     CommonModule,
-    ReportsRoutingModule
+    ReportsRoutingModule,
+    ScrollingModule
   ]
 })
 export class ReportsModule { }

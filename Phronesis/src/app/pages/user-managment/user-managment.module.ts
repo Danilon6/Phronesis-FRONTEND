@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { RolesRoutingModule } from './user-managment-routing.module';
 import { RolesComponent } from './user-managment.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { RolesComponent } from './user-managment.component';
   ],
   imports: [
     CommonModule,
-    RolesRoutingModule
+    RolesRoutingModule,
+    ScrollingModule
   ]
 })
 export class RolesModule { }

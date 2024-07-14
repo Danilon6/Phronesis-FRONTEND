@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FeedRoutingModule } from './feed-routing.module';
 import { FeedComponent } from './feed.component';
 import { FormsModule } from '@angular/forms';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 
@@ -16,7 +17,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     FeedRoutingModule,
     FormsModule,
-    SharedModuleModule
+    SharedModuleModule,
+    ScrollingModule
   ]
 })
 export class FeedModule { }

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { AdvertRoutingModule } from './advert-routing.module';
 import { AdvertComponent } from './advert.component';
 import { FormsModule } from '@angular/forms';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     AdvertRoutingModule,
-    FormsModule
+    FormsModule,
+    ScrollingModule
   ]
 })
 export class AdvertModule { }

@@ -82,6 +82,9 @@
 .card {
   display: flex;
   flex-direction: column;
+  height: auto;
+  margin-bottom: 1rem;
+  margin: 10px;
 }
 
 .card-body {
@@ -226,4 +229,26 @@
   align-items: center;
   background-color: rgba(255, 255, 255, 0.8);
   color: black;
+}
+
+.feed {
+  padding: 1rem;
+}
+
+.advert {
+  height: 900px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.advert::-webkit-scrollbar {
+  display: none;
+}
+
+.cdk-virtual-scroll-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }

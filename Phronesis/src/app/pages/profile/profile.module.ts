@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { ProfileComponent } from './profile.component';
   imports: [
     CommonModule,
     ProfileRoutingModule,
-    SharedModuleModule
+    SharedModuleModule,
+    ScrollingModule
   ]
 })
 export class ProfileModule { }
