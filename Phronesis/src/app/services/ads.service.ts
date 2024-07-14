@@ -5,6 +5,7 @@ import { IAdvert } from '../models/i-advert';
 import { BehaviorSubject, Observable, catchError, map, tap, throwError } from 'rxjs';
 import { NotificationService } from './notification.service';
 import { ErrorHandlingServiceService } from './error-handling-service.service';
+import { IAdvertRequest } from '../models/i-advert-request';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +47,7 @@ export class AdsService {
     );
   }
 
-  createAdvert(newAdvert: Partial<IAdvert>, image: File): Observable<IAdvert> {
+  createAdvert(newAdvert: IAdvertRequest, image: File): Observable<IAdvert> {
     const formData = new FormData();
     formData.append('advert', new Blob([JSON.stringify(newAdvert)], { type: 'application/json' }));
     if (image) {

@@ -3,4 +3,5 @@ export interface IAdvert {
   title:string
   description:string
   imageUrl:string
+  createdById:number
 }

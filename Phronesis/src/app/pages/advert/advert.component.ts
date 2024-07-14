@@ -5,6 +5,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { NotificationService } from '../../services/notification.service';
 import { UpdatePictureComponent } from '../../mainComponents/dialogs/update-picture/update-picture.component';
 import { EditAdvertDialogComponent } from '../../mainComponents/dialogs/edit-advert-dialog/edit-advert-dialog.component';
+import { AuthService } from '../../auth/auth.service';
+import { IAdvertRequest } from '../../models/i-advert-request';
+
+
+
 
 @Component({
   selector: 'app-advert',
@@ -15,13 +20,14 @@ export class AdvertComponent {
   advertArr: IAdvert[] = [];
   showCreateAdvertForm = false;
   hideCreateAdvertForm = false;
-  advertRequest = { title: '', description: '' };
+  advertRequest:IAdvertRequest = {title: "", description:"", createdById: null}
   imagePreview: string | ArrayBuffer | null = null;
   selectedFile: File | null = null;
 
   constructor(private advertSvc: AdsService,
     public dialog: MatDialog,
-    private notificationSvc: NotificationService) {}
+    private notificationSvc: NotificationService,
+  private authSvc:AuthService) {}
 
   ngOnInit(): void {
     this.advertSvc.advert$.subscribe(advertArr => {
@@ -54,8 +60,9 @@ export class AdvertComponent {
 
   createAdvert(): void {
     if (this.selectedFile) {
-      this.advertSvc.createAdvert(this.advertRequest, this.selectedFile).subscribe(advert => {
-        this.advertRequest = { title: '', description: '' };
+      this.advertRequest.createdById = this.authSvc.getCurrentUserId()
+      this.advertSvc.createAdvert(this.advertRequest, this.selectedFile).subscribe(() => {
+        this.advertRequest = {title:"", description:"", createdById: null}
         this.imagePreview = null;
         this.selectedFile = null;
         this.notificationSvc.notify('Annuncio creato con successo!', 'success');
