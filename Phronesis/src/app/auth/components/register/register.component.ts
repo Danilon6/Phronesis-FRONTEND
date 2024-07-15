@@ -28,7 +28,6 @@ export class RegisterComponent {
 
   register(registerForm: NgForm) {
     if (registerForm.invalid) {
-      this.notificationSvc.notifyValidationErrors(registerForm);
       return;
     }
 

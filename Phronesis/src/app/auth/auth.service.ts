@@ -147,7 +147,7 @@ export class AuthService {
 
       if (error.error instanceof ErrorEvent) {
         // Client-side errors
-        errorMessage = `Error: ${error.error.message}`;
+        errorMessage = `${error.error.message}`;
       } else if (typeof error.error === 'string') {
         // Parse the string error response
         try {
@@ -158,7 +158,7 @@ export class AuthService {
         }
       } else {
         // Server-side errors
-        errorMessage = `Error: ${error.error.message}`;
+        errorMessage = `${error.error.message}`;
       }
 
       this.notificationSvc.notify(errorMessage, 'error');

@@ -19,8 +19,11 @@ export class ErrorHandlingServiceService {
       // Errori lato server
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
       if (typeof error.error === 'string') {
+        console.log(error.error);
+
         errorMessage = error.error;
       } else if (error.error.message) {
+        console.log(error.error.message);
         errorMessage = error.error.message;
       }
     }

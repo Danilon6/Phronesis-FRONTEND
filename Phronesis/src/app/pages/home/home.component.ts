@@ -39,23 +39,15 @@ export class HomeComponent {
   profileImageUrl: string | ArrayBuffer | null = "https://res.cloudinary.com/ddcghtsnn/image/upload/v1719225290/aavszufvpxsxdrqiyn8s.png";
 
   register(registerForm: NgForm) {
-    if (registerForm.invalid) {
-      this.notificationSvc.notifyValidationErrors(registerForm);
-      return;
-    }
-
     const formData = new FormData();
     formData.append('newUser', new Blob([JSON.stringify(this.newUser)], { type: 'application/json' }));
     if (this.file) {
       formData.append('profilePictureFile', this.file);
     }
 
-    this.authSvc.register(formData).subscribe({
-      next: () => {
+    this.authSvc.register(formData).subscribe(() => {
         this.router.navigate(['/auth/login']);
         this.notificationSvc.notify('Registrazione avvenuta con successo', 'success');
-      },
-      error: (error) => this.errorHandlingSvc.handleError(error)
     });
   }
 
