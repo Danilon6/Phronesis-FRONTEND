@@ -23,9 +23,9 @@ textarea.form-control {
   margin: 0 auto;
   background-color: #007bff;
   color: #fff;
-  border-radius: 50px; /* Cambiato da 50% a 50px per renderlo ovale */
-  width: 10rem; /* Larghezza del pulsante ovale */
-  height: 3rem; /* Altezza del pulsante ovale */
+  border-radius: 50px;
+  width: 10rem;
+  height: 3rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,6 +40,14 @@ textarea.form-control {
 
 .feed {
   padding: 1rem;
+  height: 900px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.feed::-webkit-scrollbar {
+  display: none;
 }
 
 .create-post-section {
@@ -52,7 +60,7 @@ textarea.form-control {
 
 .create-post-section.show {
   display: block;
-  max-height: 1000px; /* Assicurati che sia abbastanza grande da contenere il contenuto */
+  max-height: 1000px;
   opacity: 1;
   animation: expandFromCenter 0.5s ease-in-out forwards;
 }
@@ -82,23 +90,19 @@ textarea.form-control {
   }
 }
 
-.container {
-  text-align: center;
-}
+@media (max-width: 1100px) {
+  .header-container {
+    flex-direction: column;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    z-index: 1000;
+  }
 
-.feed {
-  height: 900px;
-  overflow-y: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  .header-container .create-post-button {
+    width: 100%;
+    margin: 10px 0;
+  }
 }
-
-.feed::-webkit-scrollbar {
-  display: none;
-}
-
-.cdk-virtual-scroll-content-wrapper {
-  display: flex;
-  flex-direction: column;
-}
-

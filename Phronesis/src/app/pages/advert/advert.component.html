@@ -42,7 +42,7 @@
     </div>
   </div>
   <div class="row mt-4">
-    <cdk-virtual-scroll-viewport [itemSize]="220" class="advert" [ngStyle]="{'height': showCreateAdvertForm ? '530px' : '900px'}">
+    <div class="advert" [ngStyle]="{'height': showCreateAdvertForm ? '530px' : '900px'}">
       <div class="d-flex flex-wrap justify-content-evenly">
         <div class="col-md-4 mb-4" *ngFor="let advert of advertArr">
           <div class="card h-100 d-flex flex-column">
@@ -69,6 +69,6 @@
           </div>
         </div>
       </div>
-    </cdk-virtual-scroll-viewport>
+    </div>
   </div>
 </div>

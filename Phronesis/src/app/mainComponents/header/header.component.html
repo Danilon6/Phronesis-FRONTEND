@@ -4,7 +4,7 @@
       <i class="fas fa-home me-2"></i> Feed
     </button>
     <button *ngIf="!isAdmin" [routerLink]="['profile/',userId]" [queryParams]="{ section: 'favoritePosts' }" class="btn btn-light d-flex align-items-center mb-2 menu-button">
-      <i class="fas fa-star me-2"></i> I Tuoi Preferiti
+      <i class="fas fa-bookmark me-2"></i> I Tuoi Preferiti
     </button>
     <button [routerLink]="['profile/',userId]" class="btn btn-light d-flex align-items-center mb-2 menu-button">
       <i class="fas fa-user me-2"></i> Profilo

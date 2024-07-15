@@ -84,6 +84,8 @@ export class AdvertComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        console.log(result.imageFile);
+
         this.advertSvc.updateAdvert(advert.id, result.newAdvert, result.imageFile).subscribe(updatedAdvert => {
           const index = this.advertArr.findIndex(ad => ad.id === updatedAdvert.id);
           if (index !== -1) {

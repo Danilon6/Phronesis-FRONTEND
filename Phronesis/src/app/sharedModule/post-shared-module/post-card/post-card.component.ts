@@ -50,6 +50,11 @@ export class PostCardComponent {
     this.postSvc.post$.subscribe(postArr => {
       this.postArr = postArr;
     });
+    if (this.currentUserId) {
+      this.favoriteSvc.getAllByUserId(this.currentUserId).subscribe(favorites => {
+        this.favoriteArr = favorites;
+      });
+    }
   }
 
   // ELIMINAZIONE DEL POST

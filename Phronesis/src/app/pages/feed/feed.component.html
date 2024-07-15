@@ -1,6 +1,8 @@
-<div class="container text-center mt-5 ">
+<div class="container text-center mt-5">
   <div class="section-header">
-    <button *ngIf="!showCreatePostForm" class="btn btn-primary mb-4 create-post-button" (click)="toggleCreatePostForm()"> <i class="fas fa-pen me-2"></i> Crea Post</button>
+    <button *ngIf="!showCreatePostForm" class="btn btn-primary mb-4 create-post-button" (click)="toggleCreatePostForm()">
+      <i class="fas fa-pen me-2"></i> Crea Post
+    </button>
   </div>
   <div class="card w-75 mx-auto create-post-section" [ngClass]="{'show': showCreatePostForm, 'hide': hideCreatePostForm}">
     <div class="card-body">
@@ -18,8 +20,7 @@
         </div>
       </div>
       <div class="d-flex justify-content-between align-items-center">
-        <div>
-        </div>
+        <div></div>
         <div class="d-flex">
           <button class="btn btn-secondary me-2" (click)="toggleCreatePostForm()">Annulla</button>
           <button class="btn btn-primary" (click)="createPost()" [disabled]="!postRequest.title.trim() || !postRequest.content.trim()">Posta</button>
@@ -29,8 +30,6 @@
   </div>
 </div>
 
-<cdk-virtual-scroll-viewport [itemSize]="220" class="feed" [ngStyle]="{'height': showCreatePostForm ? '700px' : '900px'}">
-  <div *cdkVirtualFor="let post of postArr; let i = index" [ngClass]="'item-' + i">
-    <app-post-card [post]="post" [currentUserId]="currentUserId"></app-post-card>
-  </div>
-</cdk-virtual-scroll-viewport>
+<div class="feed p-4 pt-0">
+  <app-post-card *ngFor="let post of postArr" [post]="post" [currentUserId]="currentUserId"></app-post-card>
+</div>
