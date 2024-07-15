@@ -1,32 +1,108 @@
-<div class="container-fluid home-container d-flex glassmorphism ">
-  <div class="left-section d-flex flex-column">
-    <div class="logo-container">
-      <img src="../../../assets/Phronesis_Logo.png" alt="Logo" class="top-logo">
-    </div>
-    <div class="slogan-container text-center">
-      <h1>Impara dal passato, ispira il futuro</h1>
-      <div class="details-card mt-3">
-        <p class="mb-0">
-          Phronesis è un social network dedicato alla condivisione di esperienze, riflessioni e consigli pratici.
-          Derivato dal termine greco antico che indica la saggezza pratica e l'intelligenza morale,
-          Phronesis offre uno spazio per la crescita personale e l'intelligenza emotiva attraverso la condivisione delle esperienze di vita.
-          Gli utenti possono raccontare come hanno affrontato e superato situazioni difficili,
-          fornendo consigli pratici e creando una rete di supporto e comprensione.
-        </p>
+<div class="container-fluid home-container d-flex flex-column">
+  <div class="content d-flex flex-grow-1 justify-content-center align-items-center">
+    <div class="auth-container glassmorphism" #container>
+      <div class="form-container sign-up-container">
+        <form (ngSubmit)="register(registerForm)" #registerForm="ngForm" class="space-y-4">
+          <h2 class="text-2xl font-bold text-center mb-4">Registrati</h2>
+          <div class="flex flex-wrap -mx-2">
+            <div class="relative w-full md:w-1/2 px-2">
+              <input type="text" name="firstName" [(ngModel)]="newUser.firstName" #firstName="ngModel" class="w-full p-3 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2" [ngClass]="{'border-red-500': firstName.invalid && (firstName.dirty || firstName.touched), 'border-green-500': firstName.valid && (firstName.dirty || firstName.touched)}" required />
+              <label class="floating-label" [ngClass]="{'floating-label-active': firstName.value, 'text-green-500': firstName.valid && (firstName.dirty || firstName.touched), 'text-red-500': firstName.invalid && (firstName.dirty || firstName.touched)}">Nome</label>
+              <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="text-red-500">Nome obbligatorio</div>
+            </div>
+            <div class="relative w-full md:w-1/2 px-2">
+              <input type="text" name="lastName" [(ngModel)]="newUser.lastName" #lastName="ngModel" class="w-full p-3 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2" [ngClass]="{'border-red-500': lastName.invalid && (lastName.dirty || lastName.touched), 'border-green-500': lastName.valid && (lastName.dirty || lastName.touched)}" required />
+              <label class="floating-label" [ngClass]="{'floating-label-active': lastName.value, 'text-green-500': lastName.valid && (lastName.dirty || lastName.touched), 'text-red-500': lastName.invalid && (lastName.dirty || lastName.touched)}">Cognome</label>
+              <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="text-red-500">Cognome obbligatorio</div>
+            </div>
+          </div>
+          <div class="relative">
+            <input type="text" name="username" [(ngModel)]="newUser.username" #usernameRegister="ngModel" class="w-full p-3 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2" [ngClass]="{'border-red-500': usernameRegister.invalid && (usernameRegister.dirty || usernameRegister.touched), 'border-green-500': usernameRegister.valid && (usernameRegister.dirty || usernameRegister.touched)}" required />
+            <label class="floating-label" [ngClass]="{'floating-label-active': usernameRegister.value, 'text-green-500': usernameRegister.valid && (usernameRegister.dirty || usernameRegister.touched), 'text-red-500': usernameRegister.invalid && (usernameRegister.dirty || usernameRegister.touched)}">Username</label>
+            <div *ngIf="usernameRegister.invalid && (usernameRegister.dirty || usernameRegister.touched)" class="text-red-500">Username obbligatorio</div>
+          </div>
+          <div class="relative">
+            <input type="email" name="email" [(ngModel)]="newUser.email" #email="ngModel" class="w-full p-3 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2" [ngClass]="{'border-red-500': email.invalid && (email.dirty || email.touched), 'border-green-500': email.valid && (email.dirty || email.touched)}" required />
+            <label class="floating-label" [ngClass]="{'floating-label-active': email.value, 'text-green-500': email.valid && (email.dirty || email.touched), 'text-red-500': email.invalid && (email.dirty || email.touched)}">Email</label>
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-red-500">Email obbligatoria</div>
+          </div>
+          <div class="relative">
+            <input type="password" name="password" [(ngModel)]="newUser.password" #passwordRegister="ngModel" [type]="showPassword ? 'text' : 'password'" class="w-full p-3 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2" [ngClass]="{'border-red-500': passwordRegister.invalid && (passwordRegister.dirty || passwordRegister.touched), 'border-green-500': passwordRegister.valid && (passwordRegister.dirty || passwordRegister.touched)}" required />
+            <label class="floating-label" [ngClass]="{'floating-label-active': passwordRegister.value, 'text-green-500': passwordRegister.valid && (passwordRegister.dirty || passwordRegister.touched), 'text-red-500': passwordRegister.invalid && (passwordRegister.dirty || passwordRegister.touched)}">Password</label>
+            <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
+              <i class="fas" [ngClass]="{'fa-eye': showPassword, 'fa-eye-slash': !showPassword}" (click)="toggleShowPassword()"></i>
+            </div>
+            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-red-500">Password obbligatoria</div>
+          </div>
+          <div class="relative">
+            <textarea name="bio" [(ngModel)]="newUser.bio" #bio="ngModel" class="w-full p-3 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2" [ngClass]="{'border-red-500': bio.invalid && (bio.dirty || bio.touched), 'border-green-500': bio.valid && (bio.dirty || bio.touched)}" required></textarea>
+            <label class="floating-label" [ngClass]="{'floating-label-active': bio.value, 'text-green-500': bio.valid && (bio.dirty || bio.touched), 'text-red-500': bio.invalid && (bio.dirty || bio.touched)}">Bio</label>
+            <div *ngIf="bio.invalid && (bio.dirty || bio.touched)" class="text-red-500">Bio obbligatoria</div>
+          </div>
+          <div class="flex items-center justify-center my-4">
+            <div class="relative w-24 h-24 bg-gray-200 rounded-full overflow-hidden">
+              <img [src]="profileImageUrl" alt="Profile" class="w-full h-full object-cover" id="profileImage">
+              <input type="file" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" (change)="onFileChange($event)" accept="image/*">
+            </div>
+          </div>
+          <div>
+            <button type="submit" class="custom-btn custom-btn-primary w-full py-3 text-white rounded" [disabled]="registerForm.invalid">
+              <span>Registrati</span>
+            </button>
+          </div>
+        </form>
       </div>
-    </div>
-  </div>
-  <div class="right-section d-flex flex-column justify-content-center align-items-center">
-    <div class="auth-section text-center">
-      <div class="glassmorphism">
-        <h2>Iscriviti adesso</h2>
-        <a class="custom-btn custom-btn-primary mb-5" routerLink="/auth/register">
-          <span>Crea account</span>
-        </a>
-        <h2 class="mb-3">Hai già un account?</h2>
-        <a class="custom-btn custom-btn-primary" routerLink="/auth/login">
-          <span>Accedi</span>
-        </a>
+      <div class="form-container sign-in-container">
+        <form (ngSubmit)="login()" class="space-y-4" #loginForm="ngForm">
+          <h2 class="text-2xl font-bold text-center mb-4">Accedi</h2>
+          <div class="relative">
+            <input type="text" name="username" [(ngModel)]="loginUser.username" #username="ngModel" class="w-full p-3 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2" [ngClass]="{'border-red-500': username.invalid && (username.dirty || username.touched), 'border-green-500': username.valid && (username.dirty || username.touched)}" required />
+            <label class="floating-label" [ngClass]="{'floating-label-active': username.value, 'text-green-500': username.valid && (username.dirty || username.touched), 'text-red-500': username.invalid && (username.dirty || username.touched)}">Username</label>
+            <div *ngIf="username.invalid && (username.dirty || username.touched)" class="text-red-600 font-bold">Username obbligatorio</div>
+          </div>
+          <div class="relative">
+            <input type="password" name="password" [(ngModel)]="loginUser.password" #password="ngModel" [type]="showPassword ? 'text' : 'password'" class="w-full p-3 border border-gray-300 rounded shadow-sm focus:outline-none focus:ring-2" [ngClass]="{'border-red-500': password.invalid && (password.dirty || password.touched), 'border-green-500': password.valid && (password.dirty || password.touched)}" required />
+            <label class="floating-label" [ngClass]="{'floating-label-active': password.value, 'text-green-500': password.valid && (password.dirty || password.touched), 'text-red-500': password.invalid && (password.dirty || password.touched)}">Password</label>
+            <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
+              <i class="fas" [ngClass]="{'fa-eye': showPassword, 'fa-eye-slash': !showPassword}" (click)="toggleShowPassword()"></i>
+            </div>
+            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-red-600 font-bold">Password obbligatoria</div>
+          </div>
+          <div class="flex items-center space-x-2">
+            <input type="checkbox" class="form-check-input" id="rememberMe" [(ngModel)]="rememberMe" name="rememberMe">
+            <label class="form-check-label text-gray-700" for="rememberMe">Ricordami</label>
+          </div>
+          <div>
+            <button type="submit" class="custom-btn custom-btn-primary w-full py-3 text-white rounded" [disabled]="loginForm.invalid">
+              <span>Accedi</span>
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="overlay-container">
+        <div class="logo-container">
+          <img src="../../../assets/Phronesis_Logo.png" alt="Logo" class="top-logo">
+        </div>
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <h2>Bentornato!</h2>
+            <p>Effettua il Login con i tuoi dati</p>
+            <button class="custom-btn custom-btn-secondary" (click)="signIn()">
+              <span>
+                Accedi
+              </span>
+            </button>
+          </div>
+          <div class="overlay-panel overlay-right">
+            <h2>Benvenuto!</h2>
+            <p>Inserisci i tuoi dati e inizia un viaggio con noi!</p>
+            <button class="custom-btn custom-btn-secondary" (click)="signUp()">
+              <span>
+                Registrati
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
