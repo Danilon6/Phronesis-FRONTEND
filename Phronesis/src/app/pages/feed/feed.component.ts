@@ -108,7 +108,6 @@ export class FeedComponent {
         this.notificationSvc.notify('Post creato con successo', 'success');
         this.resetPostRequest();
         this.hideCreatePost();
-        this.postArr.unshift(postResponse);
       }
     });
   }
@@ -121,4 +120,6 @@ export class FeedComponent {
       userId: this.currentUserId
     };
   }
+
+
 }

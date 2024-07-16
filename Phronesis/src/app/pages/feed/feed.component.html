@@ -30,6 +30,6 @@
   </div>
 </div>
 
-<div class="feed p-4 pt-0">
-  <app-post-card *ngFor="let post of postArr" [post]="post" [currentUserId]="currentUserId"></app-post-card>
+<div class="feed p-4 pt-0" [ngStyle]="{'height': showCreatePostForm ? '750px' : '900px'}">
+  <app-post-card *ngFor="let post of postArr" [post]="post" [currentUserId]="currentUserId" [favoriteArr]="favoriteArr" ></app-post-card>
 </div>

@@ -30,31 +30,25 @@ import { NotificationService } from '../../../services/notification.service';
 export class PostCardComponent {
   @Input() post!: IPost;
   @Input() currentUserId!: number | null;
+  @Input() favoriteArr!: IFavorite[]
 
   showComments: { [key: number]: boolean } = {};
   newComment: { content: string } = { content: '' };
   postArr: IPost[] = [];
-  favoriteArr: IFavorite[] = [];
 
   constructor(private dialog: MatDialog,
-              private postSvc: PostService,
-              private authSvc: AuthService,
-              private commentSvc: CommentService,
-              private likeSvc: LikeService,
-              private favoriteSvc: FavoriteService,
-              private userReportSvc: UserReportService,
-              private postReportSvc: PostReportService,
-              private notificationSvc: NotificationService) {}
+  private postSvc: PostService,
+  private authSvc: AuthService,
+  private commentSvc: CommentService,
+  private likeSvc: LikeService,
+  private favoriteSvc: FavoriteService,
+  private userReportSvc: UserReportService,
+  private postReportSvc: PostReportService,
+  private notificationSvc: NotificationService) {}
 
   ngOnInit(): void {
-    this.postSvc.post$.subscribe(postArr => {
-      this.postArr = postArr;
-    });
-    if (this.currentUserId) {
-      this.favoriteSvc.getAllByUserId(this.currentUserId).subscribe(favorites => {
-        this.favoriteArr = favorites;
-      });
-    }
+    console.log(this.favoriteArr);
+
   }
 
   // ELIMINAZIONE DEL POST

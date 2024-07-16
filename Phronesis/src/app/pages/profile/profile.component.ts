@@ -31,6 +31,7 @@ export class ProfileComponent {
   userPosts: IPost[] = [];
   likedPosts: IPost[] = [];
   favoritePosts: IPost[] = [];
+  favoriteArr: IFavorite[] = [];
   selectedSection: 'posts' | 'likedPosts' | 'favoritePosts' | '' = 'posts';
   isFollowing: boolean = false;
   currentUserId!: number;
@@ -57,6 +58,11 @@ export class ProfileComponent {
   }
 
   ngOnInit(): void {
+    if (this.currentUserId) {
+      this.favoriteSvc.getAllByUserId(this.currentUserId).subscribe(favorites => {
+        this.favoriteArr = favorites;
+      });
+    }
     this.route.params.subscribe(params => {
       const userId = +params['userId'];
 
@@ -197,7 +203,6 @@ export class ProfileComponent {
       queryParams: { section: 'posts' },
       queryParamsHandling: 'merge'
     });
-    this.loadUserPosts();
   }
 
   viewLikedPosts(): void {
@@ -207,7 +212,6 @@ export class ProfileComponent {
       queryParams: { section: 'likedPosts' },
       queryParamsHandling: 'merge'
     });
-    this.loadLikedPosts();
   }
 
   viewFavoritePosts(): void {
@@ -217,7 +221,6 @@ export class ProfileComponent {
       queryParams: { section: 'favoritePosts' },
       queryParamsHandling: 'merge'
     });
-    this.loadFavoritePosts();
   }
 
   updatePosts(): void {
