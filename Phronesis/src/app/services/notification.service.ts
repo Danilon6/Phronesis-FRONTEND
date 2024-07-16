@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
 
 @Injectable({

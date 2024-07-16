@@ -165,21 +165,33 @@ export class ProfileComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const editedUser:Partial<IUser> = {
-          firstName: result.firstName,
-          lastName: result.lastName,
-          email: result.email,
-          bio: result.bio
-        };
-        this.userSvc.updateUser(result.id, editedUser).subscribe(updatedUser => {
-          this.user = updatedUser;
+        this.notificationSvc.confirm('Sei sicuro di voler modificare il profilo?').then(confirmResult => {
+          if (confirmResult.isConfirmed) {
+            const editedUser: Partial<IUser> = {
+              firstName: result.firstName,
+              lastName: result.lastName,
+              email: result.email,
+              bio: result.bio
+            };
+            this.userSvc.updateUser(result.id, editedUser).subscribe(updatedUser => {
+              this.user = updatedUser;
+              this.notificationSvc.notify('Profilo modificato con successo!', 'success');
+            });
+          }
         });
       }
     });
   }
 
-  deleteProfile(userId:number):void {
-    this.userSvc.deleteUser(userId).subscribe()
+  deleteProfile(userId: number): void {
+    this.notificationSvc.confirm('Sei sicuro di voler eliminare il profilo?').then(confirmResult => {
+      if (confirmResult.isConfirmed) {
+        this.userSvc.deleteUser(userId).subscribe(() => {
+          this.notificationSvc.notify('Profilo eliminato con successo!', 'success');
+          this.router.navigate(['/home']); // Reindirizza l'utente alla pagina home o un'altra pagina appropriata
+        });
+      }
+    });
   }
 
   openFollowersModal(): void {

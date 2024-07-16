@@ -4,9 +4,9 @@
     <div class="card-body">
       <div class="row">
         <div class="col-md-8 d-flex">
-          <div class="profile-image-container position-relative">
+          <div class="profile-image-container position-relative" [ngClass]="{'hover-opacity': user.id === currentUserId}">
             <img [src]="user.profilePicture" class="profile-image rounded-circle" alt="Profile Picture" width="150" height="150">
-            <div class="overlay d-flex justify-content-center align-items-center">
+            <div *ngIf="user.id === currentUserId" class="overlay d-flex justify-content-center align-items-center">
               <button class="btn btn-primary btn-edit-profile" (click)="openImageUploadModal()">
                 <i class="fas fa-pencil-alt"></i>
               </button>
