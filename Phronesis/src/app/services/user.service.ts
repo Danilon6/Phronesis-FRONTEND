@@ -18,10 +18,12 @@ export class UserService {
   userUrl: string = environment.usersUrl;
 
   constructor(private http: HttpClient,
-    private notificationSvc:NotificationService,
     private errorHandlingSvc: ErrorHandlingServiceService
   ) {
-    this.getAllUsers().subscribe();
+    this.getAllUsers().subscribe(users => {
+      this.userArr = users
+      this.userSubject.next(this.userArr)
+    });
   }
 
   getAllUsers(): Observable<IUser[]> {
@@ -141,5 +143,9 @@ export class UserService {
         }
       })
     );
+  }
+
+  userHasRole(user: IUser, role: string): boolean {
+    return user.roles.some(r => r.roleType === role);
   }
 }

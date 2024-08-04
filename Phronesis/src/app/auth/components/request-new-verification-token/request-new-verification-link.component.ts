@@ -19,7 +19,7 @@ export class RequestNewVerificationLinkComponent {
   ) {}
 
   redirectToLogin(): void {
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/']);
   }
 
   ngOnInit() {

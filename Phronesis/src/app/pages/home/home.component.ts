@@ -14,7 +14,7 @@ import { NgForm } from '@angular/forms';
 })
 export class HomeComponent {
   loginUser: ILoginData = {
-    username: 'danilo8',
+    username: 'Admin',
     password: 'password'
   };
   rememberMe: boolean = false;
@@ -46,7 +46,7 @@ export class HomeComponent {
     }
 
     this.authSvc.register(formData).subscribe(() => {
-        this.router.navigate(['/auth/login']);
+        this.router.navigate(['/']);
         this.notificationSvc.notify('Registrazione avvenuta con successo', 'success');
     });
   }

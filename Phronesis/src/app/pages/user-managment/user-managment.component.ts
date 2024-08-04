@@ -15,18 +15,18 @@ import { AuthService } from '../../auth/auth.service';
 export class RolesComponent {
 
   userArr: IUser[] = [];
-  isAdmin: boolean = false;
 
   constructor(private userSvc: UserService, public dialogUserBan: MatDialog, private notificationSvc: NotificationService) {}
 
   ngOnInit() {
-    this.userSvc.user$.subscribe(users => {
+    this.userSvc.getAllUsers().subscribe(users => {
+      console.log(users);
       this.userArr = users;
     });
   }
 
   userHasRole(user: IUser, role: string): boolean {
-    return user.roles.some(r => r.roleType === role);
+    return this.userSvc.userHasRole(user, role);
   }
 
   toggleAdminRole(user: IUser) {

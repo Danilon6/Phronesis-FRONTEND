@@ -16,7 +16,7 @@ export class AdsComponent {
   ngOnInit(): void {
     this.adsService.advert$.subscribe(adverts => {
       this.advertArr = adverts;
-      this.randomAdverts = this.getRandomAdverts(this.advertArr, 3);
+      this.randomAdverts = this.getRandomAdverts(this.advertArr, 2);
     });
   }
 

@@ -2,8 +2,6 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { IUserReportResponse } from '../../../models/report/i-user-report-response';
 import { IPostReportResponse } from '../../../models/report/i-post-report-response';
-import { UserReportService } from '../../../services/user-report.service';
-import { PostReportService } from '../../../services/post-report.service';
 import { UserService } from '../../../services/user.service';
 import { PostService } from '../../../services/post.service';
 import { BanUserDialogComponent } from '../ban-user-dialog/ban-user-dialog.component';
@@ -18,7 +16,7 @@ import { AuthService } from '../../../auth/auth.service';
 export class ReportDetailsComponent {
   report: IUserReportResponse | IPostReportResponse;
   type: 'user' | 'post';
-  isAdmin!:boolean
+  currentUserId:number | null
   constructor(
 
     @Inject(MAT_DIALOG_DATA) public data: { report: IUserReportResponse | IPostReportResponse, type: 'user' | 'post' },
@@ -33,7 +31,7 @@ export class ReportDetailsComponent {
     console.log(data.report
     );
     this.type = data.type;
-    this.authSvc.isAdmin$.subscribe(isAdmin => this.isAdmin = isAdmin)
+    this.currentUserId = this.authSvc.getCurrentUserId()
   }
 
   isUserReport(report: IUserReportResponse | IPostReportResponse): report is IUserReportResponse {

@@ -46,10 +46,6 @@ export class PostCardComponent {
   private postReportSvc: PostReportService,
   private notificationSvc: NotificationService) {}
 
-  ngOnInit(): void {
-    console.log(this.favoriteArr);
-
-  }
 
   // ELIMINAZIONE DEL POST
   deletePost(postId: number) {
